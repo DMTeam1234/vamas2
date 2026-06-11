@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | VAMAS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#C9A84C; --gold-light:#F0E4C0; --gold-dark:#8F6A1F;
+  --maroon:#8B1A2E; --maroon-dark:#4A0D17;
+  --ivory:#FAF7F2; --cream:#F5EFE6; --warm-white:#FFFDF9;
+  --luxury-black:#1A1410; --charcoal:#2C2420; --body-text:#4A3728;
+  --divider:#E8DDD0; --error:#C0392B; --success:#2E7D32;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',-apple-system,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);color:var(--body-text);background:var(--ivory);font-size:15px;line-height:1.6}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;font-family:inherit}
+
+/* ANNOUNCEMENT BAR */
+.announce-bar{background:var(--luxury-black);color:var(--gold);text-align:center;padding:9px 16px;font-size:12px;letter-spacing:.04em}
+.announce-bar .msg{display:none}
+.announce-bar .msg.active{display:block}
+
+/* UTILITY BAR */
+.utility-bar{background:var(--ivory);color:var(--body-text);font-size:12px;padding:6px 40px;display:flex;justify-content:flex-end;gap:24px;align-items:center;border-bottom:1px solid var(--divider)}
+.utility-bar a{color:var(--body-text);transition:color .2s}
+.utility-bar a:hover{color:var(--gold)}
+.utility-bar .phone{color:var(--gold);font-weight:600}
+
+/* HEADER */
+.site-header{background:var(--warm-white);border-bottom:1px solid var(--divider);position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(26,20,16,.06)}
+.header-inner{max-width:1280px;margin:0 auto;padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.vamas-logo{line-height:1}
+nav{display:flex;gap:28px;align-items:center}
+nav a{font-size:13px;font-weight:500;color:var(--charcoal);position:relative;padding:4px 0;transition:color .2s;letter-spacing:.02em}
+nav a:hover{color:var(--gold)}
+nav a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .25s}
+nav a:hover::after{width:100%}
+.header-actions{display:flex;align-items:center;gap:16px}
+.cart-btn{position:relative;background:transparent;border:1.5px solid var(--divider);padding:9px 14px;border-radius:6px;color:var(--charcoal);font-size:18px;cursor:pointer;transition:border-color .2s,color .2s}
+.cart-btn:hover{border-color:var(--gold);color:var(--gold)}
+.cart-badge{position:absolute;top:-7px;right:-7px;background:var(--gold);color:var(--luxury-black);font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+
+/* PROGRESS STEPS */
+.progress-steps{background:var(--warm-white);border-bottom:1px solid var(--divider);padding:16px 40px}
+.progress-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:center}
+.step{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:#bbb;letter-spacing:.03em}
+.step.active{color:var(--gold)}
+.step.done{color:var(--success)}
+.step-num{width:28px;height:28px;border-radius:50%;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:var(--serif)}
+.step.active .step-num{background:var(--gold);color:var(--luxury-black);border-color:var(--gold)}
+.step.done .step-num{background:var(--success);color:#fff;border-color:var(--success)}
+.step-label{font-family:var(--serif);font-size:13px}
+.step-line{width:60px;height:1px;background:var(--divider);margin:0 8px}
+.step-line.done{background:var(--success)}
+@media(max-width:600px){.step-label{display:none}.step-line{width:32px}}
+
+/* MAIN */
+.main{max-width:1280px;margin:0 auto;padding:40px;display:grid;grid-template-columns:1fr 400px;gap:32px;align-items:start}
+@media(max-width:960px){.main{grid-template-columns:1fr;padding:24px 16px}}
+
+/* FORM SECTIONS */
+.form-section{background:var(--warm-white);border-radius:8px;border-top:3px solid var(--gold);border:1px solid var(--divider);border-top:3px solid var(--gold);padding:24px;margin-bottom:20px}
+.section-title{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--charcoal);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.section-num{color:var(--gold);font-family:var(--serif);font-size:18px;font-weight:600}
+
+/* FORM FIELDS */
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.field-row.single{grid-template-columns:1fr}
+.field-row.triple{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:600px){.field-row,.field-row.triple{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:11px;font-weight:600;color:var(--charcoal);text-transform:uppercase;letter-spacing:.07em}
+.field label .req{color:var(--error)}
+.field input,.field select{padding:0 14px;height:48px;border:1.5px solid var(--divider);border-radius:6px;font-size:14px;font-family:inherit;color:var(--charcoal);background:var(--warm-white);transition:border .2s,box-shadow .2s;outline:none}
+.field textarea{padding:12px 14px;border:1.5px solid var(--divider);border-radius:6px;font-size:14px;font-family:inherit;color:var(--charcoal);background:var(--warm-white);transition:border .2s;outline:none;resize:vertical}
+.field input:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.1)}
+.field input.err,.field select.err{border-color:var(--error)!important;background:#fff8f8}
+.field input.ok{border-color:var(--success)}
+.field-error{font-size:12px;color:var(--error);display:none;margin-top:2px}
+.field-error.show{display:block}
+.field input[readonly]{background:var(--cream);color:var(--body-text)}
+
+/* RADIO CARDS */
+.radio-cards{display:flex;flex-direction:column;gap:10px}
+.radio-card{border:1.5px solid var(--divider);border-radius:8px;padding:14px 16px;cursor:pointer;transition:border .2s,background .2s;display:flex;align-items:center;gap:12px}
+.radio-card:hover{border-color:var(--gold);background:var(--gold-light)}
+.radio-card.selected{border-color:var(--gold);background:var(--gold-light)}
+.radio-card input[type=radio]{accent-color:var(--gold);width:16px;height:16px;flex-shrink:0}
+.radio-card-content{flex:1}
+.radio-card-title{font-family:var(--serif);font-weight:600;font-size:16px;color:var(--charcoal)}
+.radio-card-desc{font-size:12px;color:var(--body-text);margin-top:2px}
+.radio-card-price{font-weight:700;font-size:14px;color:var(--gold);white-space:nowrap;font-family:var(--serif)}
+.radio-card-price.free{color:var(--success)}
+
+/* PAYMENT EXTRA */
+.payment-extra{display:none;margin-top:10px;padding:14px;background:var(--cream);border-radius:6px;border:1px solid var(--divider)}
+.payment-extra.show{display:block}
+.card-row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin-top:10px}
+@media(max-width:500px){.card-row{grid-template-columns:1fr}}
+
+/* PLACE ORDER BTN */
+.btn-place-order{width:100%;background:var(--gold);color:var(--luxury-black);padding:0 24px;height:60px;border-radius:4px;font-family:var(--serif);font-size:20px;font-style:italic;font-weight:600;border:none;cursor:pointer;transition:background .2s,transform .1s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:10px;letter-spacing:.02em}
+.btn-place-order:hover{background:var(--gold-dark);color:#fff;transform:translateY(-1px)}
+.btn-place-order:active{transform:translateY(0)}
+
+/* ORDER SUMMARY SIDEBAR */
+.summary-card{background:var(--warm-white);border-radius:12px;border-top:3px solid var(--gold);border:1px solid var(--divider);border-top:3px solid var(--gold);padding:24px;position:sticky;top:148px;box-shadow:0 4px 24px rgba(26,20,16,.06)}
+.summary-card h2{font-family:var(--serif);font-size:20px;color:var(--luxury-black);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--divider);display:flex;justify-content:space-between;align-items:center;font-weight:600}
+.edit-cart{font-size:12px;color:var(--gold);font-weight:500;letter-spacing:.02em}
+.edit-cart:hover{color:var(--gold-dark)}
+.order-items{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--divider)}
+.order-item{display:flex;gap:10px;align-items:center}
+.order-item-img{width:44px;height:54px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:rgba(255,255,255,.9);font-weight:700;font-family:var(--serif);font-style:italic}
+.order-item-info{flex:1}
+.order-item-name{font-size:13px;font-weight:600;color:var(--charcoal);line-height:1.3;font-family:var(--serif)}
+.order-item-meta{font-size:12px;color:var(--body-text)}
+.order-item-price{font-size:13px;font-weight:700;color:var(--luxury-black);white-space:nowrap;font-family:var(--serif)}
+.summary-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;font-size:14px}
+.summary-row.total-row{border-top:1px solid var(--divider);margin-top:8px;padding-top:14px}
+.summary-row .label{color:var(--body-text)}
+.summary-row .val{font-weight:600;color:var(--charcoal)}
+.summary-row.total-row .label{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--luxury-black)}
+.summary-row.total-row .val{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--luxury-black)}
+.discount-val{color:var(--success)!important}
+.free-val{color:var(--success)!important;font-weight:600!important}
+
+/* SSL */
+.ssl-badge{display:flex;align-items:center;gap:8px;background:var(--cream);border-radius:6px;padding:10px 14px;margin-top:16px;font-size:12px;color:var(--body-text);border:1px solid var(--divider)}
+
+/* FOOTER */
+footer{background:var(--luxury-black);color:#888;margin-top:80px}
+.footer-top{max-width:1280px;margin:0 auto;padding:60px 40px 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:40px}
+@media(max-width:900px){.footer-top{grid-template-columns:1fr 1fr;gap:32px;padding:40px 16px 24px}}
+@media(max-width:500px){.footer-top{grid-template-columns:1fr}}
+.footer-col h4{color:var(--gold);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px}
+.footer-col p,.footer-col a{font-size:13px;line-height:2;color:#888;display:block;transition:color .2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding:20px 40px;max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12px;flex-wrap:wrap;gap:12px;color:#666}
+@media(max-width:600px){.footer-bottom{padding:16px;flex-direction:column;text-align:center}}
+.footer-pay{display:flex;gap:8px;flex-wrap:wrap}
+.footer-pay span{background:rgba(255,255,255,.07);border-radius:3px;padding:3px 8px;font-size:11px;font-weight:600;color:#888}
+
+@media(max-width:600px){
+  .header-inner{padding:0 16px}
+  nav{display:none}
+  .utility-bar{padding:6px 16px;gap:12px}
+  .progress-steps{padding:12px 16px}
+  .footer-bottom{padding:16px;flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar" id="announceBar">
+  <div class="msg active" id="msg0">Secure Checkout — 256-bit SSL Encrypted</div>
+  <div class="msg" id="msg1">Free Delivery on orders above &#8377;999</div>
+  <div class="msg" id="msg2">Need help? Call +91 95942 83890</div>
+</div>
+
+<!-- UTILITY BAR -->
+<div class="utility-bar">
+  <a href="tel:+919594283890" class="phone">+91 95942 83890</a>
+  <a href="#">Track Order</a>
+  <a href="#">Account</a>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="v-logo" aria-label="VAMAS — The Designer Blouses">
+      <img src="https://www.vamas.in/cdn/shop/files/Logo_58817fa3-d97a-4f1d-9351-033987ae46c5.png?v=1711731102&width=150"
+           alt="VAMAS — The Designer Blouses"
+           style="height:52px;width:auto;display:block;object-fit:contain"
+           loading="eager">
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="collection.html">Shop</a>
+      <a href="studio.html">Style Studio</a>
+      <a href="collection.html">Sale</a>
+      <a href="#">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="cart-btn" onclick="location.href='cart.html'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- PROGRESS STEPS -->
+<div class="progress-steps">
+  <div class="progress-inner">
+    <div class="step done">
+      <div class="step-num">&#10003;</div>
+      <span class="step-label">Cart</span>
+    </div>
+    <div class="step-line done"></div>
+    <div class="step active">
+      <div class="step-num">2</div>
+      <span class="step-label">Checkout</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <span class="step-label">Order Placed</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <!-- FORM COLUMN -->
+  <div class="form-col">
+
+    <!-- CONTACT -->
+    <div class="form-section">
+      <div class="section-title"><span class="section-num">1</span> &middot; Contact Details</div>
+      <div class="field-row">
+        <div class="field">
+          <label>Full Name <span class="req">*</span></label>
+          <input type="text" id="fname" placeholder="Priya Sharma" autocomplete="name">
+          <span class="field-error" id="err-fname">Please enter your full name.</span>
+        </div>
+        <div class="field">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" id="femail" placeholder="priya@example.com" autocomplete="email">
+          <span class="field-error" id="err-femail">Please enter a valid email address.</span>
+        </div>
+      </div>
+      <div class="field-row single">
+        <div class="field">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" id="fphone" placeholder="10-digit mobile number" autocomplete="tel" maxlength="10">
+          <span class="field-error" id="err-fphone">Please enter a valid 10-digit Indian mobile number.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHIPPING ADDRESS -->
+    <div class="form-section">
+      <div class="section-title"><span class="section-num">2</span> &middot; Shipping Address</div>
+      <div class="field-row single">
+        <div class="field">
+          <label>Address Line 1 <span class="req">*</span></label>
+          <input type="text" id="faddr1" placeholder="House/Flat No., Building Name, Street" autocomplete="address-line1">
+          <span class="field-error" id="err-faddr1">Please enter your address (min 5 characters).</span>
+        </div>
+      </div>
+      <div class="field-row single">
+        <div class="field">
+          <label>Address Line 2 <span style="font-size:10px;color:var(--body-text);font-weight:400">(Optional)</span></label>
+          <input type="text" id="faddr2" placeholder="Area, Landmark (optional)" autocomplete="address-line2">
+        </div>
+      </div>
+      <div class="field-row triple">
+        <div class="field">
+          <label>City <span class="req">*</span></label>
+          <input type="text" id="fcity" placeholder="Mumbai" autocomplete="address-level2">
+          <span class="field-error" id="err-fcity">Please enter your city.</span>
+        </div>
+        <div class="field">
+          <label>State <span class="req">*</span></label>
+          <select id="fstate" autocomplete="address-level1">
+            <option value="">Select State</option>
+            <option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option>
+            <option>Bihar</option><option>Chhattisgarh</option><option>Goa</option>
+            <option>Gujarat</option><option>Haryana</option><option>Himachal Pradesh</option>
+            <option>Jharkhand</option><option>Karnataka</option><option>Kerala</option>
+            <option>Madhya Pradesh</option><option selected>Maharashtra</option><option>Manipur</option>
+            <option>Meghalaya</option><option>Mizoram</option><option>Nagaland</option>
+            <option>Odisha</option><option>Punjab</option><option>Rajasthan</option>
+            <option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option>
+            <option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option>
+            <option>West Bengal</option><option>Delhi</option><option>Chandigarh</option>
+            <option>Jammu &amp; Kashmir</option><option>Ladakh</option>
+          </select>
+          <span class="field-error" id="err-fstate">Please select your state.</span>
+        </div>
+        <div class="field">
+          <label>PIN Code <span class="req">*</span></label>
+          <input type="text" id="fpin" placeholder="400086" maxlength="6" autocomplete="postal-code">
+          <span class="field-error" id="err-fpin">Please enter a valid 6-digit PIN code.</span>
+        </div>
+      </div>
+      <div class="field-row single">
+        <div class="field">
+          <label>Country</label>
+          <input type="text" value="India" readonly>
+        </div>
+      </div>
+    </div>
+
+    <!-- DELIVERY METHOD -->
+    <div class="form-section">
+      <div class="section-title"><span class="section-num">3</span> &middot; Delivery Method</div>
+      <div class="radio-cards" id="deliveryOptions">
+        <label class="radio-card selected" id="del-standard" onclick="selectDelivery('standard',this)">
+          <input type="radio" name="delivery" value="standard" checked>
+          <div class="radio-card-content">
+            <div class="radio-card-title">Standard Delivery</div>
+            <div class="radio-card-desc">3&#8211;5 business days &middot; FREE above &#8377;1,499 else &#8377;99</div>
+          </div>
+          <div class="radio-card-price" id="std-price">FREE</div>
+        </label>
+        <label class="radio-card" id="del-express" onclick="selectDelivery('express',this)">
+          <input type="radio" name="delivery" value="express">
+          <div class="radio-card-content">
+            <div class="radio-card-title">Express Delivery</div>
+            <div class="radio-card-desc">1&#8211;2 business days &middot; &#8377;199</div>
+          </div>
+          <div class="radio-card-price">&#8377;199</div>
+        </label>
+        <label class="radio-card" id="del-sameday" onclick="selectDelivery('sameday',this)">
+          <input type="radio" name="delivery" value="sameday">
+          <div class="radio-card-content">
+            <div class="radio-card-title">Same-Day Delivery</div>
+            <div class="radio-card-desc">Today by 8pm &middot; &#8377;299 (Mumbai only)</div>
+          </div>
+          <div class="radio-card-price">&#8377;299</div>
+        </label>
+      </div>
+    </div>
+
+    <!-- PAYMENT METHOD -->
+    <div class="form-section">
+      <div class="section-title"><span class="section-num">4</span> &middot; Payment Method</div>
+      <div class="radio-cards">
+
+        <label class="radio-card selected" id="pay-upi" onclick="selectPayment('upi',this)">
+          <input type="radio" name="payment" value="upi" checked>
+          <div class="radio-card-content">
+            <div class="radio-card-title">UPI</div>
+            <div class="radio-card-desc">Google Pay / PhonePe / Paytm</div>
+          </div>
+          <div style="font-size:13px;color:var(--gold);font-weight:600">UPI</div>
+        </label>
+        <div class="payment-extra show" id="extra-upi">
+          <div class="field">
+            <label>UPI ID</label>
+            <input type="text" id="fupi" placeholder="yourname@upi">
+          </div>
+        </div>
+
+        <label class="radio-card" id="pay-card" onclick="selectPayment('card',this)">
+          <input type="radio" name="payment" value="card">
+          <div class="radio-card-content">
+            <div class="radio-card-title">Credit / Debit Card</div>
+            <div class="radio-card-desc">Visa, Mastercard, RuPay</div>
+          </div>
+          <div style="font-size:13px;color:var(--gold);font-weight:600">CARD</div>
+        </label>
+        <div class="payment-extra" id="extra-card">
+          <div class="field">
+            <label>Card Number <span class="req">*</span></label>
+            <input type="text" id="fcardnum" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)">
+            <span class="field-error" id="err-fcardnum">Please enter a valid 16-digit card number.</span>
+          </div>
+          <div class="card-row">
+            <div class="field">
+              <label>Card Holder Name <span class="req">*</span></label>
+              <input type="text" id="fcardname" placeholder="Name on card">
+              <span class="field-error" id="err-fcardname">Required.</span>
+            </div>
+            <div class="field">
+              <label>Expiry <span class="req">*</span></label>
+              <input type="text" id="fexpiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
+              <span class="field-error" id="err-fexpiry">Invalid expiry date.</span>
+            </div>
+            <div class="field">
+              <label>CVV <span class="req">*</span></label>
+              <input type="password" id="fcvv" placeholder="&bull;&bull;&bull;" maxlength="4">
+              <span class="field-error" id="err-fcvv">Invalid CVV.</span>
+            </div>
+          </div>
+        </div>
+
+        <label class="radio-card" id="pay-netbank" onclick="selectPayment('netbank',this)">
+          <input type="radio" name="payment" value="netbank">
+          <div class="radio-card-content">
+            <div class="radio-card-title">Net Banking</div>
+            <div class="radio-card-desc">All major banks supported</div>
+          </div>
+          <div style="font-size:13px;color:var(--gold);font-weight:600">NET</div>
+        </label>
+        <div class="payment-extra" id="extra-netbank">
+          <div class="field">
+            <label>Select Bank <span class="req">*</span></label>
+            <select id="fbank">
+              <option value="">-- Select your bank --</option>
+              <option>HDFC Bank</option><option>ICICI Bank</option><option>State Bank of India</option>
+              <option>Axis Bank</option><option>Kotak Mahindra Bank</option><option>IndusInd Bank</option>
+              <option>Yes Bank</option><option>Punjab National Bank</option><option>Bank of Baroda</option>
+              <option>Canara Bank</option><option>Union Bank of India</option>
+            </select>
+            <span class="field-error" id="err-fbank">Please select a bank.</span>
+          </div>
+        </div>
+
+        <label class="radio-card" id="pay-cod" onclick="selectPayment('cod',this)">
+          <input type="radio" name="payment" value="cod">
+          <div class="radio-card-content">
+            <div class="radio-card-title">Cash on Delivery</div>
+            <div class="radio-card-desc">Pay when your order arrives &middot; &#8377;50 additional charge</div>
+          </div>
+          <div style="font-size:13px;color:var(--gold);font-weight:600">COD</div>
+        </label>
+
+      </div>
+    </div>
+
+    <button class="btn-place-order" onclick="placeOrder()">
+      Place Order &#8594;
+    </button>
+    <p style="text-align:center;font-size:12px;color:var(--body-text);margin-top:10px;letter-spacing:.02em">&#128274; Your payment information is encrypted and secure</p>
+
+  </div>
+
+  <!-- ORDER SUMMARY -->
+  <div class="summary-col">
+    <div class="summary-card">
+      <h2>
+        Order Summary
+        <a href="cart.html" class="edit-cart">Edit Cart</a>
+      </h2>
+
+      <div class="order-items" id="orderItems"></div>
+
+      <div class="summary-row">
+        <span class="label">Subtotal</span>
+        <span class="val" id="sumSubtotal">&#8377;0</span>
+      </div>
+      <div class="summary-row" id="discountRow" style="display:none">
+        <span class="label">Coupon (<span id="couponLabel"></span>)</span>
+        <span class="val discount-val" id="sumDiscount"></span>
+      </div>
+      <div class="summary-row">
+        <span class="label">Shipping</span>
+        <span class="val" id="sumShipping">&#8377;99</span>
+      </div>
+      <div class="summary-row">
+        <span class="label">GST (5%)</span>
+        <span class="val" id="sumTax">&#8377;0</span>
+      </div>
+      <div class="summary-row total-row">
+        <span class="label">Total</span>
+        <span class="val" id="sumTotal">&#8377;0</span>
+      </div>
+
+      <div class="ssl-badge">
+        <span>&#128274;</span>
+        <span>256-bit SSL Secure Checkout. Your data is safe with us.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-col">
+      <a href="index.html" class="v-logo">
+        <img src="https://www.vamas.in/cdn/shop/files/Logo_58817fa3-d97a-4f1d-9351-033987ae46c5.png?v=1711731102&width=150"
+             alt="VAMAS"
+             style="height:48px;width:auto;display:block;object-fit:contain;filter:brightness(1.1)"
+             loading="lazy">
+      </a>
+      <p style="margin-top:14px">Premium handcrafted blouses for the modern Indian woman.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="collection.html">Shop</a>
+      <a href="studio.html">Style Studio</a>
+      <a href="cart.html">Cart</a>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="collection.html">New Arrivals</a>
+      <a href="collection.html">Festive</a>
+      <a href="collection.html">Bridal</a>
+      <a href="collection.html">Sale</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>22, Ground Floor, Neelkanth Business Park, Kirol Road, Vidyavihar W, Mumbai 400086</p>
+      <a href="tel:+919594283890">+91 95942 83890</a>
+      <a href="mailto:support@vamas.in">support@vamas.in</a>
+      <p>Mon&#8211;Sat 10am&#8211;7pm IST</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&#169; 2026 VAMAS &middot; Made in Mumbai</span>
+    <div class="footer-pay">
+      <span>UPI</span><span>VISA</span><span>MC</span><span>COD</span><span>EMI</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const fmt = n => "₹" + Math.round(n).toLocaleString("en-IN");
+
+// Announcement rotation
+let msgIdx = 0;
+const msgs = document.querySelectorAll('.announce-bar .msg');
+setInterval(() => {
+  msgs[msgIdx].classList.remove('active');
+  msgIdx = (msgIdx + 1) % msgs.length;
+  msgs[msgIdx].classList.add('active');
+}, 3500);
+
+// State
+let cart = JSON.parse(localStorage.getItem('vamas_cart') || '[]');
+let appliedCoupon = JSON.parse(sessionStorage.getItem('vamas_coupon') || 'null');
+const COUPONS = { WELCOME10: 10, VAMAS15: 15, SAVE20: 20 };
+const GRADS = [
+  'linear-gradient(135deg,#8B1A2E,#C4505F)',
+  'linear-gradient(135deg,#C9A84C,#8F6A1F)',
+  'linear-gradient(135deg,#2C2420,#5C4840)',
+  'linear-gradient(135deg,#4A0D17,#8B1A2E)',
+];
+
+let selectedDelivery = 'standard';
+let selectedPayment = 'upi';
+
+document.getElementById('cartBadge').textContent = cart.reduce((s,i)=>s+(i.q||1),0);
+
+function getDeliveryCost() {
+  const subtotal = cart.reduce((s,i)=>s+(i.p||0)*(i.q||1),0);
+  if (selectedDelivery === 'standard') return subtotal >= 1499 ? 0 : 99;
+  if (selectedDelivery === 'express') return 199;
+  if (selectedDelivery === 'sameday') return 299;
+  return 99;
+}
+
+function getCODCharge() {
+  return selectedPayment === 'cod' ? 50 : 0;
+}
+
+function updateSummary() {
+  const subtotal = cart.reduce((s,i)=>s+(i.p||0)*(i.q||1),0);
+  let discountAmt = 0;
+  if (appliedCoupon && COUPONS[appliedCoupon]) {
+    discountAmt = Math.round(subtotal * COUPONS[appliedCoupon] / 100);
+  }
+  const discounted = subtotal - discountAmt;
+  const shipping = getDeliveryCost() + getCODCharge();
+  const tax = Math.round(discounted * 0.05);
+  const total = discounted + shipping + tax;
+
+  document.getElementById('sumSubtotal').textContent = fmt(subtotal);
+  document.getElementById('sumShipping').innerHTML = shipping === 0 ? '<span class="free-val">FREE</span>' : fmt(shipping);
+  document.getElementById('sumTax').textContent = fmt(tax);
+  document.getElementById('sumTotal').textContent = fmt(total);
+
+  if (appliedCoupon && discountAmt > 0) {
+    document.getElementById('discountRow').style.display = 'flex';
+    document.getElementById('couponLabel').textContent = appliedCoupon;
+    document.getElementById('sumDiscount').textContent = '−' + fmt(discountAmt);
+  } else {
+    document.getElementById('discountRow').style.display = 'none';
+  }
+
+  const stdEl = document.getElementById('std-price');
+  if (stdEl) {
+    const stdFree = subtotal >= 1499;
+    stdEl.textContent = stdFree ? 'FREE' : '₹99';
+    stdEl.className = 'radio-card-price' + (stdFree ? ' free' : '');
+  }
+}
+
+function renderOrderItems() {
+  const el = document.getElementById('orderItems');
+  if (cart.length === 0) {
+    el.innerHTML = '<p style="font-size:13px;color:var(--body-text);text-align:center">Your cart is empty. <a href="cart.html" style="color:var(--gold)">Add items</a></p>';
+    return;
+  }
+  el.innerHTML = cart.map((item,i) => {
+    const grad = GRADS[i % GRADS.length];
+    const q = item.q || 1;
+    return `
+      <div class="order-item">
+        <div class="order-item-img" style="background:${grad}">${(item.t||'V').substring(0,2).toUpperCase()}</div>
+        <div class="order-item-info">
+          <div class="order-item-name">${item.t || 'VAMAS Blouse'}</div>
+          <div class="order-item-meta">Qty: ${q} &middot; ${item.g || 'Classic'}</div>
+        </div>
+        <div class="order-item-price">${fmt((item.p||0)*q)}</div>
+      </div>`;
+  }).join('');
+}
+
+function selectDelivery(type, el) {
+  selectedDelivery = type;
+  document.querySelectorAll('#deliveryOptions .radio-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  updateSummary();
+}
+
+function selectPayment(type, el) {
+  selectedPayment = type;
+  document.querySelectorAll('.radio-cards .radio-card[id^="pay-"]').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  ['upi','card','netbank'].forEach(t => {
+    const ex = document.getElementById('extra-' + t);
+    if (ex) ex.classList.toggle('show', t === type);
+  });
+  updateSummary();
+}
+
+function formatCard(el) {
+  let v = el.value.replace(/\D/g,'').substring(0,16);
+  el.value = v.replace(/(.{4})/g,'$1 ').trim();
+}
+function formatExpiry(el) {
+  let v = el.value.replace(/\D/g,'');
+  if (v.length >= 2) v = v.substring(0,2) + '/' + v.substring(2,4);
+  el.value = v;
+}
+
+// Validation helpers
+function setErr(id, msg, show) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (show) { el.textContent = msg; el.classList.add('show'); }
+  else el.classList.remove('show');
+}
+function markField(id, isErr) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle('err', isErr);
+  el.classList.toggle('ok', !isErr && el.value.trim() !== '');
+}
+
+['fname','femail','fphone','faddr1','fcity','fstate','fpin'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('blur', () => validateField(id));
+});
+
+function validateField(id) {
+  const el = document.getElementById(id);
+  if (!el) return true;
+  const v = el.value.trim();
+  let ok = true, msg = '';
+  if (id === 'fname') { ok = v.length >= 2; msg = 'Please enter your full name (min 2 characters).'; }
+  if (id === 'femail') { ok = /^\S+@\S+\.\S+$/.test(v); msg = 'Please enter a valid email address.'; }
+  if (id === 'fphone') { ok = /^[6-9]\d{9}$/.test(v); msg = 'Enter a valid 10-digit mobile number starting with 6-9.'; }
+  if (id === 'faddr1') { ok = v.length >= 5; msg = 'Please enter your address (min 5 characters).'; }
+  if (id === 'fcity') { ok = v.length >= 2; msg = 'Please enter your city.'; }
+  if (id === 'fstate') { ok = v !== '' && v !== 'Select State'; msg = 'Please select your state.'; }
+  if (id === 'fpin') { ok = /^\d{6}$/.test(v); msg = 'Enter a valid 6-digit PIN code.'; }
+  setErr('err-' + id, msg, !ok);
+  markField(id, !ok);
+  return ok;
+}
+
+function placeOrder() {
+  const fields = ['fname','femail','fphone','faddr1','fcity','fstate','fpin'];
+  let allOk = true;
+
+  fields.forEach(f => {
+    if (!validateField(f)) allOk = false;
+  });
+
+  if (selectedPayment === 'card') {
+    const cardNum = document.getElementById('fcardnum').value.replace(/\s/g,'');
+    const cardOk = /^\d{16}$/.test(cardNum);
+    setErr('err-fcardnum','Please enter a valid 16-digit card number.',!cardOk);
+    markField('fcardnum',!cardOk);
+    if (!cardOk) allOk = false;
+
+    const cardName = document.getElementById('fcardname').value.trim();
+    const nameOk = cardName.length >= 2;
+    setErr('err-fcardname','Card holder name is required.',!nameOk);
+    markField('fcardname',!nameOk);
+    if (!nameOk) allOk = false;
+
+    const expiry = document.getElementById('fexpiry').value;
+    let expiryOk = /^\d{2}\/\d{2}$/.test(expiry);
+    if (expiryOk) {
+      const [mm, yy] = expiry.split('/').map(Number);
+      const now = new Date();
+      const expDate = new Date(2000 + yy, mm - 1, 1);
+      expiryOk = mm >= 1 && mm <= 12 && expDate > now;
+    }
+    setErr('err-fexpiry','Please enter a valid future expiry date (MM/YY).',!expiryOk);
+    markField('fexpiry',!expiryOk);
+    if (!expiryOk) allOk = false;
+
+    const cvv = document.getElementById('fcvv').value;
+    const cvvOk = /^\d{3}$/.test(cvv);
+    setErr('err-fcvv','CVV must be 3 digits.',!cvvOk);
+    markField('fcvv',!cvvOk);
+    if (!cvvOk) allOk = false;
+  }
+
+  if (selectedPayment === 'netbank') {
+    const bank = document.getElementById('fbank').value;
+    const bankOk = bank !== '';
+    setErr('err-fbank','Please select a bank.',!bankOk);
+    if (!bankOk) allOk = false;
+  }
+
+  if (!allOk) {
+    const firstErr = document.querySelector('.err, .field-error.show');
+    if (firstErr) firstErr.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  const subtotal = cart.reduce((s,i)=>s+(i.p||0)*(i.q||1),0);
+  let discountAmt = 0;
+  if (appliedCoupon && COUPONS[appliedCoupon]) discountAmt = Math.round(subtotal * COUPONS[appliedCoupon]/100);
+  const shipping = getDeliveryCost() + getCODCharge();
+  const tax = Math.round((subtotal - discountAmt) * 0.05);
+  const total = subtotal - discountAmt + shipping + tax;
+
+  const deliveryLabels = {
+    standard: 'Standard Delivery (3–5 business days)',
+    express: 'Express Delivery (1–2 business days)',
+    sameday: 'Same-Day Delivery (Today by 8pm, Mumbai)'
+  };
+  const paymentLabels = {
+    upi: 'UPI',
+    card: 'Credit/Debit Card',
+    netbank: 'Net Banking (' + (document.getElementById('fbank')?.value || '') + ')',
+    cod: 'Cash on Delivery'
+  };
+
+  const days = { standard:5, express:2, sameday:0 };
+  const d = new Date();
+  d.setDate(d.getDate() + (days[selectedDelivery] || 5));
+  const estDate = d.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  const orderData = {
+    orderNum: 'VM-' + Math.floor(100000 + Math.random() * 900000),
+    name: document.getElementById('fname').value.trim(),
+    email: document.getElementById('femail').value.trim(),
+    phone: document.getElementById('fphone').value.trim(),
+    addr1: document.getElementById('faddr1').value.trim(),
+    addr2: document.getElementById('faddr2').value.trim(),
+    city: document.getElementById('fcity').value.trim(),
+    state: document.getElementById('fstate').value,
+    pin: document.getElementById('fpin').value.trim(),
+    delivery: deliveryLabels[selectedDelivery],
+    estDate,
+    payment: paymentLabels[selectedPayment],
+    subtotal, discountAmt, coupon: appliedCoupon, shipping, tax, total,
+    items: cart,
+    placedAt: new Date().toISOString()
+  };
+
+  sessionStorage.setItem('vamas_order', JSON.stringify(orderData));
+  localStorage.removeItem('vamas_cart');
+  sessionStorage.removeItem('vamas_coupon');
+  location.href = 'thankyou.html';
+}
+
+renderOrderItems();
+updateSummary();
+</script>
+</body>
+</html>

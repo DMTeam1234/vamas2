@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title id="pg-title">Product — VAMAS</title>
+<meta id="pg-desc" name="description" content=""/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;--gold-light:#F0E4C0;--gold-dark:#8F6A1F;--gold-shimmer:#E8D49A;
+  --maroon:#8B1A2E;--maroon-dark:#4A0D17;--maroon-light:#FDF0F3;
+  --ivory:#FAF7F2;--cream:#F5EFE6;--warm-white:#FFFDF9;
+  --luxury-black:#1A1410;--charcoal:#2C2420;--body-text:#4A3728;
+  --divider:#E8DDD0;--error:#C0392B;--success:#2E7D32;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',-apple-system,sans-serif;
+  --sh-sm:0 2px 8px rgba(201,168,76,.12);
+  --sh-md:0 8px 32px rgba(201,168,76,.16);
+  --sh-lg:0 20px 60px rgba(26,20,16,.18);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--body-text);background:var(--warm-white);line-height:1.6}
+a{text-decoration:none;color:inherit}
+button{font-family:var(--sans);cursor:pointer;border:none;outline:none}
+img{max-width:100%;display:block}
+ul{list-style:none}
+
+/* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+/* CONTAINER */
+.container{max-width:1280px;margin:0 auto;padding:0 24px}
+
+/* ── ANNOUNCEMENT BAR ── */
+.ann-bar{background:var(--luxury-black);color:var(--gold);text-align:center;padding:9px 24px;font-size:12.5px;letter-spacing:.08em;font-family:var(--sans)}
+
+/* ── UTILITY BAR ── */
+.util-bar{background:var(--ivory);border-bottom:1px solid var(--divider);padding:6px 24px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--body-text)}
+.util-bar a{color:var(--body-text);margin-left:16px;transition:color .2s}
+.util-bar a:hover{color:var(--gold)}
+
+/* ── STICKY HEADER ── */
+.site-header{background:var(--warm-white);border-bottom:1px solid var(--divider);position:sticky;top:0;z-index:200;box-shadow:var(--sh-sm)}
+.header-inner{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:70px}
+.vamas-logo svg text{font-family:var(--serif)}
+.main-nav{display:flex;align-items:center;gap:28px}
+.main-nav a{font-size:14px;font-weight:500;color:var(--luxury-black);letter-spacing:.03em;padding:6px 0;border-bottom:2px solid transparent;transition:all .2s}
+.main-nav a:hover,.main-nav a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.header-actions{display:flex;align-items:center;gap:16px}
+.header-actions button{background:none;border:none;cursor:pointer;color:var(--luxury-black);font-size:20px;transition:color .2s;padding:6px}
+.header-actions button:hover{color:var(--gold)}
+.cart-btn{position:relative}
+.cart-count{position:absolute;top:-4px;right:-6px;background:var(--maroon);color:#fff;font-size:10px;font-weight:700;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;line-height:1}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{background:var(--ivory);border-bottom:1px solid var(--gold);padding:14px 24px;font-size:13px;color:var(--body-text)}
+.breadcrumb a{color:var(--body-text);transition:color .2s}
+.breadcrumb a:hover{color:var(--gold)}
+.breadcrumb span{margin:0 6px;opacity:.5}
+
+/* ── PRODUCT MAIN ── */
+.product-main{max-width:1280px;margin:0 auto;padding:40px 24px 56px;display:grid;grid-template-columns:54% 46%;gap:56px;align-items:start}
+
+/* ── GALLERY ── */
+.gallery{position:relative}
+.gallery-main{aspect-ratio:3/4;border-radius:12px;overflow:hidden;position:relative;box-shadow:var(--sh-lg);cursor:zoom-in;user-select:none}
+.gallery-main-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative;transition:background .4s}
+.gallery-fabric-pattern{position:absolute;inset:0;opacity:.07;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:14px 14px}
+.gallery-monogram{font-family:var(--serif);font-size:180px;font-weight:600;font-style:italic;color:var(--gold);opacity:.2;line-height:1;pointer-events:none;z-index:1;position:relative}
+.gallery-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(26,20,16,.85) 0%,transparent 55%);padding:24px 20px 20px;display:flex;gap:8px;flex-wrap:wrap;z-index:2}
+.gallery-chip{background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.4);color:var(--gold-shimmer);font-size:11px;padding:4px 10px;border-radius:100px;letter-spacing:.06em;font-family:var(--sans);backdrop-filter:blur(4px)}
+.gallery-zoom-btn{position:absolute;top:14px;right:14px;background:rgba(26,20,16,.6);border:1px solid rgba(201,168,76,.4);color:var(--gold);width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;z-index:3;cursor:pointer;transition:all .2s;backdrop-filter:blur(4px)}
+.gallery-zoom-btn:hover{background:rgba(201,168,76,.25)}
+.gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(26,20,16,.55);border:1px solid rgba(201,168,76,.35);color:var(--gold);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;z-index:3;cursor:pointer;transition:all .2s;backdrop-filter:blur(4px)}
+.gallery-arrow:hover{background:rgba(201,168,76,.25)}
+.gallery-arrow.prev{left:12px}
+.gallery-arrow.next{right:12px}
+.gallery-thumbs{display:flex;gap:10px;margin-top:14px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin;scrollbar-color:var(--gold) var(--divider)}
+.gallery-thumb{width:72px;height:96px;border-radius:8px;overflow:hidden;flex-shrink:0;cursor:pointer;border:2px solid transparent;transition:border-color .2s;position:relative}
+.gallery-thumb.active{border-color:var(--gold)}
+.gallery-thumb-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.gallery-thumb-initial{font-family:var(--serif);font-size:28px;font-weight:600;font-style:italic;color:var(--gold);opacity:.45}
+
+/* ── PRODUCT INFO (sticky) ── */
+.product-info{position:sticky;top:90px}
+
+/* Tags */
+.product-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.product-tag{background:var(--gold-light);color:var(--gold-dark);font-size:11px;font-weight:600;padding:4px 12px;border-radius:100px;letter-spacing:.08em;border:1px solid rgba(201,168,76,.3)}
+
+/* Title */
+.product-title{font-family:var(--serif);font-size:40px;font-weight:600;color:var(--luxury-black);line-height:1.1;margin-bottom:8px}
+
+/* SKU */
+.product-sku{font-size:11px;color:var(--body-text);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;opacity:.7}
+
+/* Rating */
+.product-rating{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.stars{color:var(--gold);font-size:15px;letter-spacing:1px}
+.rating-text{font-size:13px;color:var(--body-text)}
+.rating-text a{color:var(--gold);text-decoration:underline}
+
+/* Price block */
+.price-block{margin-bottom:14px;padding:16px;background:var(--maroon-light);border-radius:10px;border:1px solid rgba(139,26,46,.12)}
+.price-row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.price-sale{font-size:36px;font-weight:700;color:var(--maroon);line-height:1}
+.price-original{font-size:18px;color:var(--body-text);opacity:.6;text-decoration:line-through}
+.price-badge{background:var(--maroon);color:var(--ivory);font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:.06em}
+.price-sub{font-size:12px;color:var(--body-text);margin-top:8px;opacity:.8}
+
+/* Stock */
+.stock-line{font-size:13px;color:var(--success);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:6px}
+
+/* Color selector */
+.selector-block{margin-bottom:18px}
+.selector-label{font-size:13px;font-weight:600;color:var(--luxury-black);margin-bottom:10px;letter-spacing:.04em}
+.selector-label span{font-weight:400;color:var(--body-text)}
+.color-pills{display:flex;flex-wrap:wrap;gap:8px}
+.color-pill{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:100px;border:1.5px solid var(--divider);cursor:pointer;font-size:13px;color:var(--body-text);background:var(--warm-white);transition:all .2s}
+.color-pill:hover{border-color:var(--gold);color:var(--gold-dark)}
+.color-pill.active{border-color:var(--gold);background:var(--gold-light);color:var(--gold-dark);font-weight:600}
+.color-dot{width:16px;height:16px;border-radius:50%;border:1px solid rgba(0,0,0,.12);flex-shrink:0}
+
+/* Size selector */
+.size-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.size-pill{width:52px;height:48px;border-radius:8px;border:1.5px solid var(--divider);background:var(--warm-white);color:var(--body-text);font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.size-pill:hover{border-color:var(--gold);color:var(--gold-dark)}
+.size-pill.active{border-color:var(--gold);background:var(--gold);color:var(--luxury-black);font-weight:700}
+.size-guide-link{font-size:12.5px;color:var(--gold-dark);text-decoration:underline;cursor:pointer;display:inline-flex;align-items:center;gap:4px;margin-top:4px}
+
+/* Adjustable fit callout */
+.fit-callout{background:var(--gold-light);border:1.5px solid var(--gold);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:18px;color:var(--gold-dark);font-size:13px;font-weight:600;letter-spacing:.02em}
+.fit-callout .fit-icon{font-size:18px}
+
+/* Quantity */
+.qty-block{display:flex;align-items:center;gap:0;margin-bottom:18px;width:fit-content;border:1.5px solid var(--divider);border-radius:10px;overflow:hidden}
+.qty-btn{background:var(--ivory);border:none;width:42px;height:42px;font-size:20px;color:var(--body-text);cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center}
+.qty-btn:hover{background:var(--gold-light);color:var(--gold-dark)}
+.qty-num{width:48px;height:42px;text-align:center;border:none;border-left:1px solid var(--divider);border-right:1px solid var(--divider);font-size:16px;font-weight:600;color:var(--luxury-black);background:var(--warm-white);outline:none;font-family:var(--sans)}
+
+/* ATC Buttons */
+.atc-stack{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.btn-atc{height:58px;width:100%;background:var(--gold);color:var(--luxury-black);font-family:var(--serif);font-size:18px;font-weight:600;letter-spacing:.05em;border:none;border-radius:10px;cursor:pointer;transition:all .25s;box-shadow:var(--sh-sm)}
+.btn-atc:hover{background:var(--gold-shimmer);box-shadow:var(--sh-md);transform:translateY(-1px)}
+.btn-buynow{height:58px;width:100%;background:var(--maroon);color:var(--ivory);font-family:var(--serif);font-size:18px;font-weight:600;letter-spacing:.05em;border:none;border-radius:10px;cursor:pointer;transition:all .25s}
+.btn-buynow:hover{background:var(--maroon-dark);box-shadow:var(--sh-md);transform:translateY(-1px)}
+
+/* Trust badges */
+.trust-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}
+.trust-badge{background:var(--ivory);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:10px 6px;text-align:center;font-size:10.5px;color:var(--body-text);line-height:1.4}
+.trust-badge .tb-icon{font-size:18px;margin-bottom:4px;display:block}
+
+/* Payment badges */
+.payment-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;padding:12px;background:var(--ivory);border-radius:8px;border:1px solid var(--divider)}
+.pay-badge{background:var(--warm-white);border:1px solid var(--divider);border-radius:4px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--body-text)}
+.payment-secure{font-size:12px;color:var(--body-text);opacity:.7;width:100%;margin-top:4px;display:flex;align-items:center;gap:5px}
+
+/* Urgency */
+.urgency-line{font-size:13px;color:var(--maroon);font-weight:600;display:flex;align-items:center;gap:6px;margin-bottom:8px}
+
+/* Divider */
+.divider{height:1px;background:var(--divider);margin:8px 0}
+
+/* ── ACCORDION ── */
+.accordion{border:1px solid var(--divider);border-radius:12px;overflow:hidden;margin-top:48px;background:var(--warm-white)}
+.accordion-item{border-bottom:1px solid var(--divider)}
+.accordion-item:last-child{border-bottom:none}
+.accordion-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:var(--warm-white);border:none;cursor:pointer;font-family:var(--sans);font-size:15px;font-weight:600;color:var(--luxury-black);text-align:left;transition:background .2s;border-left:3px solid transparent}
+.accordion-btn:hover{background:var(--ivory)}
+.accordion-item.open .accordion-btn{border-left-color:var(--gold);background:var(--ivory);color:var(--gold-dark)}
+.accordion-chevron{font-size:18px;transition:transform .3s;color:var(--gold)}
+.accordion-item.open .accordion-chevron{transform:rotate(180deg)}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.accordion-item.open .accordion-body{max-height:800px}
+.accordion-content{padding:0 24px 20px;color:var(--body-text);font-size:14px;line-height:1.8}
+.accordion-content ul{padding-left:18px;list-style:disc}
+.accordion-content ul li{margin-bottom:6px}
+.spec-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+.spec-table td{padding:9px 12px;border-bottom:1px solid var(--divider)}
+.spec-table tr:last-child td{border-bottom:none}
+.spec-table td:first-child{font-weight:600;color:var(--luxury-black);width:40%}
+.care-icons{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
+.care-icon-item{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--body-text);text-align:center}
+.care-icon-item span:first-child{font-size:24px}
+
+/* ── SECTIONS ── */
+.section{max-width:1280px;margin:0 auto;padding:60px 24px}
+.section-heading{font-family:var(--serif);font-size:28px;font-weight:600;color:var(--luxury-black);margin-bottom:8px}
+.section-sub{font-size:14px;color:var(--body-text);margin-bottom:32px;opacity:.8}
+.section-divider{height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);max-width:1280px;margin:0 auto}
+
+/* Saree pairing */
+.saree-grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:flex-start}
+.saree-card{display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;transition:transform .2s}
+.saree-card:hover{transform:translateY(-4px)}
+.saree-circle{width:100px;height:100px;border-radius:50%;border:3px solid var(--gold);box-shadow:var(--sh-sm);flex-shrink:0}
+.saree-name{font-size:13px;font-weight:600;color:var(--luxury-black);text-align:center}
+.saree-link{font-size:11px;color:var(--gold-dark);text-decoration:underline;text-align:center}
+
+/* Complete the look */
+.look-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.look-card{background:var(--ivory);border:1px solid var(--divider);border-top:3px solid var(--gold);border-radius:12px;padding:24px}
+.look-card-title{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--luxury-black);margin-bottom:12px}
+.look-card ul{list-style:disc;padding-left:18px;font-size:14px;color:var(--body-text);line-height:2}
+
+/* Reviews */
+.reviews-header{display:flex;align-items:baseline;gap:12px;margin-bottom:24px}
+.review-big-score{font-family:var(--serif);font-size:72px;font-weight:700;color:var(--luxury-black);line-height:1}
+.review-big-sub{display:flex;flex-direction:column;gap:4px}
+.review-score-text{font-size:14px;color:var(--body-text)}
+.review-count-text{font-size:13px;color:var(--body-text);opacity:.7}
+.rating-bars{display:flex;flex-direction:column;gap:8px;margin-bottom:32px;max-width:400px}
+.rating-bar-row{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--body-text)}
+.rating-bar-label{width:32px;text-align:right}
+.rating-bar-track{flex:1;height:8px;background:var(--divider);border-radius:100px;overflow:hidden}
+.rating-bar-fill{height:100%;background:linear-gradient(to right,var(--gold-dark),var(--gold));border-radius:100px;transition:width .6s}
+.rating-bar-pct{width:32px;font-weight:600}
+.reviews-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:8px}
+.review-card{border:1px solid var(--divider);border-top:3px solid var(--gold);border-radius:12px;padding:20px;background:var(--warm-white)}
+.review-card-stars{color:var(--gold);font-size:14px;margin-bottom:6px}
+.review-card-title{font-weight:700;font-size:15px;color:var(--luxury-black);margin-bottom:8px}
+.review-card-text{font-size:13px;color:var(--body-text);line-height:1.7;margin-bottom:14px}
+.reviewer-row{display:flex;align-items:center;gap:10px}
+.reviewer-avatar{width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--luxury-black);font-family:var(--serif);font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.reviewer-name{font-size:13px;font-weight:600;color:var(--luxury-black)}
+.reviewer-city{font-size:11px;color:var(--body-text);opacity:.7}
+.verified-badge{font-size:11px;color:var(--success);font-weight:600;margin-left:auto}
+
+/* Related products */
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.prod-card{background:var(--warm-white);border:1px solid var(--divider);border-radius:12px;overflow:hidden;transition:all .25s;text-decoration:none;display:block;position:relative}
+.prod-card:hover{box-shadow:var(--sh-md);transform:translateY(-3px)}
+.prod-card-img{aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;position:relative}
+.prod-card-mono{font-family:var(--serif);font-size:60px;font-weight:600;font-style:italic;color:var(--gold);opacity:.35}
+.prod-card-body{padding:14px}
+.prod-card-badge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px;letter-spacing:.06em;text-transform:uppercase}
+.badge-bestseller{background:var(--gold);color:var(--luxury-black)}
+.badge-new{background:var(--luxury-black);color:var(--gold)}
+.badge-sale{background:var(--maroon);color:var(--ivory)}
+.prod-card-title{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--luxury-black);line-height:1.2;margin-bottom:4px}
+.prod-card-fabric{font-size:12px;color:var(--body-text);opacity:.7;margin-bottom:8px}
+.prod-card-price{font-size:15px;font-weight:700;color:var(--maroon)}
+.prod-card-was{font-size:12px;color:var(--body-text);opacity:.55;text-decoration:line-through;margin-left:6px}
+
+/* Recently viewed */
+.recently-viewed{background:var(--cream)}
+
+/* ── STICKY ATC BAR ── */
+.sticky-bar{position:fixed;bottom:0;left:0;right:0;background:var(--luxury-black);border-top:1px solid rgba(201,168,76,.3);z-index:300;transform:translateY(100%);transition:transform .35s ease;padding:12px 24px}
+.sticky-bar.visible{transform:translateY(0)}
+.sticky-bar-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:16px}
+.sticky-bar-info{flex:1;display:flex;align-items:center;gap:14px}
+.sticky-monogram{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sticky-monogram-text{font-family:var(--serif);font-size:20px;font-weight:600;font-style:italic;color:var(--gold);opacity:.7}
+.sticky-product-name{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--gold);line-height:1.2}
+.sticky-meta{font-size:11px;color:rgba(201,168,76,.6);margin-top:2px}
+.sticky-price{font-size:18px;font-weight:700;color:var(--gold);margin-right:8px;flex-shrink:0}
+.sticky-btn-atc{height:44px;padding:0 24px;background:var(--gold);color:var(--luxury-black);font-family:var(--serif);font-size:15px;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:background .2s;flex-shrink:0}
+.sticky-btn-atc:hover{background:var(--gold-shimmer)}
+.sticky-btn-buy{height:44px;padding:0 24px;background:var(--maroon);color:var(--ivory);font-family:var(--serif);font-size:15px;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:background .2s;flex-shrink:0}
+.sticky-btn-buy:hover{background:var(--maroon-dark)}
+.sticky-close{background:none;border:none;color:rgba(201,168,76,.5);font-size:22px;cursor:pointer;padding:4px;flex-shrink:0;line-height:1;transition:color .2s}
+.sticky-close:hover{color:var(--gold)}
+
+/* ── SIZE GUIDE DRAWER ── */
+.drawer-overlay{position:fixed;inset:0;background:rgba(26,20,16,.55);z-index:400;opacity:0;pointer-events:none;transition:opacity .3s}
+.drawer-overlay.open{opacity:1;pointer-events:all}
+.size-drawer{position:fixed;top:0;right:-520px;width:480px;max-width:95vw;height:100vh;background:var(--ivory);z-index:500;transition:right .35s ease;padding:32px 28px;overflow-y:auto}
+.size-drawer.open{right:0}
+.drawer-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--divider)}
+.drawer-title{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--luxury-black)}
+.drawer-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--body-text);padding:4px}
+.size-table{width:100%;border-collapse:collapse;font-size:13px}
+.size-table th{background:var(--luxury-black);color:var(--gold);padding:10px 12px;text-align:left;font-size:12px;letter-spacing:.06em}
+.size-table td{padding:9px 12px;border-bottom:1px solid var(--divider);color:var(--body-text)}
+.size-table tr:nth-child(even) td{background:var(--cream)}
+.size-table tr:last-child td{border-bottom:none}
+.drawer-note{margin-top:16px;background:var(--gold-light);border:1px solid var(--gold);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--gold-dark);font-weight:600}
+
+/* ── LIGHTBOX ── */
+.lightbox{position:fixed;inset:0;background:rgba(26,20,16,.92);z-index:600;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.lightbox.open{display:flex}
+.lightbox-inner{width:420px;max-width:90vw;aspect-ratio:3/4;border-radius:16px;overflow:hidden;position:relative;box-shadow:var(--sh-lg)}
+.lightbox-close{position:absolute;top:16px;right:16px;background:rgba(26,20,16,.7);border:1px solid rgba(201,168,76,.4);color:var(--gold);width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;z-index:10}
+
+/* ── FOOTER ── */
+.footer{background:var(--luxury-black);color:rgba(250,247,242,.7);padding:60px 24px 0}
+.footer-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px}
+.footer-brand-name{font-family:var(--serif);font-size:32px;font-weight:600;font-style:italic;color:var(--gold);margin-bottom:8px}
+.footer-tagline{font-size:13px;color:var(--gold-shimmer);letter-spacing:.15em;margin-bottom:16px}
+.footer-desc{font-size:13px;line-height:1.8;margin-bottom:20px}
+.footer-heading{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-shimmer);margin-bottom:16px}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:13px;color:rgba(250,247,242,.6);transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-bottom{max-width:1280px;margin:0 auto;border-top:1px solid rgba(201,168,76,.15);padding:20px 0;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:rgba(250,247,242,.4)}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  .product-main{grid-template-columns:1fr;gap:32px}
+  .product-info{position:static}
+  .product-title{font-size:28px}
+  .trust-grid{grid-template-columns:repeat(3,1fr)}
+  .reviews-grid{grid-template-columns:1fr}
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+  .look-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .gallery-thumbs{overflow-x:auto}
+  .main-nav{display:none}
+  .util-bar{display:none}
+}
+@media(max-width:600px){
+  .trust-grid{grid-template-columns:repeat(2,1fr)}
+  .products-grid{grid-template-columns:1fr 1fr}
+  .price-sale{font-size:28px}
+  .footer-grid{grid-template-columns:1fr}
+  .saree-grid{gap:12px}
+  .saree-circle{width:72px;height:72px}
+  .sticky-bar-info{display:none}
+}
+
+/* Toast */
+.toast{position:fixed;top:90px;right:24px;background:var(--luxury-black);color:var(--gold);border:1px solid rgba(201,168,76,.4);border-radius:10px;padding:14px 20px;font-size:14px;font-weight:600;z-index:700;transform:translateY(-20px);opacity:0;transition:all .3s;pointer-events:none;box-shadow:var(--sh-lg)}
+.toast.show{transform:translateY(0);opacity:1}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="ann-bar">
+  ✦ Free shipping on orders above ₹999 &nbsp;|&nbsp; COD available &nbsp;|&nbsp; Exclusive VAMAS blouses — handcrafted in Mumbai ✦
+</div>
+
+<!-- UTILITY BAR -->
+<div class="util-bar">
+  <span>📍 Ships from Mumbai · Pan India Delivery</span>
+  <div>
+    <a href="#">Track Order</a>
+    <a href="#">Help & FAQ</a>
+    <a href="#">Size Guide</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="v-logo" aria-label="VAMAS — The Designer Blouses">
+      <img src="https://www.vamas.in/cdn/shop/files/Logo_58817fa3-d97a-4f1d-9351-033987ae46c5.png?v=1711731102&width=150"
+           alt="VAMAS — The Designer Blouses"
+           style="height:52px;width:auto;display:block;object-fit:contain"
+           loading="eager">
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="collection.html" class="active">Shop Blouses</a>
+      <a href="studio.html">Style Studio</a>
+      <a href="collection.html?filter=sale">Sale</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button onclick="window.location='studio.html'" title="Style Studio">🪡</button>
+      <button onclick="window.location='wishlist.html'" title="Wishlist">♡</button>
+      <button class="cart-btn" onclick="window.location='cart.html'" title="Cart">
+        🛒 <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb">
+  <div class="container" id="breadcrumb-container">
+    <a href="index.html">Home</a>
+    <span>›</span>
+    <a href="collection.html">All Blouses</a>
+    <span>›</span>
+    <span id="bc-fabric">Fabric</span>
+    <span>›</span>
+    <span id="bc-title">Product</span>
+  </div>
+</nav>
+
+<!-- PRODUCT MAIN -->
+<div class="product-main">
+  <!-- GALLERY -->
+  <div class="gallery">
+    <div class="gallery-main" id="gallery-main" onclick="openLightbox()">
+      <div class="gallery-main-bg" id="gallery-main-bg">
+        <div class="gallery-fabric-pattern"></div>
+        <div class="gallery-monogram" id="gallery-monogram">V</div>
+        <div class="gallery-overlay" id="gallery-overlay">
+          <!-- chips added by JS -->
+        </div>
+        <button class="gallery-zoom-btn" onclick="event.stopPropagation();openLightbox()">🔍</button>
+        <button class="gallery-arrow prev" onclick="event.stopPropagation();changeSlide(-1)">‹</button>
+        <button class="gallery-arrow next" onclick="event.stopPropagation();changeSlide(1)">›</button>
+      </div>
+    </div>
+    <div class="gallery-thumbs" id="gallery-thumbs">
+      <!-- filled by JS -->
+    </div>
+  </div>
+
+  <!-- PRODUCT INFO -->
+  <div class="product-info">
+    <!-- Tags -->
+    <div class="product-tags" id="product-tags"></div>
+
+    <!-- Title -->
+    <h1 class="product-title" id="product-title">Loading…</h1>
+
+    <!-- SKU -->
+    <div class="product-sku" id="product-sku"></div>
+
+    <!-- Rating -->
+    <div class="product-rating">
+      <span class="stars">★★★★★</span>
+      <span class="rating-text">4.8 &nbsp;<a href="#reviews">214 reviews</a></span>
+    </div>
+
+    <!-- Price -->
+    <div class="price-block" id="price-block"></div>
+
+    <!-- Stock -->
+    <div class="stock-line" id="stock-line"></div>
+
+    <!-- Color -->
+    <div class="selector-block">
+      <div class="selector-label">Colour — <span id="selected-color-label">Select</span></div>
+      <div class="color-pills" id="color-pills"></div>
+    </div>
+
+    <!-- Size -->
+    <div class="selector-block">
+      <div class="selector-label">Size</div>
+      <div class="size-pills" id="size-pills">
+        <button class="size-pill" data-size="XS" onclick="selectSize(this)">XS</button>
+        <button class="size-pill" data-size="S" onclick="selectSize(this)">S</button>
+        <button class="size-pill active" data-size="M" onclick="selectSize(this)">M</button>
+        <button class="size-pill" data-size="L" onclick="selectSize(this)">L</button>
+        <button class="size-pill" data-size="XL" onclick="selectSize(this)">XL</button>
+        <button class="size-pill" data-size="XXL" onclick="selectSize(this)">XXL</button>
+        <button class="size-pill" data-size="XXXL" onclick="selectSize(this)">XXXL</button>
+      </div>
+      <span class="size-guide-link" onclick="openSizeGuide()">📏 Size Guide</span>
+    </div>
+
+    <!-- Fit callout -->
+    <div class="fit-callout">
+      <span class="fit-icon">📐</span>
+      Built-in 1.5″ adjustment margin — fits XS to XXXL comfortably
+    </div>
+
+    <!-- Quantity -->
+    <div class="qty-block">
+      <button class="qty-btn" onclick="changeQty(-1)">−</button>
+      <input class="qty-num" id="qty-num" type="number" value="1" min="1" max="20" readonly/>
+      <button class="qty-btn" onclick="changeQty(1)">+</button>
+    </div>
+
+    <!-- ATC buttons -->
+    <div class="atc-stack">
+      <button class="btn-atc" onclick="addToCart()">Add to Cart</button>
+      <button class="btn-buynow" onclick="buyNow()">Buy Now →</button>
+    </div>
+
+    <!-- Trust badges -->
+    <div class="trust-grid">
+      <div class="trust-badge"><span class="tb-icon">🔒</span>Secure Payment</div>
+      <div class="trust-badge"><span class="tb-icon">🚚</span>Free Shipping</div>
+      <div class="trust-badge"><span class="tb-icon">🔄</span>7-Day Returns</div>
+      <div class="trust-badge"><span class="tb-icon">📦</span>Ships in 24hrs</div>
+      <div class="trust-badge"><span class="tb-icon">🇮🇳</span>Made in Mumbai</div>
+    </div>
+
+    <!-- Payment -->
+    <div class="payment-row">
+      <span class="pay-badge">UPI</span>
+      <span class="pay-badge">Card</span>
+      <span class="pay-badge">EMI</span>
+      <span class="pay-badge">COD</span>
+      <span class="pay-badge">Net Banking</span>
+      <span class="payment-secure">🔒 Guaranteed Safe Checkout</span>
+    </div>
+
+    <!-- Urgency -->
+    <div class="urgency-line">🔥 23 people viewed this in the last hour</div>
+  </div>
+</div>
+
+<!-- ACCORDION -->
+<div class="container">
+  <div class="accordion" id="accordion">
+
+    <div class="accordion-item open" data-idx="0">
+      <button class="accordion-btn" onclick="toggleAccordion(0)">
+        <span>Description</span><span class="accordion-chevron">▾</span>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p id="acc-desc-main" style="margin-bottom:14px"></p>
+          <ul id="acc-desc-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item" data-idx="1">
+      <button class="accordion-btn" onclick="toggleAccordion(1)">
+        <span>Size &amp; Fit</span><span class="accordion-chevron">▾</span>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p style="margin-bottom:12px">All VAMAS blouses include a 1.5″ built-in seam allowance to ensure a perfect custom fit.</p>
+          <table class="spec-table">
+            <tr><td>XS</td><td>Bust: 30–32″ · Waist: 24–26″</td></tr>
+            <tr><td>S</td><td>Bust: 32–34″ · Waist: 26–28″</td></tr>
+            <tr><td>M</td><td>Bust: 34–36″ · Waist: 28–30″</td></tr>
+            <tr><td>L</td><td>Bust: 36–38″ · Waist: 30–32″</td></tr>
+            <tr><td>XL</td><td>Bust: 38–40″ · Waist: 32–34″</td></tr>
+            <tr><td>XXL</td><td>Bust: 40–42″ · Waist: 34–36″</td></tr>
+            <tr><td>XXXL</td><td>Bust: 42–44″ · Waist: 36–38″</td></tr>
+          </table>
+          <p style="margin-top:14px;font-size:13px;color:var(--gold-dark);font-weight:600">📐 Still unsure? We offer free alterations within 30 days of purchase.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item" data-idx="2">
+      <button class="accordion-btn" onclick="toggleAccordion(2)">
+        <span>Fabric &amp; Care</span><span class="accordion-chevron">▾</span>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p id="acc-fabric-text" style="margin-bottom:14px"></p>
+          <div class="care-icons">
+            <div class="care-icon-item"><span>🧺</span><span>Dry Clean Only</span></div>
+            <div class="care-icon-item"><span>🚫</span><span>No Machine Wash</span></div>
+            <div class="care-icon-item"><span>🌡️</span><span>Cool Iron Only</span></div>
+            <div class="care-icon-item"><span>🌿</span><span>Store Dry</span></div>
+            <div class="care-icon-item"><span>☀️</span><span>Dry in Shade</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item" data-idx="3">
+      <button class="accordion-btn" onclick="toggleAccordion(3)">
+        <span>Shipping &amp; Returns</span><span class="accordion-chevron">▾</span>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <ul>
+            <li>Free shipping on orders above ₹999 — delivered in 4–7 business days</li>
+            <li>Express shipping available at ₹99 — delivered in 2–3 business days</li>
+            <li>Same-day delivery in Mumbai (order before 12 PM)</li>
+            <li>Easy 7-day returns — no questions asked for unworn, unaltered items</li>
+            <li>Exchanges accepted within 15 days with original packaging</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item" data-idx="4">
+      <button class="accordion-btn" onclick="toggleAccordion(4)">
+        <span>Delivery Information</span><span class="accordion-chevron">▾</span>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <table class="spec-table">
+            <tr><td>Standard</td><td>4–7 business days · Free above ₹999</td></tr>
+            <tr><td>Express</td><td>2–3 business days · ₹99</td></tr>
+            <tr><td>Same Day (Mumbai)</td><td>Order before 12 PM · ₹149</td></tr>
+            <tr><td>COD Available</td><td>₹50 handling fee</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section-divider" style="margin-top:56px"></div>
+
+<!-- PAIR WITH YOUR SAREE -->
+<div class="section">
+  <h2 class="section-heading">Pair This Blouse With</h2>
+  <p class="section-sub">Saree colours that look beautiful with this blouse</p>
+  <div class="saree-grid" id="saree-grid"></div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- COMPLETE THE LOOK -->
+<div class="section">
+  <h2 class="section-heading">Complete The Look</h2>
+  <p class="section-sub">Our styling team's recommendations for this blouse</p>
+  <div class="look-grid" id="look-grid"></div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- REVIEWS -->
+<div class="section" id="reviews">
+  <div class="reviews-header">
+    <div class="review-big-score">4.8</div>
+    <div class="review-big-sub">
+      <div class="stars" style="font-size:20px">★★★★★</div>
+      <div class="review-score-text">out of 5</div>
+      <div class="review-count-text">214 verified reviews</div>
+    </div>
+  </div>
+  <div class="rating-bars">
+    <div class="rating-bar-row"><span class="rating-bar-label">5★</span><div class="rating-bar-track"><div class="rating-bar-fill" style="width:68%"></div></div><span class="rating-bar-pct">68%</span></div>
+    <div class="rating-bar-row"><span class="rating-bar-label">4★</span><div class="rating-bar-track"><div class="rating-bar-fill" style="width:22%"></div></div><span class="rating-bar-pct">22%</span></div>
+    <div class="rating-bar-row"><span class="rating-bar-label">3★</span><div class="rating-bar-track"><div class="rating-bar-fill" style="width:7%"></div></div><span class="rating-bar-pct">7%</span></div>
+    <div class="rating-bar-row"><span class="rating-bar-label">2★</span><div class="rating-bar-track"><div class="rating-bar-fill" style="width:2%"></div></div><span class="rating-bar-pct">2%</span></div>
+    <div class="rating-bar-row"><span class="rating-bar-label">1★</span><div class="rating-bar-track"><div class="rating-bar-fill" style="width:1%"></div></div><span class="rating-bar-pct">1%</span></div>
+  </div>
+  <div class="reviews-grid" id="reviews-grid"></div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- RECENTLY VIEWED -->
+<div class="section recently-viewed">
+  <h2 class="section-heading" style="margin-bottom:8px">Recently Viewed</h2>
+  <p class="section-sub">Your browsing history</p>
+  <div class="products-grid" id="recently-grid"></div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- RELATED PRODUCTS -->
+<div class="section">
+  <h2 class="section-heading" style="margin-bottom:8px">You May Also Like</h2>
+  <p class="section-sub">More blouses from the VAMAS collection</p>
+  <div class="products-grid" id="related-grid"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" aria-label="VAMAS — The Designer Blouses" style="display:inline-block;margin-bottom:12px">
+        <img src="https://www.vamas.in/cdn/shop/files/Logo_58817fa3-d97a-4f1d-9351-033987ae46c5.png?v=1711731102&width=150"
+             alt="VAMAS — The Designer Blouses"
+             style="height:52px;width:auto;display:block;object-fit:contain;filter:brightness(0) invert(1)"
+             loading="lazy">
+      </a>
+      <div class="footer-tagline">The Designer Blouses</div>
+      <p class="footer-desc">Crafted for the woman who wears her saree like armour. Every VAMAS blouse is handcrafted in Mumbai with uncompromising attention to detail.</p>
+    </div>
+    <div>
+      <div class="footer-heading">Shop</div>
+      <div class="footer-links">
+        <a href="collection.html">All Blouses</a>
+        <a href="collection.html?filter=bestseller">Bestsellers</a>
+        <a href="collection.html?filter=new">New Arrivals</a>
+        <a href="collection.html?filter=sale">Sale</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Help</div>
+      <div class="footer-links">
+        <a href="#">Size Guide</a>
+        <a href="#">Shipping Info</a>
+        <a href="#">Returns</a>
+        <a href="#">FAQ</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Company</div>
+      <div class="footer-links">
+        <a href="about.html">About VAMAS</a>
+        <a href="studio.html">Style Studio</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 VAMAS — The Designer Blouses. All rights reserved.</span>
+    <span>Made with ♡ in Mumbai</span>
+  </div>
+</footer>
+
+<!-- STICKY ATC BAR -->
+<div class="sticky-bar" id="sticky-bar">
+  <div class="sticky-bar-inner">
+    <div class="sticky-info" style="flex:1;display:flex;align-items:center;gap:14px">
+      <div class="sticky-monogram" id="sticky-mono-bg"><span class="sticky-monogram-text" id="sticky-mono-text">V</span></div>
+      <div>
+        <div class="sticky-product-name" id="sticky-name">Product</div>
+        <div class="sticky-meta" id="sticky-meta">Size M · Black</div>
+      </div>
+    </div>
+    <div class="sticky-price" id="sticky-price">₹0</div>
+    <button class="sticky-btn-atc" onclick="addToCart()">Add to Cart</button>
+    <button class="sticky-btn-buy" onclick="buyNow()">Buy Now</button>
+    <button class="sticky-close" onclick="document.getElementById('sticky-bar').classList.remove('visible')">×</button>
+  </div>
+</div>
+
+<!-- SIZE GUIDE DRAWER -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeSizeGuide()"></div>
+<div class="size-drawer" id="size-drawer">
+  <div class="drawer-header">
+    <span class="drawer-title">📏 Size Guide</span>
+    <button class="drawer-close" onclick="closeSizeGuide()">×</button>
+  </div>
+  <table class="size-table">
+    <thead><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hip</th><th>Back Length</th></tr></thead>
+    <tbody>
+      <tr><td>XS</td><td>30–32″</td><td>24–26″</td><td>32–34″</td><td>13″</td></tr>
+      <tr><td>S</td><td>32–34″</td><td>26–28″</td><td>34–36″</td><td>13.5″</td></tr>
+      <tr><td>M</td><td>34–36″</td><td>28–30″</td><td>36–38″</td><td>14″</td></tr>
+      <tr><td>L</td><td>36–38″</td><td>30–32″</td><td>38–40″</td><td>14.5″</td></tr>
+      <tr><td>XL</td><td>38–40″</td><td>32–34″</td><td>40–42″</td><td>15″</td></tr>
+      <tr><td>XXL</td><td>40–42″</td><td>34–36″</td><td>42–44″</td><td>15.5″</td></tr>
+      <tr><td>XXXL</td><td>42–44″</td><td>36–38″</td><td>44–46″</td><td>16″</td></tr>
+    </tbody>
+  </table>
+  <div class="drawer-note">📐 All VAMAS blouses have a built-in 1.5″ seam allowance. We recommend sizing by bust measurement.</div>
+  <p style="margin-top:16px;font-size:13px;color:var(--body-text);line-height:1.7">Need help? WhatsApp us at <strong>+91 98765 43210</strong> for a personalized size recommendation.</p>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-inner" id="lightbox-inner" onclick="event.stopPropagation()">
+    <div id="lightbox-bg" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center">
+      <span id="lightbox-mono" style="font-family:var(--serif);font-size:200px;font-weight:600;font-style:italic;color:var(--gold);opacity:.25"></span>
+    </div>
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── PRODUCT DATA ───
+const VAMAS_PRODUCTS = [
+  {id:1,t:"Corset Silk Blouse",f:"Silk · Sleeveless",p:2199,w:2999,badge:"bestseller",fabric:"100% Pure Mulberry Silk",sleeve:"Sleeveless",neck:"Corset / Sweetheart",opening:"Back Open",occasion:["wedding","festive"],desc:"The Corset Silk Blouse is a statement piece — crafted from premium Grade-A silk with a structured corset silhouette. Pairs beautifully with heavy Kanjivaram sarees.",sku:"CSB-001",stock:8,colors:["Black","Maroon","Navy","Emerald"],colDots:["#1A1410","#8B1A2E","#1B3A6B","#065F46"],g:"linear-gradient(145deg,#3D1C0A,#8B4513,#C9A84C)",saree:["red","maroon","gold","navy"]},
+  {id:2,t:"Brocade Elbow Sleeve Blouse",f:"Brocade · Elbow Sleeve",p:1799,w:null,badge:"new",fabric:"Handwoven Brocade",sleeve:"Elbow Sleeve",neck:"Round Neck",opening:"Back Open",occasion:["wedding","festive"],desc:"Handwoven brocade blouse with intricate zari work. The elbow sleeve adds classic elegance perfect for weddings and festive occasions.",sku:"BEB-002",stock:12,colors:["Maroon","Gold","Forest Green"],colDots:["#8B1A2E","#C9A84C","#2E4A2E"],g:"linear-gradient(145deg,#2D0A1E,#8B1A4A,#C9A84C)",saree:["pink","red","green"]},
+  {id:3,t:"Dual-Neck Tissue Blouse",f:"Tissue · Attached Sleeve",p:1499,w:1999,badge:"sale",fabric:"Premium Tissue",sleeve:"Attached Sleeve",neck:"Dual Neck",opening:"Front Open",occasion:["festive","casual"],desc:"Versatile tissue blouse with a unique dual-neck design. Lightweight fabric perfect for summer festivities.",sku:"DTB-003",stock:6,colors:["Lavender","Gold"],colDots:["#D8C7E8","#C9A84C"],g:"linear-gradient(145deg,#1A1A3E,#3D2B6B,#C9A84C)",saree:["purple","gold","ivory"]},
+  {id:4,t:"V-Neck Cotton Blouse",f:"Cotton · Elbow Sleeve",p:999,w:null,badge:"new",fabric:"Organic Cotton",sleeve:"Elbow Sleeve",neck:"V-Neck",opening:"Back Open",occasion:["casual","cocktail"],desc:"Everyday comfort meets designer style. Organic cotton blouse with a flattering V-neck — ideal for casual saree pairings.",sku:"VCB-004",stock:20,colors:["Ivory","Black","Maroon","Gold"],colDots:["#FAF7F2","#1A1410","#8B1A2E","#C9A84C"],g:"linear-gradient(145deg,#2C1810,#5C3317,#8F6A1F)",saree:["ivory","white","beige","gold"]},
+  {id:5,t:"Strappy Imported Blouse",f:"Imported · Strappy",p:1899,w:null,badge:"new",fabric:"Premium Imported Fabric",sleeve:"Strappy",neck:"Square Neck",opening:"Back Open",occasion:["cocktail","casual"],desc:"Contemporary strappy blouse in premium imported fabric. Perfect for modern saree styling at cocktail events.",sku:"SIB-005",stock:9,colors:["Black","Indigo"],colDots:["#1A1410","#3D2B6B"],g:"linear-gradient(145deg,#0E0A18,#2C1A3E,#5C3D7A)",saree:["black","navy","dark"]},
+  {id:6,t:"Boat Neck Brocade Blouse",f:"Brocade · Elbow Sleeve",p:2099,w:2599,badge:"sale",fabric:"Zari Brocade",sleeve:"Elbow Sleeve",neck:"Boat Neck",opening:"Back Open",occasion:["wedding","festive"],desc:"Rich zari brocade blouse with a sophisticated boat neck. The timeless silhouette complements silk and georgette sarees.",sku:"BNB-006",stock:5,colors:["Maroon","Gold","Black"],colDots:["#8B1A2E","#C9A84C","#1A1410"],g:"linear-gradient(145deg,#3D0D1A,#8B1A2E,#C9A84C)",saree:["red","maroon","burgundy"]},
+  {id:7,t:"Backless Silk Blouse",f:"Silk · Sleeveless",p:2499,w:null,badge:"new",fabric:"Pure Silk",sleeve:"Sleeveless",neck:"Backless",opening:"Backless Design",occasion:["cocktail","wedding"],desc:"Statement backless silk blouse for the bold modern woman. Elegant front with a dramatic open back.",sku:"BSB-007",stock:7,colors:["Maroon","Navy"],colDots:["#8B1A2E","#1B3A6B"],g:"linear-gradient(145deg,#1A0A10,#4A1A2E,#8B1A2E)",saree:["red","blue","green"]},
+  {id:8,t:"High-Neck Tafeta Blouse",f:"Tafeta · Attached Sleeve",p:1299,w:null,badge:"new",fabric:"Premium Tafeta",sleeve:"Attached Sleeve",neck:"High Neck",opening:"Back Open",occasion:["festive","casual"],desc:"Regal high-neck blouse in lustrous tafeta. The attached sleeve design adds tradition while the fabric shines beautifully under festive lighting.",sku:"HNT-008",stock:11,colors:["Deep Purple","Gold","Ivory"],colDots:["#2e1d4a","#C9A84C","#FAF7F2"],g:"linear-gradient(145deg,#140A20,#3D1A5C,#6B2D8B)",saree:["purple","gold","ivory"]},
+  {id:9,t:"Iconic V-Neck Silk Blouse",f:"Silk · Elbow Sleeve",p:1899,w:null,badge:"bestseller",fabric:"Pure Mulberry Silk",sleeve:"Elbow Sleeve",neck:"V-Neck",opening:"Back Open",occasion:["wedding","festive"],desc:"Our bestselling silk blouse — the V-Neck silhouette flatters every neckline. Perfect with both heavy and light sarees.",sku:"IVS-009",stock:15,colors:["Gold","Black","Maroon"],colDots:["#C9A84C","#1A1410","#8B1A2E"],g:"linear-gradient(145deg,#3D2B0A,#7A5510,#C9A84C)",saree:["gold","black","red"]},
+  {id:10,t:"Classic Corset Blouse — Black",f:"Silk · Sleeveless",p:2299,w:null,badge:"bestseller",fabric:"Pure Silk",sleeve:"Sleeveless",neck:"Corset",opening:"Back Open",occasion:["wedding","cocktail"],desc:"The quintessential VAMAS corset blouse in classic black. Structured boning, hand-finished edges, timeless elegance.",sku:"CCB-010",stock:10,colors:["Black"],colDots:["#1A1410"],g:"linear-gradient(145deg,#0A0806,#1A1410,#2C2420)",saree:["black","white","gold"]},
+  {id:11,t:"Brocade Boutique Blouse",f:"Brocade · Elbow Sleeve",p:2499,w:2999,badge:"sale",fabric:"Heavy Brocade",sleeve:"Elbow Sleeve",neck:"Round Neck",opening:"Front Open",occasion:["wedding","festive"],desc:"Heavy brocade blouse from VAMAS's boutique collection. Rich texture, intricate weave, perfect for grand occasions.",sku:"BBB-011",stock:4,colors:["Maroon","Gold"],colDots:["#8B1A2E","#C9A84C"],g:"linear-gradient(145deg,#2D0A14,#6B1A2E,#C9A84C)",saree:["red","maroon","pink"]},
+  {id:12,t:"Everyday Cotton Blouse",f:"Cotton · Elbow Sleeve",p:899,w:null,badge:"bestseller",fabric:"Soft Cotton",sleeve:"Elbow Sleeve",neck:"Round Neck",opening:"Back Open",occasion:["casual"],desc:"Soft, breathable cotton blouse for everyday saree wear. Comfortable enough for daily use, beautiful enough for casual events.",sku:"ECB-012",stock:25,colors:["Ivory","Black","Indigo","Forest"],colDots:["#FAF7F2","#1A1410","#5a4194","#2e4a2e"],g:"linear-gradient(145deg,#1A1410,#3D2B1A,#5C4428)",saree:["ivory","white","light"]}
+];
+
+// ─── PRODUCT GALLERY (real images) ───
+const IMG_BASE = "https://cdn.shopify.com/s/files/1/0693/0346/8277/files/";
+const PRODUCT_GALLERY = {
+  1:{imgs:[IMG_BASE+"CS-9-BLACK-FRONT.jpg?v=1777901399",IMG_BASE+"CS-9-BLACK-BACK.jpg?v=1777901399",IMG_BASE+"CS-9-BLACK-SIDE.jpg?v=1777901399",IMG_BASE+"CS-9-BLACK-FULL.jpg?v=1777901399",IMG_BASE+"CS-9-BLACK-ZOOM.jpg?v=1777901399"],colorImgs:{"Black":IMG_BASE+"CS-9-BLACK-FRONT.jpg?v=1777901399","Maroon":IMG_BASE+"CS-9-MAROON-FRONT.jpg?v=1777901399","Navy":IMG_BASE+"CS-9-NAVY-BLUE-FRONT.jpg?v=1777901399","Emerald":IMG_BASE+"CS-9-BOTTLE-GREEN-FRONT.jpg?v=1777901399","Gold":IMG_BASE+"CS-9-GOLD-FRONT.jpg?v=1777901399","Pink":IMG_BASE+"CS-9-PINK-FRONT.jpg?v=1777901399","Wine":IMG_BASE+"CS-9-WINE-FRONT.jpg?v=1777901399"}},
+  2:{imgs:[IMG_BASE+"X-1091-ELB-MAROON-HF.jpg?v=1780555088",IMG_BASE+"X-1091-ELB-MAROON-HB.jpg?v=1780555088",IMG_BASE+"X-1091-ELB-MAROON-HS.jpg?v=1780555088",IMG_BASE+"X-1091-ELB-MAROON-FF.jpg?v=1780555088",IMG_BASE+"X-1091-ELB-BLACK-HF.jpg?v=1780555088"],colorImgs:{"Maroon":IMG_BASE+"X-1091-ELB-MAROON-HF.jpg?v=1780555088","Black":IMG_BASE+"X-1091-ELB-BLACK-HF.jpg?v=1780555088","Navy":IMG_BASE+"X-1091-ELB-NAVY-BLUE-HF.jpg?v=1780555088","Pink":IMG_BASE+"X-1091-ELB-PINK-HF.jpg?v=1780555088","Red":IMG_BASE+"X-1091-ELB-RED-HF.jpg?v=1780555088","Green":IMG_BASE+"X-1091-ELB-GREEN-HF.jpg?v=1780555088"}},
+  3:{imgs:[IMG_BASE+"VKB-104-BLUE-FRONT.jpg?v=1777124592",IMG_BASE+"VKB-104-BLUE-BACK.jpg?v=1777124592",IMG_BASE+"VKB-104-BLUE-SIDE1.jpg?v=1777124592",IMG_BASE+"VKB-104-BLUE-SIDE2.jpg?v=1777124592",IMG_BASE+"VKB-104-BLUE-CLOSEUP.jpg?v=1777124592"],colorImgs:{"Blue":IMG_BASE+"VKB-104-BLUE-FRONT.jpg?v=1777124592","Pink":IMG_BASE+"VKB-104-PINK-FRONT.jpg?v=1777124592","Red":IMG_BASE+"VKB-104-RED-FRONT.jpg?v=1777124592","Rust":IMG_BASE+"VKB-104-RUST-FRONT.jpg?v=1777124592","Yellow":IMG_BASE+"VKB-104-YELLOW-FRONT.jpg?v=1777124592"}},
+  4:{imgs:[IMG_BASE+"X-1020.ELB_BLACK_HF.jpg?v=1758370621",IMG_BASE+"X-1020.ELB_BLACK_HB.jpg?v=1758370621",IMG_BASE+"X-1020.ELB_BLACK_HS.jpg?v=1758370621",IMG_BASE+"X-1020.ELB_BLACK_FF.jpg?v=1758370621",IMG_BASE+"X-1020.ELB_PINK_HF.jpg?v=1758370621"],colorImgs:{"Black":IMG_BASE+"X-1020.ELB_BLACK_HF.jpg?v=1758370621","Pink":IMG_BASE+"X-1020.ELB_PINK_HF.jpg?v=1758370621","Baby Pink":IMG_BASE+"X-1020.ELB_BABY-PINK_HF.jpg?v=1758370621","Pista Green":IMG_BASE+"X-1020.ELB_PISTA-GREEN_HF.jpg?v=1758370621","Mustard":IMG_BASE+"X-1020.ELB_MUSTARD_HF.jpg?v=1758370621","Peach":IMG_BASE+"X-1020.ELB_PEACH_HF.jpg?v=1758370621"}},
+  5:{imgs:[IMG_BASE+"X-1255-ELB-BLACK-FRONT.jpg?v=1779964568",IMG_BASE+"X-1255-ELB-BLACK-FRONT.jpg?v=1779964568",IMG_BASE+"X-1255-ELB-BLACK-FRONT.jpg?v=1779964568",IMG_BASE+"X-1255-ELB-BLACK-FRONT.jpg?v=1779964568",IMG_BASE+"X-1255-ELB-BLACK-FRONT.jpg?v=1779964568"],colorImgs:{"Black":IMG_BASE+"X-1255-ELB-BLACK-FRONT.jpg?v=1779964568"}},
+  6:{imgs:[IMG_BASE+"VKB-114-RED-FRONT.jpg?v=1777124619",IMG_BASE+"VKB-114-RED-BACK.jpg?v=1777124619",IMG_BASE+"VKB-114-RED-SIDE1.jpg?v=1777124619",IMG_BASE+"VKB-114-RED-SIDE2.jpg?v=1777124619",IMG_BASE+"VKB-114-WINE-FRONT.jpg?v=1777124619"],colorImgs:{"Red":IMG_BASE+"VKB-114-RED-FRONT.jpg?v=1777124619","Wine":IMG_BASE+"VKB-114-WINE-FRONT.jpg?v=1777124620"}},
+  7:{imgs:[IMG_BASE+"VKB-105-BLACK-FRONT.jpg?v=1777124595",IMG_BASE+"VKB-105-BLACK-BACK.jpg?v=1777124595",IMG_BASE+"VKB-105-BLACK-SIDE1.jpg?v=1777124595",IMG_BASE+"VKB-105-BLACK-SIDE2.jpg?v=1777124595",IMG_BASE+"VKB-105-MAROON-FRONT.jpg?v=1777124595"],colorImgs:{"Black":IMG_BASE+"VKB-105-BLACK-FRONT.jpg?v=1777124595","Maroon":IMG_BASE+"VKB-105-MAROON-FRONT.jpg?v=1777124595"}},
+  8:{imgs:[IMG_BASE+"X-1066.NS_BLACK_HF.jpg?v=1759149832",IMG_BASE+"X-1066.NS_GOLD_HF.jpg?v=1759149834",IMG_BASE+"X-1066.NS_GREEN_HF.jpg?v=1759149835",IMG_BASE+"X-1066.NS_BLACK_HF.jpg?v=1759149832",IMG_BASE+"X-1066.NS_GOLD_HF.jpg?v=1759149834"],colorImgs:{"Black":IMG_BASE+"X-1066.NS_BLACK_HF.jpg?v=1759149832","Gold":IMG_BASE+"X-1066.NS_GOLD_HF.jpg?v=1759149834","Green":IMG_BASE+"X-1066.NS_GREEN_HF.jpg?v=1759149835"}},
+  9:{imgs:[IMG_BASE+"X-1343-ELB-INDIGO-BLUE-FRONT.jpg?v=1777901439",IMG_BASE+"X-1343-ELB-INDIGO-BLUE-BACK.jpg?v=1777901439",IMG_BASE+"X-1343-ELB-INDIGO-BLUE-SIDE.jpg?v=1777901439",IMG_BASE+"X-1343-ELB-INDIGO-BLUE-FULL.jpg?v=1777901439",IMG_BASE+"X-1343-ELB-INDIGO-BLUE-ZOOM.jpg?v=1777901439"],colorImgs:{"Indigo Blue":IMG_BASE+"X-1343-ELB-INDIGO-BLUE-FRONT.jpg?v=1777901439"}},
+  10:{imgs:[IMG_BASE+"CS-9-MAROON-FRONT.jpg?v=1777901399",IMG_BASE+"CS-9-MAROON-BACK.jpg?v=1777901399",IMG_BASE+"CS-9-MAROON-SIDE.jpg?v=1777901399",IMG_BASE+"CS-9-MAROON-FULL.jpg?v=1777901399",IMG_BASE+"CS-9-BLACK-FRONT.jpg?v=1777901399"],colorImgs:{"Maroon":IMG_BASE+"CS-9-MAROON-FRONT.jpg?v=1777901399","Black":IMG_BASE+"CS-9-BLACK-FRONT.jpg?v=1777901399","Wine":IMG_BASE+"CS-9-WINE-FRONT.jpg?v=1777901399"}},
+  11:{imgs:[IMG_BASE+"VKB-115-PINK-FRONT.jpg?v=1777124622",IMG_BASE+"VKB-115-PINK-BACK.jpg?v=1777124622",IMG_BASE+"VKB-115-PINK-SIDE1.jpg?v=1777124622",IMG_BASE+"VKB-115-PINK-SIDE2.jpg?v=1777124622",IMG_BASE+"VKB-115-BOTTLE-GREEN-FRONT.jpg?v=1777124621"],colorImgs:{"Pink":IMG_BASE+"VKB-115-PINK-FRONT.jpg?v=1777124622","Green":IMG_BASE+"VKB-115-BOTTLE-GREEN-FRONT.jpg?v=1777124621"}},
+  12:{imgs:[IMG_BASE+"X-1054.ELB_SEA-GREEN_HF.jpg?v=1724082653",IMG_BASE+"X-1054.ELB_SEA-GREEN_HB.jpg?v=1724082653",IMG_BASE+"X-1054.ELB_SEA-GREEN_HS.jpg?v=1724082653",IMG_BASE+"X-1054.ELB_PEACH_HF.jpg?v=1724082653",IMG_BASE+"X-1054.ELB_LIGHT-YELLOW_HF.jpg?v=1724082653"],colorImgs:{"Sea Green":IMG_BASE+"X-1054.ELB_SEA-GREEN_HF.jpg?v=1724082653","Peach":IMG_BASE+"X-1054.ELB_PEACH_HF.jpg?v=1724082653","Light Yellow":IMG_BASE+"X-1054.ELB_LIGHT-YELLOW_HF.jpg?v=1724082653"}}
+};
+
+// ─── SAREE COLOR MAP ───
+const SAREE_COLORS = {
+  red:{bg:"#C0392B",name:"Red Silk"},maroon:{bg:"#8B1A2E",name:"Maroon Banarasi"},
+  gold:{bg:"#C9A84C",name:"Gold Kanjivaram"},navy:{bg:"#1B3A6B",name:"Navy Blue Silk"},
+  pink:{bg:"#E91E8C",name:"Pink Chanderi"},green:{bg:"#2E7D32",name:"Emerald Green"},
+  purple:{bg:"#6B2D8B",name:"Royal Purple"},ivory:{bg:"#FAF7F2",name:"Ivory Tissue"},
+  white:{bg:"#F5F5F0",name:"Cream Cotton"},beige:{bg:"#D4B896",name:"Beige Linen"},
+  black:{bg:"#1A1410",name:"Black Crepe"},dark:{bg:"#2C2420",name:"Dark Georgette"},
+  blue:{bg:"#1565C0",name:"Royal Blue"},burgundy:{bg:"#6D1A24",name:"Burgundy Silk"},
+  indigo:{bg:"#3D2B6B",name:"Indigo Patola"},light:{bg:"#E8DDD0",name:"Light Pastel"},
+  "gold-kanjivaram":{bg:"#B8860B",name:"Gold Kanjivaram"}
+};
+
+// ─── STATE ───
+let product = null;
+let selectedColor = 0;
+let selectedSize = "M";
+let currentSlide = 0;
+const SLIDES = 5;
+
+// ─── INIT ───
+(function init(){
+  const params = new URLSearchParams(window.location.search);
+  const pid = parseInt(params.get('id')) || 1;
+  product = VAMAS_PRODUCTS.find(p => p.id === pid) || VAMAS_PRODUCTS[0];
+
+  // Head
+  document.getElementById('pg-title').textContent = `${product.t} — ${product.fabric} | VAMAS`;
+  document.getElementById('pg-desc').setAttribute('content',
+    `Buy ${product.t} online at VAMAS — ${product.sku}. ${product.fabric} ${product.sleeve} blouse. Fits XS to XXXL. ₹${product.p.toLocaleString('en-IN')}. Free shipping.`
+  );
+
+  // Breadcrumb
+  document.getElementById('bc-fabric').textContent = product.fabric;
+  document.getElementById('bc-title').textContent = product.t;
+
+  renderGallery();
+  renderInfo();
+  renderAccordion();
+  renderSareePairing();
+  renderCompleteTheLook();
+  renderReviews();
+  renderRelated();
+  renderRecentlyViewed();
+  updateRecentlyViewed();
+  updateCartCount();
+  setupSticky();
+})();
+
+function fmt(n){ return '₹'+n.toLocaleString('en-IN'); }
+
+// ─── GALLERY ───
+function getGradientVariant(idx){
+  const base = product.g;
+  const ops = [1,0.88,0.76,0.64,0.52];
+  return base; // same gradient, different opacity overlays handled in JS
+}
+
+function renderGallery(){
+  const mono = product.t[0].toUpperCase();
+  const galleryData = PRODUCT_GALLERY[product.id];
+  const imgs = galleryData ? galleryData.imgs : [];
+
+  document.getElementById('gallery-monogram').textContent = mono;
+  const mainBg = document.getElementById('gallery-main-bg');
+  mainBg.style.background = product.g;
+
+  // Inject real main image
+  let mainImgEl = document.getElementById('gallery-main-img');
+  if(!mainImgEl){
+    mainImgEl = document.createElement('img');
+    mainImgEl.id = 'gallery-main-img';
+    mainImgEl.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;z-index:1';
+    mainImgEl.onerror = function(){ this.style.display='none'; };
+    mainBg.insertBefore(mainImgEl, mainBg.firstChild);
+  }
+  if(imgs[0]){ mainImgEl.src = imgs[0]; mainImgEl.style.display = ''; }
+  else { mainImgEl.style.display = 'none'; }
+
+  // Chips
+  const ol = document.getElementById('gallery-overlay');
+  ol.innerHTML = ['<span class="gallery-chip">'+product.fabric+'</span>',
+    '<span class="gallery-chip">'+product.sleeve+'</span>',
+    '<span class="gallery-chip">'+product.neck+'</span>',
+    '<span class="gallery-chip">'+product.opening+'</span>'].join('');
+
+  // Thumbnails
+  const thumbs = document.getElementById('gallery-thumbs');
+  thumbs.innerHTML = '';
+  const darkens = ['','brightness(.85)','brightness(.72)','brightness(.58)','brightness(.45)'];
+  for(let i=0;i<SLIDES;i++){
+    const t = document.createElement('div');
+    t.className = 'gallery-thumb'+(i===0?' active':'');
+    t.dataset.idx = i;
+    t.style.cssText = `background:${product.g};filter:${darkens[i]};position:relative;overflow:hidden`;
+    t.innerHTML = `<div class="gallery-thumb-bg"><span class="gallery-thumb-initial">${mono}</span></div>`;
+    if(imgs[i]){
+      const tImg = document.createElement('img');
+      tImg.src = imgs[i];
+      tImg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top';
+      tImg.onerror = function(){ this.style.display='none'; };
+      t.appendChild(tImg);
+    }
+    t.onclick = ()=>goToSlide(i);
+    thumbs.appendChild(t);
+  }
+}
+
+function goToSlide(idx){
+  currentSlide = idx;
+  const darkens = ['','brightness(.85)','brightness(.72)','brightness(.58)','brightness(.45)'];
+  document.getElementById('gallery-main-bg').style.filter = darkens[idx] || '';
+  document.querySelectorAll('.gallery-thumb').forEach((t,i)=>{
+    t.classList.toggle('active', i===idx);
+  });
+  // Update main image
+  const galleryData = PRODUCT_GALLERY[product.id];
+  const mainImgEl = document.getElementById('gallery-main-img');
+  if(mainImgEl && galleryData && galleryData.imgs[idx]){
+    mainImgEl.src = galleryData.imgs[idx];
+    mainImgEl.style.display = '';
+  }
+}
+
+function changeSlide(dir){
+  goToSlide((currentSlide + dir + SLIDES) % SLIDES);
+}
+
+// ─── INFO ───
+function renderInfo(){
+  // Tags
+  const tags = document.getElementById('product-tags');
+  const tagData = [product.fabric, product.sleeve, ...product.occasion.map(o=>o.charAt(0).toUpperCase()+o.slice(1))];
+  tags.innerHTML = tagData.map(t=>`<span class="product-tag">${t}</span>`).join('');
+
+  // Title
+  document.getElementById('product-title').textContent = product.t;
+
+  // SKU
+  document.getElementById('product-sku').textContent = `SKU: ${product.sku}`;
+
+  // Price
+  const pb = document.getElementById('price-block');
+  const discount = product.w ? Math.round((1 - product.p/product.w)*100) : 0;
+  const emi = Math.round(product.p/12);
+  pb.innerHTML = `
+    <div class="price-row">
+      <span class="price-sale">${fmt(product.p)}</span>
+      ${product.w ? `<span class="price-original">${fmt(product.w)}</span><span class="price-badge">${discount}% OFF</span>` : ''}
+    </div>
+    <div class="price-sub">Inclusive of all taxes &nbsp;·&nbsp; EMI from ${fmt(emi)}/mo</div>
+  `;
+  document.getElementById('sticky-price').textContent = fmt(product.p);
+
+  // Stock
+  document.getElementById('stock-line').innerHTML =
+    `<span>✅</span> Only ${product.stock} left in stock — order soon`;
+
+  // Colors
+  const cp = document.getElementById('color-pills');
+  cp.innerHTML = product.colors.map((c,i)=>
+    `<div class="color-pill${i===0?' active':''}" onclick="selectColor(${i},this)">
+      <span class="color-dot" style="background:${product.colDots[i]}"></span>${c}
+    </div>`).join('');
+  document.getElementById('selected-color-label').textContent = product.colors[0];
+
+  // Sticky
+  document.getElementById('sticky-name').textContent = product.t;
+  document.getElementById('sticky-mono-text').textContent = product.t[0];
+  document.getElementById('sticky-mono-bg').style.background = product.g;
+  updateStickyMeta();
+}
+
+function selectColor(idx, el){
+  selectedColor = idx;
+  document.querySelectorAll('.color-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  const colorName = product.colors[idx];
+  document.getElementById('selected-color-label').textContent = colorName;
+  // Update main image for selected color
+  const galleryData = PRODUCT_GALLERY[product.id];
+  const mainImgEl = document.getElementById('gallery-main-img');
+  if(mainImgEl && galleryData && galleryData.colorImgs[colorName]){
+    mainImgEl.src = galleryData.colorImgs[colorName];
+    mainImgEl.style.display = '';
+  }
+  updateStickyMeta();
+}
+
+function selectSize(el){
+  document.querySelectorAll('.size-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  selectedSize = el.dataset.size;
+  updateStickyMeta();
+}
+
+function updateStickyMeta(){
+  document.getElementById('sticky-meta').textContent =
+    `Size ${selectedSize} · ${product.colors[selectedColor]||product.colors[0]}`;
+}
+
+// ─── ACCORDION ───
+function renderAccordion(){
+  // Description bullets
+  document.getElementById('acc-desc-main').textContent = product.desc;
+  const bullets = [
+    `Fabric: ${product.fabric}`,
+    `Sleeve style: ${product.sleeve}`,
+    `Neckline: ${product.neck}`,
+    `Opening: ${product.opening}`,
+    `Occasions: ${product.occasion.map(o=>o.charAt(0).toUpperCase()+o.slice(1)).join(', ')}`
+  ];
+  document.getElementById('acc-desc-list').innerHTML = bullets.map(b=>`<li>${b}</li>`).join('');
+
+  // Fabric
+  document.getElementById('acc-fabric-text').textContent =
+    `Made from ${product.fabric}. This blouse is crafted with premium materials sourced from trusted Indian weavers and mills. The fabric ensures durability, comfort, and a luxurious drape that complements any saree.`;
+}
+
+function toggleAccordion(idx){
+  const items = document.querySelectorAll('.accordion-item');
+  items.forEach((item, i)=>{
+    if(i===idx) item.classList.toggle('open');
+    else item.classList.remove('open');
+  });
+}
+
+// ─── SAREE PAIRING ───
+function renderSareePairing(){
+  const grid = document.getElementById('saree-grid');
+  const sarees = product.saree || [];
+  grid.innerHTML = sarees.slice(0,6).map(s=>{
+    const info = SAREE_COLORS[s] || {bg:'#C9A84C',name:s.charAt(0).toUpperCase()+s.slice(1)+' Silk'};
+    return `
+      <a class="saree-card" href="collection.html?saree=${encodeURIComponent(s)}">
+        <div class="saree-circle" style="background:${info.bg}"></div>
+        <div class="saree-name">${info.name}</div>
+        <div class="saree-link">See matching →</div>
+      </a>`;
+  }).join('');
+}
+
+// ─── COMPLETE THE LOOK ───
+const LOOK_DATA = {
+  silk: {saree:"Kanjivaram or Banarasi Silk",accessories:"Polki gold earrings · Temple bangles",occasion:"Grand weddings, receptions"},
+  brocade: {saree:"Heavy Silk or Georgette",accessories:"Kundan jhumkas · Gold choker",occasion:"Wedding ceremonies, sangeet"},
+  tissue: {saree:"Organza or Light Tissue",accessories:"Pearl drops · Delicate gold bangles",occasion:"Festive lunches, Puja events"},
+  cotton: {saree:"Cotton or Linen Saree",accessories:"Oxidised earrings · Beaded bangles",occasion:"Casual outings, family gatherings"},
+  imported: {saree:"Chiffon or Crepe",accessories:"Statement earrings · Sleek clutch",occasion:"Cocktail parties, evenings"}
+};
+
+function renderCompleteTheLook(){
+  const fabric = product.fabric.toLowerCase();
+  let key = 'silk';
+  if(fabric.includes('brocade')) key='brocade';
+  else if(fabric.includes('tissue')) key='tissue';
+  else if(fabric.includes('cotton')) key='cotton';
+  else if(fabric.includes('imported')) key='imported';
+  const d = LOOK_DATA[key];
+
+  document.getElementById('look-grid').innerHTML = `
+    <div class="look-card">
+      <div class="look-card-title">Suggested Saree Pairing</div>
+      <ul>
+        <li>${d.saree}</li>
+        <li>Complements the ${product.fabric} beautifully</li>
+        <li>Go for rich, saturated colours for maximum impact</li>
+      </ul>
+    </div>
+    <div class="look-card">
+      <div class="look-card-title">Accessories &amp; Styling</div>
+      <ul>
+        <li>${d.accessories}</li>
+        <li>Best for: ${d.occasion}</li>
+        <li>Hairstyle: Low bun with floral pins</li>
+      </ul>
+    </div>
+  `;
+}
+
+// ─── REVIEWS ───
+const REVIEW_DATA = [
+  {stars:5,title:"Absolutely stunning quality",text:"I wore this for my cousin's wedding and received so many compliments. The fabric feels luxurious and the fit was perfect.",name:"Priya R.",city:"Chennai",initial:"P"},
+  {stars:5,title:"Best blouse I've ever bought",text:"VAMAS really knows how to craft blouses. The attention to detail is incredible — every seam, every finish is perfect.",name:"Ananya M.",city:"Mumbai",initial:"A"},
+  {stars:4,title:"Beautiful but slightly snug",text:"Gorgeous blouse, highly recommended. I ordered an XL but it fits like an L. Go one size up if you're between sizes.",name:"Deepika S.",city:"Bangalore",initial:"D"},
+  {stars:5,title:"Worth every rupee",text:"The quality justifies the price completely. I've tried many designer blouses but VAMAS stands apart. Will definitely reorder.",name:"Meera K.",city:"Hyderabad",initial:"M"},
+  {stars:5,title:"Perfect for my reception look",text:"Wore this with my Kanjivaram saree and looked like a queen. The corset fit was comfortable throughout the entire evening.",name:"Sindhu V.",city:"Coimbatore",initial:"S"},
+  {stars:4,title:"Lovely fabric, quick delivery",text:"The fabric is beautiful and delivery was faster than expected. Packaging was elegant too. Very happy with the purchase.",name:"Kavitha J.",city:"Delhi",initial:"K"}
+];
+
+function renderReviews(){
+  document.getElementById('reviews-grid').innerHTML = REVIEW_DATA.map(r=>`
+    <div class="review-card">
+      <div class="review-card-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+      <div class="review-card-title">${r.title}</div>
+      <div class="review-card-text">${r.text}</div>
+      <div class="reviewer-row">
+        <div class="reviewer-avatar">${r.initial}</div>
+        <div>
+          <div class="reviewer-name">${r.name}</div>
+          <div class="reviewer-city">${r.city}</div>
+        </div>
+        <span class="verified-badge">✓ Verified</span>
+      </div>
+    </div>`).join('');
+}
+
+// ─── RECENTLY VIEWED ───
+function updateRecentlyViewed(){
+  let rv = JSON.parse(localStorage.getItem('vamas_recently_viewed')||'[]');
+  rv = rv.filter(id => id !== product.id);
+  rv.unshift(product.id);
+  if(rv.length > 8) rv = rv.slice(0,8);
+  localStorage.setItem('vamas_recently_viewed', JSON.stringify(rv));
+}
+
+function renderRecentlyViewed(){
+  const rv = JSON.parse(localStorage.getItem('vamas_recently_viewed')||'[]');
+  const toShow = rv.filter(id=>id!==product.id).slice(0,4).map(id=>VAMAS_PRODUCTS.find(p=>p.id===id)).filter(Boolean);
+  const grid = document.getElementById('recently-grid');
+  if(!toShow.length){grid.closest('.recently-viewed').style.display='none';return;}
+  grid.innerHTML = toShow.map(p=>productCard(p)).join('');
+}
+
+// ─── RELATED ───
+function renderRelated(){
+  const related = VAMAS_PRODUCTS.filter(p=>p.id!==product.id).sort(()=>Math.random()-.5).slice(0,4);
+  document.getElementById('related-grid').innerHTML = related.map(p=>productCard(p)).join('');
+}
+
+function productCard(p){
+  const mono = p.t[0].toUpperCase();
+  const cardGallery = PRODUCT_GALLERY[p.id];
+  const cardImg = cardGallery && cardGallery.imgs[0] ? cardGallery.imgs[0] : null;
+  const imgTag = cardImg
+    ? `<img src="${cardImg}" alt="${p.t}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top" onerror="this.style.display='none'" loading="lazy">`
+    : '';
+  return `
+    <a class="prod-card" href="product.html?id=${p.id}">
+      <div class="prod-card-img" style="background:${p.g};position:relative;overflow:hidden">
+        <span class="prod-card-mono">${mono}</span>
+        ${imgTag}
+        <span class="prod-card-badge badge-${p.badge}">${p.badge}</span>
+      </div>
+      <div class="prod-card-body">
+        <div class="prod-card-title">${p.t}</div>
+        <div class="prod-card-fabric">${p.f}</div>
+        <div>
+          <span class="prod-card-price">${fmt(p.p)}</span>
+          ${p.w ? `<span class="prod-card-was">${fmt(p.w)}</span>` : ''}
+        </div>
+      </div>
+    </a>`;
+}
+
+// ─── CART ───
+function getCart(){ return JSON.parse(localStorage.getItem('vamas_cart')||'[]'); }
+function saveCart(c){ localStorage.setItem('vamas_cart', JSON.stringify(c)); updateCartCount(); }
+function updateCartCount(){
+  const c = getCart();
+  const total = c.reduce((s,i)=>s+(i.q||1),0);
+  document.getElementById('cart-count').textContent = total;
+}
+
+function addToCart(){
+  const cart = getCart();
+  const qty = parseInt(document.getElementById('qty-num').value)||1;
+  const existing = cart.find(i=>i.id===product.id && i.size===selectedSize && i.color===product.colors[selectedColor]);
+  if(existing) existing.q = (existing.q||1)+qty;
+  else cart.push({id:product.id,t:product.t,p:product.p,g:product.g,size:selectedSize,color:product.colors[selectedColor],q:qty});
+  saveCart(cart);
+  showToast(`✓ Added to cart — ${product.t}`);
+}
+
+function buyNow(){
+  addToCart();
+  window.location.href = 'cart.html';
+}
+
+function changeQty(dir){
+  const input = document.getElementById('qty-num');
+  let v = parseInt(input.value)||1;
+  v = Math.max(1, Math.min(20, v+dir));
+  input.value = v;
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ─── STICKY BAR ───
+function setupSticky(){
+  const bar = document.getElementById('sticky-bar');
+  const sentinel = document.querySelector('.atc-stack');
+  const obs = new IntersectionObserver(entries=>{
+    bar.classList.toggle('visible', !entries[0].isIntersecting);
+  },{threshold:0});
+  if(sentinel) obs.observe(sentinel);
+}
+
+// ─── SIZE GUIDE DRAWER ───
+function openSizeGuide(){
+  document.getElementById('size-drawer').classList.add('open');
+  document.getElementById('drawer-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSizeGuide(){
+  document.getElementById('size-drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ─── LIGHTBOX ───
+function openLightbox(){
+  const lb = document.getElementById('lightbox');
+  const bg = document.getElementById('lightbox-bg');
+  const mono = document.getElementById('lightbox-mono');
+  bg.style.background = product.g;
+  mono.textContent = product.t[0].toUpperCase();
+  // Show real image in lightbox
+  let lbImg = document.getElementById('lightbox-real-img');
+  if(!lbImg){
+    lbImg = document.createElement('img');
+    lbImg.id = 'lightbox-real-img';
+    lbImg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;z-index:1';
+    lbImg.onerror = function(){ this.style.display='none'; };
+    bg.appendChild(lbImg);
+  }
+  const galleryData = PRODUCT_GALLERY[product.id];
+  const currentImg = galleryData && galleryData.imgs[currentSlide] ? galleryData.imgs[currentSlide] : null;
+  if(currentImg){ lbImg.src = currentImg; lbImg.style.display = ''; }
+  else { lbImg.style.display = 'none'; }
+  lb.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeLightbox();closeSizeGuide();}
+  if(e.key==='ArrowLeft') changeSlide(-1);
+  if(e.key==='ArrowRight') changeSlide(1);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart | VAMAS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#C9A84C; --gold-light:#F0E4C0; --gold-dark:#8F6A1F;
+  --maroon:#8B1A2E; --maroon-dark:#4A0D17;
+  --ivory:#FAF7F2; --cream:#F5EFE6; --warm-white:#FFFDF9;
+  --luxury-black:#1A1410; --charcoal:#2C2420; --body-text:#4A3728;
+  --divider:#E8DDD0; --error:#C0392B; --success:#2E7D32;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',-apple-system,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);color:var(--body-text);background:var(--ivory);font-size:15px;line-height:1.6}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;font-family:inherit}
+img{max-width:100%}
+
+/* ANNOUNCEMENT BAR */
+.announce-bar{background:var(--luxury-black);color:var(--gold);text-align:center;padding:9px 16px;font-size:12px;letter-spacing:.04em;position:relative;overflow:hidden}
+.announce-bar .msg{position:absolute;width:100%;left:0;top:50%;transform:translateY(-50%);opacity:0;transition:opacity .5s}
+.announce-bar .msg.active{opacity:1;position:relative;transform:none}
+
+/* UTILITY BAR */
+.utility-bar{background:var(--ivory);color:var(--body-text);font-size:12px;padding:6px 40px;display:flex;justify-content:flex-end;gap:24px;align-items:center;border-bottom:1px solid var(--divider)}
+.utility-bar a{color:var(--body-text);transition:color .2s}
+.utility-bar a:hover{color:var(--gold)}
+.utility-bar .phone{color:var(--gold);font-weight:600}
+
+/* HEADER */
+.site-header{background:var(--warm-white);border-bottom:1px solid var(--divider);position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(26,20,16,.06)}
+.header-inner{max-width:1280px;margin:0 auto;padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.vamas-logo{line-height:1}
+nav{display:flex;gap:28px;align-items:center}
+nav a{font-size:13px;font-weight:500;color:var(--charcoal);position:relative;padding:4px 0;transition:color .2s;letter-spacing:.02em}
+nav a:hover,nav a.active{color:var(--gold)}
+nav a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .25s}
+nav a:hover::after,nav a.active::after{width:100%}
+.header-actions{display:flex;align-items:center;gap:16px}
+.cart-btn{position:relative;background:transparent;border:1.5px solid var(--divider);padding:9px 14px;border-radius:6px;color:var(--charcoal);font-size:18px;cursor:pointer;transition:border-color .2s,color .2s}
+.cart-btn:hover{border-color:var(--gold);color:var(--gold)}
+.cart-badge{position:absolute;top:-7px;right:-7px;background:var(--gold);color:var(--luxury-black);font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+/* PAGE HERO */
+.page-hero{background:var(--cream);border-bottom:1px solid var(--divider);padding:28px 40px}
+.page-hero-inner{max-width:1280px;margin:0 auto}
+.breadcrumb{font-size:12px;color:var(--body-text);margin-bottom:8px;letter-spacing:.03em}
+.breadcrumb a{color:var(--gold);transition:color .2s}
+.breadcrumb a:hover{color:var(--gold-dark)}
+.page-hero h1{font-family:var(--serif);font-size:36px;font-weight:600;color:var(--luxury-black)}
+
+/* MAIN */
+.main{max-width:1280px;margin:0 auto;padding:40px;display:grid;grid-template-columns:1fr 380px;gap:32px;align-items:start}
+@media(max-width:960px){.main{grid-template-columns:1fr;padding:24px 16px}}
+
+/* CART COLUMN */
+.cart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.cart-header h2{font-family:var(--serif);font-size:22px;color:var(--charcoal);font-weight:600}
+.continue-link{font-size:13px;color:var(--gold);font-weight:500;display:flex;align-items:center;gap:6px;transition:gap .2s;letter-spacing:.02em}
+.continue-link:hover{gap:10px;color:var(--gold-dark)}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:72px 20px;background:var(--warm-white);border-radius:12px;border:1px solid var(--divider)}
+.empty-icon{margin-bottom:20px}
+.empty-state h3{font-family:var(--serif);font-size:26px;color:var(--luxury-black);margin-bottom:10px;font-weight:600}
+.empty-state p{color:var(--body-text);margin-bottom:28px;font-size:14px}
+.btn-gold{background:var(--gold);color:var(--luxury-black);padding:14px 32px;border-radius:4px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:background .2s,transform .1s;display:inline-flex;align-items:center;gap:8px;font-family:var(--serif);font-style:italic;font-size:16px;letter-spacing:.02em}
+.btn-gold:hover{background:var(--gold-dark);color:#fff;transform:translateY(-1px)}
+.btn-gold:active{transform:translateY(0)}
+
+/* CART ITEMS */
+.cart-items{display:flex;flex-direction:column;gap:12px}
+.cart-item{background:var(--warm-white);border:1px solid var(--divider);border-radius:8px;padding:20px;display:grid;grid-template-columns:80px 1fr auto;gap:16px;align-items:start;transition:border-color .2s,box-shadow .2s}
+.cart-item:hover{border-color:var(--gold);box-shadow:0 4px 16px rgba(201,168,76,.08)}
+.item-img{width:80px;height:100px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:22px;font-style:italic;color:rgba(255,255,255,.9);font-weight:600;flex-shrink:0;letter-spacing:.02em}
+.item-info{}
+.item-name{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--charcoal);margin-bottom:4px;line-height:1.3}
+.item-meta{font-size:13px;color:var(--body-text);display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.color-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,.7);box-shadow:0 0 0 1px var(--divider);flex-shrink:0}
+.qty-control{display:flex;align-items:center;gap:0;border:1.5px solid var(--gold);border-radius:9999px;overflow:hidden;width:fit-content}
+.qty-btn{background:transparent;border:none;width:32px;height:32px;font-size:15px;color:var(--gold);cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;font-weight:600}
+.qty-btn:hover{background:var(--gold-light)}
+.qty-num{width:36px;height:32px;text-align:center;border:none;border-left:1.5px solid var(--gold);border-right:1.5px solid var(--gold);font-size:14px;font-weight:600;font-family:inherit;background:transparent;color:var(--luxury-black);outline:none}
+.item-right{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.item-price{font-size:16px;font-weight:700;color:var(--luxury-black);font-family:var(--serif)}
+.remove-btn{background:none;border:none;color:var(--maroon);font-size:13px;cursor:pointer;transition:color .2s;letter-spacing:.02em;padding:2px 0}
+.remove-btn:hover{color:var(--maroon-dark)}
+
+/* COUPON */
+.coupon-box{background:var(--cream);border:1px solid var(--gold);border-radius:8px;padding:20px;margin-top:16px}
+.coupon-box h3{font-size:15px;font-weight:600;color:var(--charcoal);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.coupon-form{display:flex;gap:8px}
+.coupon-input{flex:1;padding:11px 14px;border:1.5px solid var(--divider);border-radius:6px;font-size:14px;font-family:inherit;text-transform:uppercase;letter-spacing:.08em;transition:border .2s;outline:none;background:var(--ivory);color:var(--charcoal)}
+.coupon-input:focus{border-color:var(--gold)}
+.coupon-input.error{border-color:var(--error)}
+.coupon-input.success-input{border-color:var(--success)}
+.btn-apply{background:var(--gold);color:var(--luxury-black);padding:11px 20px;border-radius:6px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:background .2s;white-space:nowrap;letter-spacing:.02em}
+.btn-apply:hover{background:var(--gold-dark);color:#fff}
+.coupon-msg{margin-top:8px;font-size:13px;padding:8px 12px;border-radius:4px;display:none}
+.coupon-msg.show{display:block}
+.coupon-msg.success-msg{background:#f0faf5;color:var(--success);border:1px solid #a8dfc0}
+.coupon-msg.error-msg{background:#fff5f5;color:var(--error);border:1px solid #f5c0c0}
+
+/* ORDER SUMMARY */
+.summary-card{background:var(--warm-white);border-radius:12px;border-top:3px solid var(--gold);border:1px solid var(--divider);border-top:3px solid var(--gold);padding:24px;position:sticky;top:84px;box-shadow:0 4px 24px rgba(26,20,16,.06)}
+.summary-card h2{font-family:var(--serif);font-size:22px;color:var(--luxury-black);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--divider);font-weight:600}
+.summary-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:14px}
+.summary-row.total-row{border-top:1px solid var(--divider);margin-top:10px;padding-top:16px}
+.summary-row .label{color:var(--body-text)}
+.summary-row .val{font-weight:600;color:var(--charcoal)}
+.summary-row.total-row .label{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--luxury-black)}
+.summary-row.total-row .val{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--luxury-black)}
+.discount-val{color:var(--success)!important}
+.free-shipping{color:var(--success)!important;font-weight:600!important}
+
+/* SHIPPING PROGRESS */
+.shipping-progress{margin:16px 0}
+.progress-label{font-size:13px;color:var(--body-text);margin-bottom:8px}
+.progress-label span{color:var(--gold);font-weight:600}
+.progress-bar{height:5px;background:var(--divider);border-radius:9999px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold-dark),var(--gold));border-radius:9999px;transition:width .5s ease}
+
+.btn-checkout{width:100%;background:var(--gold);color:var(--luxury-black);padding:0 24px;height:56px;border-radius:4px;font-family:var(--serif);font-size:18px;font-style:italic;font-weight:600;border:none;cursor:pointer;transition:background .2s,transform .1s;margin-top:20px;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.02em}
+.btn-checkout:hover{background:var(--gold-dark);color:#fff;transform:translateY(-1px)}
+.btn-checkout:active{transform:translateY(0)}
+.btn-checkout:disabled{background:var(--divider);color:var(--body-text);cursor:not-allowed;transform:none}
+
+/* TRUST BADGES */
+.trust-badges{display:flex;justify-content:center;gap:16px;margin-top:16px;padding-top:16px;border-top:1px solid var(--divider);flex-wrap:wrap}
+.badge{text-align:center;font-size:11px;color:var(--body-text);letter-spacing:.03em}
+.badge span{display:block;font-size:16px;margin-bottom:3px}
+
+/* PAYMENT ICONS */
+.payment-icons{display:flex;justify-content:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.pay-icon{background:var(--cream);border:1px solid var(--divider);border-radius:4px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--body-text);letter-spacing:.04em}
+
+/* FOOTER */
+footer{background:var(--luxury-black);color:#888;margin-top:80px}
+.footer-top{max-width:1280px;margin:0 auto;padding:60px 40px 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:40px}
+@media(max-width:900px){.footer-top{grid-template-columns:1fr 1fr;gap:32px;padding:40px 16px 24px}}
+@media(max-width:500px){.footer-top{grid-template-columns:1fr}}
+.footer-col h4{color:var(--gold);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px}
+.footer-col p,.footer-col a{font-size:13px;line-height:2;color:#888;display:block;transition:color .2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding:20px 40px;max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12px;flex-wrap:wrap;gap:12px;color:#666}
+@media(max-width:600px){.footer-bottom{padding:16px;flex-direction:column;text-align:center}}
+.footer-pay{display:flex;gap:8px;flex-wrap:wrap}
+.footer-pay span{background:rgba(255,255,255,.07);border-radius:3px;padding:3px 8px;font-size:11px;font-weight:600;color:#888}
+
+@media(max-width:600px){
+  .header-inner{padding:0 16px}
+  nav{display:none}
+  .utility-bar{padding:6px 16px;gap:12px}
+  .cart-item{grid-template-columns:70px 1fr;gap:12px}
+  .item-right{flex-direction:row;align-items:center;grid-column:1/-1;justify-content:space-between;padding-top:8px;border-top:1px solid var(--divider)}
+  .page-hero{padding:20px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar" id="announceBar">
+  <div class="msg active" id="msg0">Free shipping on orders above ₹999 — Shop the Collection</div>
+  <div class="msg" id="msg1">New Arrivals: Festive Blouse Collection 2026 — Explore Now</div>
+  <div class="msg" id="msg2">Use code WELCOME10 for 10% off your first order</div>
+</div>
+
+<!-- UTILITY BAR -->
+<div class="utility-bar">
+  <a href="tel:+919594283890" class="phone">+91 95942 83890</a>
+  <a href="#">Track Order</a>
+  <a href="#">Account</a>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="v-logo" aria-label="VAMAS — The Designer Blouses">
+      <img src="https://www.vamas.in/cdn/shop/files/Logo_58817fa3-d97a-4f1d-9351-033987ae46c5.png?v=1711731102&width=150"
+           alt="VAMAS — The Designer Blouses"
+           style="height:52px;width:auto;display:block;object-fit:contain"
+           loading="eager">
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="collection.html">Shop</a>
+      <a href="studio.html">Style Studio</a>
+      <a href="collection.html">Sale</a>
+      <a href="#">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="cart-btn" onclick="location.href='cart.html'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a> › Cart</div>
+    <h1>Your Cart</h1>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <!-- CART COLUMN -->
+  <div class="cart-col">
+    <div class="cart-header">
+      <h2 id="cartTitle">Your Cart (0 items)</h2>
+      <a href="collection.html" class="continue-link">&#8592; Continue Shopping</a>
+    </div>
+
+    <div id="emptyState" class="empty-state" style="display:none">
+      <div class="empty-icon">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1" opacity=".5"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      </div>
+      <h3>Your cart is empty</h3>
+      <p>Explore our beautiful handcrafted blouse collection and find your perfect piece.</p>
+      <a href="collection.html"><button class="btn-gold">Browse Collection</button></a>
+    </div>
+
+    <div id="cartItems" class="cart-items"></div>
+
+    <!-- COUPON -->
+    <div class="coupon-box" id="couponBox" style="display:none">
+      <h3>&#127991; Have a coupon?</h3>
+      <div class="coupon-form">
+        <input type="text" class="coupon-input" id="couponInput" placeholder="Enter coupon code (e.g. WELCOME10)">
+        <button class="btn-apply" onclick="applyCoupon()">Apply</button>
+      </div>
+      <div class="coupon-msg" id="couponMsg"></div>
+    </div>
+  </div>
+
+  <!-- ORDER SUMMARY -->
+  <div class="summary-col">
+    <div class="summary-card">
+      <h2>Order Summary</h2>
+
+      <div class="summary-row">
+        <span class="label">Subtotal</span>
+        <span class="val" id="sumSubtotal">&#8377;0</span>
+      </div>
+      <div class="summary-row" id="discountRow" style="display:none">
+        <span class="label">Discount (<span id="couponLabel"></span>)</span>
+        <span class="val discount-val" id="sumDiscount"></span>
+      </div>
+      <div class="summary-row">
+        <span class="label">Shipping</span>
+        <span class="val" id="sumShipping">&#8377;99</span>
+      </div>
+      <div class="summary-row">
+        <span class="label">GST (5%)</span>
+        <span class="val" id="sumTax">&#8377;0</span>
+      </div>
+      <div class="summary-row total-row">
+        <span class="label">Total</span>
+        <span class="val" id="sumTotal">&#8377;0</span>
+      </div>
+
+      <div class="shipping-progress">
+        <div class="progress-label" id="progressLabel">Add <span id="progressAmt">&#8377;999</span> more for free shipping</div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      </div>
+
+      <button class="btn-checkout" id="checkoutBtn" onclick="location.href='checkout.html'" disabled>
+        Proceed to Checkout &#8594;
+      </button>
+
+      <div class="trust-badges">
+        <div class="badge"><span>&#128274;</span>Secure</div>
+        <div class="badge"><span>&#128666;</span>Free Shipping</div>
+        <div class="badge"><span>&#128260;</span>Easy Returns</div>
+      </div>
+
+      <div class="payment-icons">
+        <span class="pay-icon">UPI</span>
+        <span class="pay-icon">VISA</span>
+        <span class="pay-icon">MC</span>
+        <span class="pay-icon">COD</span>
+        <span class="pay-icon">EMI</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-col">
+      <a href="index.html" class="v-logo">
+        <img src="https://www.vamas.in/cdn/shop/files/Logo_58817fa3-d97a-4f1d-9351-033987ae46c5.png?v=1711731102&width=150"
+             alt="VAMAS"
+             style="height:48px;width:auto;display:block;object-fit:contain;filter:brightness(1.1)"
+             loading="lazy">
+      </a>
+      <p style="margin-top:14px">Premium handcrafted blouses for the modern Indian woman. Tradition meets contemporary design.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="collection.html">Shop</a>
+      <a href="studio.html">Style Studio</a>
+      <a href="cart.html">Cart</a>
+      <a href="checkout.html">Checkout</a>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="collection.html">New Arrivals</a>
+      <a href="collection.html">Festive</a>
+      <a href="collection.html">Bridal</a>
+      <a href="collection.html">Sale</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>22, Ground Floor, Neelkanth Business Park, Kirol Road, Vidyavihar W, Mumbai 400086</p>
+      <a href="tel:+919594283890">+91 95942 83890</a>
+      <a href="mailto:support@vamas.in">support@vamas.in</a>
+      <p>Mon&#8211;Sat 10am&#8211;7pm IST</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&#169; 2026 VAMAS &middot; Made in Mumbai</span>
+    <div class="footer-pay">
+      <span>UPI</span><span>VISA</span><span>MC</span><span>COD</span><span>EMI</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const fmt = n => "₹" + Math.round(n).toLocaleString("en-IN");
+
+// Announcement bar rotation
+let msgIdx = 0;
+const msgs = document.querySelectorAll('.announce-bar .msg');
+setInterval(() => {
+  msgs[msgIdx].classList.remove('active');
+  msgIdx = (msgIdx + 1) % msgs.length;
+  msgs[msgIdx].classList.add('active');
+}, 3500);
+
+// Cart state
+let cart = JSON.parse(localStorage.getItem('vamas_cart') || '[]');
+let appliedCoupon = JSON.parse(sessionStorage.getItem('vamas_coupon') || 'null');
+
+const COUPONS = { WELCOME10: 10, VAMAS15: 15, SAVE20: 20 };
+
+const COLORS = {
+  'Ivory Silk': '#F5F0E8',
+  'Deep Maroon': '#6B1A2A',
+  'Royal Blue': '#1A3A6B',
+  'Peacock Green': '#1B6B4A',
+  'Rose Gold': '#C4917A',
+  'Midnight Black': '#1A1A1A',
+  'Saffron': '#D4820A',
+  'Dusty Pink': '#D4909A',
+};
+
+const GRADS = [
+  'linear-gradient(135deg,#8B1A2E,#C4505F)',
+  'linear-gradient(135deg,#C9A84C,#8F6A1F)',
+  'linear-gradient(135deg,#2C2420,#5C4840)',
+  'linear-gradient(135deg,#4A0D17,#8B1A2E)',
+  'linear-gradient(135deg,#8F6A1F,#C9A84C)',
+  'linear-gradient(135deg,#1A1410,#4A3728)',
+];
+
+function saveCart() {
+  localStorage.setItem('vamas_cart', JSON.stringify(cart));
+  renderCart();
+}
+
+function updateQty(idx, delta) {
+  cart[idx].q = Math.max(1, (cart[idx].q || 1) + delta);
+  saveCart();
+}
+
+function removeItem(idx) {
+  cart.splice(idx, 1);
+  saveCart();
+}
+
+function renderCart() {
+  cart = JSON.parse(localStorage.getItem('vamas_cart') || '[]');
+  const totalQty = cart.reduce((s, i) => s + (i.q || 1), 0);
+
+  document.getElementById('cartBadge').textContent = totalQty;
+  document.getElementById('cartTitle').textContent = `Your Cart (${totalQty} item${totalQty !== 1 ? 's' : ''})`;
+
+  const itemsEl = document.getElementById('cartItems');
+  const emptyEl = document.getElementById('emptyState');
+  const couponEl = document.getElementById('couponBox');
+  const checkoutBtn = document.getElementById('checkoutBtn');
+
+  if (cart.length === 0) {
+    emptyEl.style.display = 'block';
+    itemsEl.style.display = 'none';
+    couponEl.style.display = 'none';
+    checkoutBtn.disabled = true;
+  } else {
+    emptyEl.style.display = 'none';
+    itemsEl.style.display = 'flex';
+    couponEl.style.display = 'block';
+    checkoutBtn.disabled = false;
+
+    itemsEl.innerHTML = cart.map((item, i) => {
+      const grad = GRADS[i % GRADS.length];
+      const colorVal = item.g ? (COLORS[item.g] || '#8B1A2E') : '#8B1A2E';
+      const q = item.q || 1;
+      const lineTotal = (item.p || 0) * q;
+      const initials = (item.t || 'VAMAS').substring(0,2).toUpperCase();
+      return `
+        <div class="cart-item">
+          <div class="item-img" style="background:${grad}">${initials}</div>
+          <div class="item-info">
+            <div class="item-name">${item.t || 'VAMAS Blouse'}</div>
+            <div class="item-meta">
+              <span>Size: ${item.sz || 'M'}</span>
+              <span style="display:flex;align-items:center;gap:4px">
+                <span class="color-dot" style="background:${colorVal}"></span>
+                ${item.g || 'Classic'}
+              </span>
+            </div>
+            <div class="qty-control">
+              <button class="qty-btn" onclick="updateQty(${i},-1)">&#8722;</button>
+              <input type="number" class="qty-num" value="${q}" min="1" onchange="setQty(${i},this.value)">
+              <button class="qty-btn" onclick="updateQty(${i},1)">&#43;</button>
+            </div>
+          </div>
+          <div class="item-right">
+            <div class="item-price">${fmt(lineTotal)}</div>
+            <button class="remove-btn" onclick="removeItem(${i})">Remove</button>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  updateSummary();
+}
+
+function setQty(idx, val) {
+  const n = parseInt(val);
+  if (!isNaN(n) && n >= 1) { cart[idx].q = n; saveCart(); }
+}
+
+function updateSummary() {
+  const subtotal = cart.reduce((s, i) => s + (i.p || 0) * (i.q || 1), 0);
+  const shipping = subtotal >= 999 ? 0 : (cart.length > 0 ? 99 : 0);
+
+  let discountAmt = 0;
+  if (appliedCoupon && COUPONS[appliedCoupon]) {
+    discountAmt = Math.round(subtotal * COUPONS[appliedCoupon] / 100);
+  }
+
+  const discountedSubtotal = subtotal - discountAmt;
+  const tax = Math.round(discountedSubtotal * 0.05);
+  const total = discountedSubtotal + shipping + tax;
+
+  document.getElementById('sumSubtotal').textContent = fmt(subtotal);
+  document.getElementById('sumShipping').innerHTML = shipping === 0 && cart.length > 0 ? '<span class="free-shipping">FREE</span>' : fmt(shipping);
+  document.getElementById('sumTax').textContent = fmt(tax);
+  document.getElementById('sumTotal').textContent = fmt(total);
+
+  if (appliedCoupon && discountAmt > 0) {
+    document.getElementById('discountRow').style.display = 'flex';
+    document.getElementById('couponLabel').textContent = appliedCoupon;
+    document.getElementById('sumDiscount').textContent = '−' + fmt(discountAmt);
+  } else {
+    document.getElementById('discountRow').style.display = 'none';
+  }
+
+  const progress = Math.min(100, (subtotal / 999) * 100);
+  document.getElementById('progressFill').style.width = progress + '%';
+  if (subtotal >= 999) {
+    document.getElementById('progressLabel').innerHTML = 'You\'ve unlocked <span>FREE shipping!</span>';
+  } else {
+    const rem = 999 - subtotal;
+    document.getElementById('progressLabel').innerHTML = `Add <span>${fmt(rem)}</span> more for free shipping`;
+  }
+
+  if (appliedCoupon) {
+    const inp = document.getElementById('couponInput');
+    if (inp) { inp.value = appliedCoupon; inp.classList.add('success-input'); inp.disabled = true; }
+    const msg = document.getElementById('couponMsg');
+    if (msg) {
+      msg.textContent = `Coupon "${appliedCoupon}" applied — ${COUPONS[appliedCoupon]}% off!`;
+      msg.className = 'coupon-msg show success-msg';
+    }
+  }
+}
+
+function applyCoupon() {
+  const code = document.getElementById('couponInput').value.trim().toUpperCase();
+  const msg = document.getElementById('couponMsg');
+  const inp = document.getElementById('couponInput');
+
+  if (!code) {
+    msg.textContent = 'Please enter a coupon code.';
+    msg.className = 'coupon-msg show error-msg';
+    inp.classList.add('error');
+    return;
+  }
+
+  if (COUPONS[code]) {
+    appliedCoupon = code;
+    sessionStorage.setItem('vamas_coupon', JSON.stringify(code));
+    msg.textContent = `Coupon "${code}" applied — ${COUPONS[code]}% off!`;
+    msg.className = 'coupon-msg show success-msg';
+    inp.classList.remove('error');
+    inp.classList.add('success-input');
+    inp.disabled = true;
+    updateSummary();
+  } else {
+    appliedCoupon = null;
+    sessionStorage.removeItem('vamas_coupon');
+    msg.textContent = 'Invalid coupon code. Try WELCOME10, VAMAS15, or SAVE20.';
+    msg.className = 'coupon-msg show error-msg';
+    inp.classList.add('error');
+    inp.classList.remove('success-input');
+    updateSummary();
+  }
+}
+
+document.getElementById('couponInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') applyCoupon();
+});
+
+renderCart();
+</script>
+</body>
+</html>

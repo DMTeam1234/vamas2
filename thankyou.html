@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmed! | VAMAS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#C9A84C; --gold-light:#F0E4C0; --gold-dark:#8F6A1F;
+  --maroon:#8B1A2E; --maroon-dark:#4A0D17;
+  --ivory:#FAF7F2; --cream:#F5EFE6; --warm-white:#FFFDF9;
+  --luxury-black:#1A1410; --charcoal:#2C2420; --body-text:#4A3728;
+  --divider:#E8DDD0; --error:#C0392B; --success:#2E7D32;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',-apple-system,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);color:var(--body-text);background:var(--ivory);font-size:15px;line-height:1.6;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;font-family:inherit}
+
+/* ANNOUNCEMENT BAR */
+.announce-bar{background:var(--luxury-black);color:var(--gold);text-align:center;padding:9px 16px;font-size:12px;letter-spacing:.04em}
+
+/* UTILITY BAR */
+.utility-bar{background:var(--ivory);color:var(--body-text);font-size:12px;padding:6px 40px;display:flex;justify-content:flex-end;gap:24px;align-items:center;border-bottom:1px solid var(--divider)}
+.utility-bar a{color:var(--body-text);transition:color .2s}
+.utility-bar a:hover{color:var(--gold)}
+.utility-bar .phone{color:var(--gold);font-weight:600}
+
+/* HEADER */
+.site-header{background:var(--warm-white);border-bottom:1px solid var(--divider);position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(26,20,16,.06)}
+.header-inner{max-width:1280px;margin:0 auto;padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.vamas-logo{line-height:1}
+nav{display:flex;gap:28px;align-items:center}
+nav a{font-size:13px;font-weight:500;color:var(--charcoal);position:relative;padding:4px 0;transition:color .2s;letter-spacing:.02em}
+nav a:hover{color:var(--gold)}
+nav a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .25s}
+nav a:hover::after{width:100%}
+
+/* CONFETTI */
+.confetti-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:200;overflow:hidden}
+.confetti-piece{position:absolute;top:-20px;animation:confettiFall linear forwards}
+@keyframes confettiFall{
+  0%{transform:translateY(0) rotate(0deg);opacity:1}
+  80%{opacity:1}
+  100%{transform:translateY(110vh) rotate(720deg);opacity:0}
+}
+
+/* PROGRESS STEPS */
+.progress-steps{background:var(--warm-white);border-bottom:1px solid var(--divider);padding:16px 40px}
+.progress-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:center}
+.step{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:#bbb;letter-spacing:.03em}
+.step.done{color:var(--success)}
+.step-num{width:28px;height:28px;border-radius:50%;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.step.done .step-num{background:var(--success);color:#fff;border-color:var(--success)}
+.step-label{font-family:var(--serif);font-size:13px}
+.step-line{width:60px;height:1px;background:var(--divider);margin:0 8px}
+.step-line.done{background:var(--success)}
+@media(max-width:600px){.step-label{display:none}.step-line{width:32px}}
+
+/* HERO */
+.confirm-hero{background:var(--luxury-black);padding:80px 20px;text-align:center;position:relative;overflow:hidden}
+.confirm-hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 30%,rgba(201,168,76,.12) 0%,transparent 60%);pointer-events:none}
+.confirm-hero::after{content:'';position:absolute;bottom:-40%;right:-20%;width:60%;height:120%;background:radial-gradient(circle,rgba(139,26,46,.15) 0%,transparent 70%);pointer-events:none}
+
+/* CHECKMARK ANIMATION */
+.check-wrap{display:inline-flex;align-items:center;justify-content:center;width:88px;height:88px;border-radius:50%;border:2px solid var(--gold);margin-bottom:28px;animation:checkScale .6s cubic-bezier(.34,1.56,.64,1) forwards;transform:scale(0);position:relative;z-index:1}
+@keyframes checkScale{
+  0%{transform:scale(0);opacity:0}
+  70%{transform:scale(1.12)}
+  100%{transform:scale(1);opacity:1}
+}
+.check-wrap svg{animation:checkDraw .5s .4s ease forwards;opacity:0}
+@keyframes checkDraw{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+
+.confirm-hero h1{font-family:var(--serif);font-size:clamp(32px,5vw,52px);font-weight:600;color:var(--ivory);margin-bottom:8px;animation:fadeUp .6s .3s both;position:relative;z-index:1}
+.confirm-hero .subtitle{color:rgba(250,247,242,.75);font-size:16px;margin-bottom:24px;animation:fadeUp .6s .45s both;position:relative;z-index:1}
+.order-num-pill{display:inline-block;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.45);color:var(--gold);padding:10px 28px;border-radius:9999px;font-family:var(--serif);font-size:16px;font-style:italic;letter-spacing:.06em;margin-bottom:14px;animation:fadeUp .6s .6s both;position:relative;z-index:1}
+.confirm-hero .email-note{color:rgba(250,247,242,.55);font-size:13px;animation:fadeUp .6s .75s both;position:relative;z-index:1;letter-spacing:.02em}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:40px 24px}
+
+/* CARDS */
+.card{background:var(--warm-white);border-radius:8px;border-top:3px solid var(--gold);border:1px solid var(--divider);border-top:3px solid var(--gold);padding:28px;margin-bottom:24px}
+.card-title{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--luxury-black);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--divider)}
+
+/* DETAILS GRID */
+.details-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:600px){.details-grid{grid-template-columns:1fr}}
+.detail-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--body-text);margin-bottom:4px}
+.detail-value{font-size:14px;color:var(--charcoal);font-weight:500;line-height:1.5}
+.delivery-badge{display:inline-flex;align-items:center;gap:6px;background:var(--gold-light);color:var(--gold-dark);padding:4px 14px;border-radius:9999px;font-size:13px;font-weight:600;margin-top:4px;font-family:var(--serif);font-style:italic}
+
+/* ORDER ITEMS */
+.order-items{display:flex;flex-direction:column;gap:12px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--divider)}
+.order-item{display:flex;gap:12px;align-items:center}
+.item-img{width:52px;height:64px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,.9);font-weight:700;font-family:var(--serif);font-style:italic;letter-spacing:.02em}
+.item-info{flex:1}
+.item-name{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--charcoal);line-height:1.3}
+.item-meta{font-size:12px;color:var(--body-text)}
+.item-price{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--luxury-black);white-space:nowrap}
+.sum-row{display:flex;justify-content:space-between;padding:7px 0;font-size:14px}
+.sum-row.total{border-top:1px solid var(--divider);margin-top:8px;padding-top:14px}
+.sum-row .lbl{color:var(--body-text)}
+.sum-row .val{font-weight:600;color:var(--charcoal)}
+.sum-row.total .lbl{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--luxury-black)}
+.sum-row.total .val{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--luxury-black)}
+.discount-val{color:var(--success)!important}
+.free-val{color:var(--success)!important;font-weight:600!important}
+
+/* ACTION BUTTONS */
+.action-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.btn-gold{background:var(--gold);color:var(--luxury-black);padding:14px 28px;border-radius:4px;font-family:var(--serif);font-size:17px;font-style:italic;font-weight:600;border:none;cursor:pointer;transition:background .2s,transform .1s;display:inline-flex;align-items:center;gap:8px;letter-spacing:.02em}
+.btn-gold:hover{background:var(--gold-dark);color:#fff;transform:translateY(-1px)}
+.btn-maroon-outline{background:#fff;color:var(--maroon);padding:14px 28px;border-radius:4px;font-family:var(--serif);font-size:17px;font-style:italic;font-weight:600;border:1.5px solid var(--maroon);cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-maroon-outline:hover{background:var(--maroon);color:#fff}
+.btn-ghost{background:transparent;color:var(--charcoal);padding:14px 28px;border-radius:4px;font-family:var(--serif);font-size:17px;font-style:italic;font-weight:600;border:1.5px solid var(--divider);cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-ghost:hover{border-color:var(--charcoal)}
+
+/* REFER SECTION */
+.refer-section{background:var(--luxury-black);border-radius:8px;padding:40px 32px;margin-bottom:24px;text-align:center;position:relative;overflow:hidden}
+.refer-section::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 50%,rgba(201,168,76,.08) 0%,transparent 60%);pointer-events:none}
+.refer-section h3{font-family:var(--serif);font-size:28px;font-weight:600;color:var(--gold);margin-bottom:8px;position:relative}
+.refer-section .desc{font-size:14px;color:rgba(250,247,242,.65);margin-bottom:20px;position:relative}
+.ref-code-pill{display:inline-block;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.5);color:var(--gold);padding:10px 28px;border-radius:9999px;font-family:var(--serif);font-size:20px;font-style:italic;letter-spacing:.08em;margin-bottom:16px;position:relative}
+.refer-note{font-size:13px;color:rgba(250,247,242,.55);margin-bottom:20px;position:relative;letter-spacing:.02em}
+.share-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;position:relative}
+.btn-whatsapp{background:#25D366;color:#fff;padding:11px 22px;border-radius:4px;font-size:14px;font-weight:600;border:none;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background .2s;font-family:inherit}
+.btn-whatsapp:hover{background:#1EB055}
+.btn-copy-code{background:var(--gold);color:var(--luxury-black);padding:11px 22px;border-radius:4px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:background .2s;font-family:inherit}
+.btn-copy-code:hover{background:var(--gold-dark);color:#fff}
+
+/* TOAST */
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--luxury-black);color:var(--ivory);padding:14px 28px;border-radius:4px;border:1px solid rgba(201,168,76,.3);font-size:14px;font-weight:500;z-index:1000;box-shadow:0 12px 40px rgba(26,20,16,.3);transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .35s;opacity:0;white-space:nowrap;font-family:var(--serif);font-style:italic}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* SUGGESTED PRODUCTS */
+.section-heading{font-family:var(--serif);font-size:32px;font-weight:600;color:var(--luxury-black);text-align:center;margin-bottom:6px}
+.section-sub{text-align:center;color:var(--body-text);font-size:14px;margin-bottom:28px;letter-spacing:.02em}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:32px}
+@media(max-width:800px){.products-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:400px){.products-grid{grid-template-columns:1fr}}
+.product-card{background:var(--warm-white);border-radius:8px;border:1px solid var(--divider);overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s;cursor:pointer}
+.product-card:hover{border-color:var(--gold);box-shadow:0 8px 32px rgba(201,168,76,.12);transform:translateY(-4px)}
+.product-img{height:200px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:28px;font-style:italic;color:rgba(255,255,255,.85);font-weight:600;position:relative;overflow:hidden}
+.product-img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(transparent,rgba(26,20,16,.25))}
+.product-body{padding:16px}
+.product-name{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--charcoal);margin-bottom:6px;line-height:1.3}
+.product-price{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--luxury-black);margin-bottom:12px}
+.product-price .mrp{font-size:13px;color:var(--body-text);text-decoration:line-through;font-weight:400;margin-left:6px;font-family:var(--sans)}
+.btn-add{width:100%;background:var(--gold-light);color:var(--gold-dark);padding:10px;border-radius:4px;font-size:13px;font-weight:600;border:1px solid var(--gold);cursor:pointer;transition:all .2s;font-family:inherit;letter-spacing:.02em}
+.btn-add:hover{background:var(--gold);color:var(--luxury-black)}
+.shop-all-cta{text-align:center;margin-bottom:60px}
+.btn-shop-all{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--gold);border:1.5px solid var(--gold);padding:13px 32px;border-radius:4px;font-family:var(--serif);font-size:17px;font-style:italic;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:.02em}
+.btn-shop-all:hover{background:var(--gold);color:var(--luxury-black)}
+
+/* FOOTER */
+footer{background:var(--luxury-black);color:#888}
+.footer-top{max-width:1280px;margin:0 auto;padding:60px 40px 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:40px}
+@media(max-width:900px){.footer-top{grid-template-columns:1fr 1fr;gap:32px;padding:40px 16px 24px}}
+@media(max-width:500px){.footer-top{grid-template-columns:1fr}}
+.footer-col h4{color:var(--gold);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px}
+.footer-col p,.footer-col a{font-size:13px;line-height:2;color:#888;display:block;transition:color .2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding:20px 40px;max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12px;flex-wrap:wrap;gap:12px;color:#666}
+@media(max-width:600px){.footer-bottom{padding:16px;flex-direction:column;text-align:center}}
+.footer-pay{display:flex;gap:8px;flex-wrap:wrap}
+.footer-pay span{background:rgba(255,255,255,.07);border-radius:3px;padding:3px 8px;font-size:11px;font-weight:600;color:#888}
+
+@media(max-width:600px){
+  .header-inner{padding:0 16px}
+  nav{display:none}
+  .utility-bar{padding:6px 16px;gap:12px}
+  .action-row{flex-direction:column}
+  .action-row button{width:100%;justify-content:center}
+  .confirm-hero{padding:60px 16px}
+  .main{padding:24px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- CONFETTI -->
+<div class="confetti-container" id="confettiContainer"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar">
+  Your order has been placed! Thank you for choosing VAMAS.
+</div>
+
+<!-- UTILITY BAR -->
+<div class="utility-bar">
+  <a href="tel:+919594283890" class="phone">+91 95942 83890</a>
+  <a href="#">Track Order</a>
+  <a href="#">Account</a>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="v-logo" aria-label="VAMAS — The Designer Blouses">
+      <img src="https://www.vamas.in/cdn/shop/files/Logo_58817fa3-d97a-4f1d-9351-033987ae46c5.png?v=1711731102&width=150"
+           alt="VAMAS — The Designer Blouses"
+           style="height:52px;width:auto;display:block;object-fit:contain"
+           loading="eager">
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="collection.html">Shop</a>
+      <a href="studio.html">Style Studio</a>
+      <a href="collection.html">Sale</a>
+      <a href="#">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- PROGRESS STEPS -->
+<div class="progress-steps">
+  <div class="progress-inner">
+    <div class="step done">
+      <div class="step-num">&#10003;</div>
+      <span class="step-label">Cart</span>
+    </div>
+    <div class="step-line done"></div>
+    <div class="step done">
+      <div class="step-num">&#10003;</div>
+      <span class="step-label">Checkout</span>
+    </div>
+    <div class="step-line done"></div>
+    <div class="step done">
+      <div class="step-num">&#10003;</div>
+      <span class="step-label">Order Placed</span>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="confirm-hero">
+  <div class="check-wrap">
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  </div>
+  <h1>Your Order is Confirmed!</h1>
+  <div class="subtitle">Thank you for choosing VAMAS</div>
+  <div class="order-num-pill" id="orderNum">Loading&#8230;</div>
+  <div class="email-note" id="emailNote">Confirmation sent to your email</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ORDER DETAILS -->
+  <div class="card">
+    <div class="card-title">Order Details</div>
+    <div class="details-grid">
+      <div>
+        <div class="detail-label">Customer Name</div>
+        <div class="detail-value" id="dName">&#8212;</div>
+      </div>
+      <div>
+        <div class="detail-label">Email Address</div>
+        <div class="detail-value" id="dEmail">&#8212;</div>
+      </div>
+      <div>
+        <div class="detail-label">Phone Number</div>
+        <div class="detail-value" id="dPhone">&#8212;</div>
+      </div>
+      <div>
+        <div class="detail-label">Payment Method</div>
+        <div class="detail-value" id="dPayment">&#8212;</div>
+      </div>
+      <div style="grid-column:1/-1">
+        <div class="detail-label">Shipping Address</div>
+        <div class="detail-value" id="dAddress">&#8212;</div>
+      </div>
+      <div>
+        <div class="detail-label">Delivery Method</div>
+        <div class="detail-value" id="dDelivery">&#8212;</div>
+      </div>
+      <div>
+        <div class="detail-label">Estimated Delivery</div>
+        <div class="detail-value">
+          <span class="delivery-badge" id="dEstDate">&#8212;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER SUMMARY -->
+  <div class="card">
+    <div class="card-title">Order Summary</div>
+    <div class="order-items" id="orderItemsList"></div>
+    <div class="sum-row"><span class="lbl">Subtotal</span><span class="val" id="sSubtotal">&#8212;</span></div>
+    <div class="sum-row" id="sCouponRow" style="display:none"><span class="lbl">Discount (<span id="sCouponLabel"></span>)</span><span class="val discount-val" id="sDiscount">&#8212;</span></div>
+    <div class="sum-row"><span class="lbl">Shipping</span><span class="val" id="sShipping">&#8212;</span></div>
+    <div class="sum-row"><span class="lbl">GST (5%)</span><span class="val" id="sTax">&#8212;</span></div>
+    <div class="sum-row total"><span class="lbl">Total Paid</span><span class="val" id="sTotal">&#8212;</span></div>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="action-row">
+    <button class="btn-gold" onclick="location.href='collection.html'">Continue Shopping</button>
+    <button class="btn-maroon-outline" onclick="location.href='#'">Track Your Order</button>
+    <button class="btn-ghost" onclick="downloadInvoice()">Download Invoice</button>
+  </div>
+
+  <!-- REFER & EARN -->
+  <div class="refer-section">
+    <h3>Share VAMAS &amp; Earn &#8377;200!</h3>
+    <div class="desc">Invite friends to VAMAS &#8212; they get 10% off their first order, you earn &#8377;200 credit.</div>
+    <div class="ref-code-pill" id="refCode">VAMAS0000</div>
+    <div class="refer-note">Your friend gets 10% off &middot; You get &#8377;200 credit on their first order</div>
+    <div class="share-btns">
+      <button class="btn-whatsapp" onclick="shareWhatsApp()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Share on WhatsApp
+      </button>
+      <button class="btn-copy-code" onclick="copyRefCode()">Copy Code</button>
+    </div>
+  </div>
+
+  <!-- SUGGESTED PRODUCTS -->
+  <div class="section-heading">You Might Also Love</div>
+  <div class="section-sub">While you wait for your order to arrive</div>
+  <div class="products-grid" id="suggestedProducts"></div>
+  <div class="shop-all-cta">
+    <button class="btn-shop-all" onclick="location.href='collection.html'">Shop All Blouses &#8594;</button>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-col">
+      <a href="index.html" class="v-logo">
+        <img src="https://www.vamas.in/cdn/shop/files/Logo_58817fa3-d97a-4f1d-9351-033987ae46c5.png?v=1711731102&width=150"
+             alt="VAMAS"
+             style="height:48px;width:auto;display:block;object-fit:contain;filter:brightness(1.1)"
+             loading="lazy">
+      </a>
+      <p style="margin-top:14px">Premium handcrafted blouses for the modern Indian woman. Tradition meets contemporary design.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="collection.html">Shop</a>
+      <a href="studio.html">Style Studio</a>
+      <a href="cart.html">Cart</a>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="collection.html">New Arrivals</a>
+      <a href="collection.html">Festive</a>
+      <a href="collection.html">Bridal</a>
+      <a href="collection.html">Sale</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>22, Ground Floor, Neelkanth Business Park, Kirol Road, Vidyavihar W, Mumbai 400086</p>
+      <a href="tel:+919594283890">+91 95942 83890</a>
+      <a href="mailto:support@vamas.in">support@vamas.in</a>
+      <p>Mon&#8211;Sat 10am&#8211;7pm IST</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&#169; 2026 VAMAS &middot; Made in Mumbai</span>
+    <div class="footer-pay">
+      <span>UPI</span><span>VISA</span><span>MC</span><span>COD</span><span>EMI</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const fmt = n => "₹" + Math.round(n).toLocaleString("en-IN");
+
+// CONFETTI — gold & maroon only
+(function spawnConfetti() {
+  const container = document.getElementById('confettiContainer');
+  const colors = ['#C9A84C','#8B1A2E','#F0E4C0','#4A0D17','#8F6A1F','#C4505F','#E8DDD0','#FAF7F2'];
+  for (let i = 0; i < 90; i++) {
+    const piece = document.createElement('div');
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const size = 5 + Math.random() * 9;
+    const isCircle = Math.random() > .5;
+    piece.className = 'confetti-piece';
+    piece.style.cssText = `
+      left:${Math.random()*100}%;
+      width:${size}px;height:${size}px;
+      background:${color};
+      border-radius:${isCircle ? '50%' : '2px'};
+      animation-duration:${2.5 + Math.random()*3}s;
+      animation-delay:${Math.random()*2}s;
+      opacity:0;
+    `;
+    container.appendChild(piece);
+  }
+  setTimeout(() => { if(container.parentNode) container.remove(); }, 7000);
+})();
+
+// TOAST
+function showToast(msg, duration=3200) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+// ORDER DATA
+const order = JSON.parse(sessionStorage.getItem('vamas_order') || 'null');
+
+const sampleOrder = {
+  orderNum: 'VM-' + Math.floor(100000 + Math.random() * 900000),
+  name: 'Priya Sharma',
+  email: 'priya@example.com',
+  phone: '9876543210',
+  addr1: '42, Sunshine Apartments',
+  addr2: 'Andheri East',
+  city: 'Mumbai',
+  state: 'Maharashtra',
+  pin: '400069',
+  delivery: 'Standard Delivery (3–5 business days)',
+  estDate: 'Friday, 16 June 2026',
+  payment: 'UPI',
+  subtotal: 3498,
+  discountAmt: 350,
+  coupon: 'WELCOME10',
+  shipping: 0,
+  tax: 157,
+  total: 3305,
+  items: [
+    {t:'Zardozi Embroidered Blouse',p:1799,q:1,g:'Ivory Silk',sz:'M'},
+    {t:'Banarasi Silk Blouse',p:1699,q:1,g:'Deep Maroon',sz:'S'},
+  ],
+  placedAt: new Date().toISOString()
+};
+
+const o = order || sampleOrder;
+
+// Referral code
+const refCode = 'VAMAS' + Math.floor(1000 + Math.random() * 9000);
+document.getElementById('refCode').textContent = refCode;
+
+// Hero
+document.getElementById('orderNum').textContent = '#' + o.orderNum;
+if (o.email) document.getElementById('emailNote').textContent = 'Confirmation sent to ' + o.email;
+
+// Order details
+document.getElementById('dName').textContent = o.name || '—';
+document.getElementById('dEmail').textContent = o.email || '—';
+document.getElementById('dPhone').textContent = o.phone ? '+91 ' + o.phone : '—';
+document.getElementById('dPayment').textContent = o.payment || '—';
+document.getElementById('dDelivery').textContent = o.delivery || '—';
+document.getElementById('dEstDate').textContent = o.estDate || '—';
+
+const addrParts = [o.addr1, o.addr2, o.city, o.state, o.pin, 'India'].filter(Boolean);
+document.getElementById('dAddress').textContent = addrParts.join(', ');
+
+// Items
+const GRADS = [
+  'linear-gradient(135deg,#8B1A2E,#C4505F)',
+  'linear-gradient(135deg,#C9A84C,#8F6A1F)',
+  'linear-gradient(135deg,#2C2420,#5C4840)',
+  'linear-gradient(135deg,#4A0D17,#8B1A2E)',
+];
+const itemsEl = document.getElementById('orderItemsList');
+if (o.items && o.items.length > 0) {
+  itemsEl.innerHTML = o.items.map((item,i) => `
+    <div class="order-item">
+      <div class="item-img" style="background:${GRADS[i%GRADS.length]}">${(item.t||'V').substring(0,2).toUpperCase()}</div>
+      <div class="item-info">
+        <div class="item-name">${item.t || 'VAMAS Blouse'}</div>
+        <div class="item-meta">Qty: ${item.q||1} &middot; Size: ${item.sz||'M'} &middot; ${item.g||'Classic'}</div>
+      </div>
+      <div class="item-price">${fmt((item.p||0)*(item.q||1))}</div>
+    </div>`).join('');
+} else {
+  itemsEl.innerHTML = '<p style="font-size:13px;color:var(--body-text)">No items found.</p>';
+}
+
+// Totals
+document.getElementById('sSubtotal').textContent = fmt(o.subtotal || 0);
+document.getElementById('sShipping').innerHTML = (o.shipping === 0) ? '<span class="free-val">FREE</span>' : fmt(o.shipping || 99);
+document.getElementById('sTax').textContent = fmt(o.tax || 0);
+document.getElementById('sTotal').textContent = fmt(o.total || 0);
+
+if (o.coupon && o.discountAmt > 0) {
+  document.getElementById('sCouponRow').style.display = 'flex';
+  document.getElementById('sCouponLabel').textContent = o.coupon;
+  document.getElementById('sDiscount').textContent = '−' + fmt(o.discountAmt);
+}
+
+// SUGGESTED PRODUCTS
+const suggestedProducts = [
+  {name:'Kashmiri Tilla Blouse',price:2199,mrp:2799,grad:GRADS[0],id:1},
+  {name:'Chanderi Silk Blouse',price:1599,mrp:1999,grad:GRADS[1],id:2},
+  {name:'Kanjivaram Border Blouse',price:2499,mrp:2999,grad:GRADS[3],id:3},
+  {name:'Organza Floral Blouse',price:1299,mrp:1699,grad:GRADS[2],id:4},
+];
+
+document.getElementById('suggestedProducts').innerHTML = suggestedProducts.map((p,i) => `
+  <div class="product-card" onclick="location.href='product.html?id=${p.id}'">
+    <div class="product-img" style="background:${p.grad}">
+      ${p.name.substring(0,2).toUpperCase()}
+    </div>
+    <div class="product-body">
+      <div class="product-name">${p.name}</div>
+      <div class="product-price">${fmt(p.price)}<span class="mrp">${fmt(p.mrp)}</span></div>
+      <button class="btn-add" onclick="event.stopPropagation();addToCart(${i})">+ Add to Cart</button>
+    </div>
+  </div>`).join('');
+
+function addToCart(idx) {
+  const p = suggestedProducts[idx];
+  let cart = JSON.parse(localStorage.getItem('vamas_cart') || '[]');
+  const existing = cart.find(i => i.t === p.name);
+  if (existing) { existing.q = (existing.q || 1) + 1; }
+  else { cart.push({t:p.name, p:p.price, g:'Classic', sz:'M', q:1}); }
+  localStorage.setItem('vamas_cart', JSON.stringify(cart));
+  showToast('Added to cart — ' + p.name);
+}
+
+// ACTIONS
+function downloadInvoice() {
+  showToast('Invoice will be emailed shortly to ' + (o.email || 'your email address'));
+}
+
+function copyRefCode() {
+  navigator.clipboard.writeText(refCode)
+    .then(() => showToast('Referral code copied: ' + refCode))
+    .catch(() => showToast('Code: ' + refCode));
+}
+
+function shareWhatsApp() {
+  const msg = encodeURIComponent(`Hey! Check out VAMAS — beautiful designer blouses! Use my code ${refCode} for 10% off your first order.\nhttps://vamas.in?ref=${refCode}`);
+  window.open('https://wa.me/?text=' + msg, '_blank');
+}
+</script>
+</body>
+</html>

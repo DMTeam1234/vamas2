@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style Match Studio — Find Your Perfect Blouse | VAMAS</title>
+<meta name="description" content="Use VAMAS Style Match Studio to find your perfect saree blouse. Select saree color, occasion, sleeve and neck style to get personalized blouse recommendations.">
+<meta property="og:title" content="Style Match Studio | VAMAS — The Designer Blouses">
+<meta name="theme-color" content="#C9A84C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#C9A84C;--gold-light:#F0E4C0;--gold-dark:#8F6A1F;--gold-shimmer:#E8D49A;
+  --maroon:#8B1A2E;--maroon-dark:#4A0D17;--maroon-light:#FDF0F3;
+  --ivory:#FAF7F2;--cream:#F5EFE6;--warm-white:#FFFDF9;
+  --luxury-black:#1A1410;--charcoal:#2C2420;--body-text:#4A3728;
+  --divider:#E8DDD0;--error:#C0392B;--success:#2E7D32;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',-apple-system,sans-serif;
+  --sh-sm:0 2px 8px rgba(201,168,76,.12);
+  --sh-md:0 8px 32px rgba(201,168,76,.16);
+  --sh-lg:0 20px 60px rgba(26,20,16,.18);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);font-size:15px;line-height:1.65;color:var(--body-text);background:var(--warm-white)}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+ul,ol{list-style:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:2px}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+
+/* ===== SKIP ===== */
+.skip{position:absolute;left:-9999px;top:12px;z-index:2000;background:var(--gold);color:var(--luxury-black);padding:12px 20px;border-radius:4px;font-weight:600}
+.skip:focus{left:12px}
+
+/* ===== ANNOUNCEMENT BAR ===== */
+.bar{position:relative;background:var(--luxury-black);color:var(--gold-light);height:40px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.bar__track{position:relative;height:1.4em;width:100%;max-width:700px;text-align:center}
+.bar__msg{position:absolute;inset:0;font-size:12.5px;font-weight:500;letter-spacing:.06em;opacity:0;transform:translateY(8px);animation:barCycle 15s infinite}
+.bar__msg:nth-child(2){animation-delay:5s}
+.bar__msg:nth-child(3){animation-delay:10s}
+@keyframes barCycle{0%,4%{opacity:0;transform:translateY(8px)}8%,30%{opacity:1;transform:translateY(0)}34%,100%{opacity:0;transform:translateY(-8px)}}
+.bar__close{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:28px;height:28px;display:grid;place-items:center;border-radius:50%;opacity:.7;font-size:16px;color:var(--gold)}
+.bar__close:hover{opacity:1}
+
+/* ===== UTILITY BAR ===== */
+.util{background:var(--ivory);border-bottom:1px solid var(--divider);font-size:12px}
+.util .wrap{display:flex;align-items:center;justify-content:space-between;height:34px}
+.util a{color:var(--body-text)}
+.util a:hover{color:var(--gold-dark)}
+.util__mid{display:none;font-weight:600;color:var(--charcoal)}
+@media(min-width:768px){.util__mid{display:block}}
+
+/* ===== HEADER ===== */
+header.site{position:sticky;top:0;z-index:900;background:rgba(250,247,242,.97);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:box-shadow .25s ease,border-color .25s ease}
+header.site.scrolled{box-shadow:var(--sh-md);border-color:var(--gold)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
+.vamas-logo{display:block}
+.nav__links{display:none;align-items:center;gap:2px}
+@media(min-width:1024px){.nav__links{display:flex}}
+.nav__links>li{position:relative}
+.nav__links a{display:block;padding:10px 13px;font-weight:500;font-size:14px;color:var(--charcoal);position:relative}
+.nav__links a::after{content:"";position:absolute;left:13px;right:100%;bottom:4px;height:1.5px;background:var(--gold);transition:right .25s ease}
+.nav__links a:hover::after,.nav__links a.active::after{right:13px}
+.nav__links a.active{color:var(--gold-dark)}
+.nav__links .sale-link a{color:var(--error);font-weight:600}
+.nav__links .studio-link a{color:var(--gold);font-weight:600}
+.nav__icons{display:flex;align-items:center;gap:4px}
+.icon-btn{position:relative;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;color:var(--charcoal);transition:background .15s}
+.icon-btn:hover{background:var(--gold-light);color:var(--gold-dark)}
+.icon-btn svg{width:20px;height:20px}
+.badge-ct{position:absolute;top:4px;right:2px;min-width:17px;height:17px;padding:0 4px;border-radius:9999px;background:var(--gold);color:var(--luxury-black);font-size:10px;font-weight:700;display:grid;place-items:center}
+.burger{display:grid;place-items:center;width:42px;height:42px;color:var(--charcoal)}
+@media(min-width:1024px){.burger{display:none}}
+
+/* ===== MEGA MENU ===== */
+.mega{position:absolute;left:50%;transform:translateX(-50%) translateY(8px);top:100%;width:min(720px,92vw);background:var(--warm-white);border:1px solid var(--divider);border-top:2px solid var(--gold);border-radius:0 0 12px 12px;box-shadow:var(--sh-lg);padding:28px 32px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s}
+.has-mega:hover .mega,.has-mega:focus-within .mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.mega h4{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:10px}
+.mega a{padding:6px 0!important;font-size:13.5px!important;color:var(--body-text)!important}
+.mega a::after{display:none!important}
+.mega a:hover{color:var(--gold-dark)!important}
+
+/* ===== MOBILE NAV ===== */
+.m-nav{position:fixed;inset:0;z-index:1100;background:var(--warm-white);transform:translateX(-100%);transition:transform 300ms cubic-bezier(.4,0,.2,1);padding:24px;overflow-y:auto}
+.m-nav.open{transform:translateX(0)}
+.m-nav__top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.m-nav ul li a{display:block;padding:14px 4px;font-family:var(--serif);font-size:22px;font-weight:600;color:var(--charcoal);border-bottom:1px solid var(--divider)}
+.m-nav .meta{margin-top:28px;font-size:13px;line-height:2;color:var(--body-text)}
+
+/* ===== STUDIO HERO ===== */
+.studio-hero{background:var(--luxury-black);min-height:320px;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:60px 20px}
+.studio-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,168,76,.12) 0%,transparent 70%)}
+.studio-hero__inner{position:relative;z-index:2;max-width:640px}
+.studio-hero__eyebrow{font-size:10px;letter-spacing:.28em;color:var(--gold);font-weight:600;text-transform:uppercase;margin-bottom:14px}
+.studio-hero h1{font-family:var(--serif);font-size:clamp(36px,6vw,52px);color:var(--ivory);font-weight:600;line-height:1.15;margin-bottom:16px}
+.studio-hero .subtitle{color:rgba(250,247,242,.62);font-size:15px;margin-bottom:24px}
+.ornament{color:var(--gold);font-size:18px;letter-spacing:8px;opacity:.8}
+
+/* ===== STUDIO QUIZ SECTION ===== */
+.studio-section{background:var(--ivory);padding:clamp(40px,6vw,72px) 0}
+.studio-container{max-width:720px;margin:0 auto;padding:0 clamp(16px,4vw,24px)}
+
+/* ===== PROGRESS BAR ===== */
+.progress-bar{display:flex;align-items:center;gap:10px;margin-bottom:36px;justify-content:center}
+.prog-step{width:12px;height:12px;border-radius:50%;border:2px solid var(--divider);background:var(--warm-white);transition:all .3s ease;flex-shrink:0}
+.prog-step.done{background:var(--gold);border-color:var(--gold)}
+.prog-step.current{background:var(--gold-light);border-color:var(--gold);transform:scale(1.3)}
+.prog-line{flex:1;height:2px;background:var(--divider);max-width:80px;border-radius:9999px;overflow:hidden}
+.prog-line-fill{height:100%;width:0;background:var(--gold);transition:width .4s ease}
+.prog-label{font-size:12px;color:var(--body-text);letter-spacing:.06em;text-align:center;margin-bottom:28px}
+
+/* ===== STEP ===== */
+.step{display:none;animation:stepIn .35s ease}
+.step.active{display:block}
+@keyframes stepIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.step__q{font-family:var(--serif);font-size:clamp(22px,4vw,30px);color:var(--charcoal);font-weight:600;margin-bottom:6px;text-align:center}
+.step__hint{font-size:13px;color:var(--body-text);text-align:center;margin-bottom:28px}
+
+/* ===== COLOR GRID ===== */
+.color-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
+@media(max-width:520px){.color-grid{grid-template-columns:repeat(2,1fr)}}
+.color-card{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px;background:var(--warm-white);border:2px solid var(--divider);border-radius:10px;cursor:pointer;transition:all .2s ease;user-select:none}
+.color-card:hover{border-color:var(--gold);box-shadow:var(--sh-sm);transform:translateY(-2px)}
+.color-card.selected{border-color:var(--gold);background:var(--gold-light);box-shadow:0 0 0 3px rgba(201,168,76,.25)}
+.color-swatch{width:48px;height:48px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.color-label{font-size:12.5px;font-weight:500;color:var(--charcoal);text-align:center}
+
+/* ===== OCCASION GRID ===== */
+.occasion-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:32px}
+.occasion-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:28px 16px;background:var(--warm-white);border:2px solid var(--divider);border-radius:12px;cursor:pointer;transition:all .2s ease;user-select:none;text-align:center}
+.occasion-card:hover{border-color:var(--gold);box-shadow:var(--sh-sm);transform:translateY(-2px)}
+.occasion-card.selected{border-color:var(--gold);background:var(--gold-light);box-shadow:0 0 0 3px rgba(201,168,76,.25)}
+.occasion-icon{font-size:32px;line-height:1}
+.occasion-title{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--charcoal)}
+.occasion-sub{font-size:11.5px;color:var(--body-text)}
+
+/* ===== SLEEVE / NECK GRID ===== */
+.option-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:32px}
+.option-card{display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--warm-white);border:2px solid var(--divider);border-radius:10px;cursor:pointer;transition:all .2s ease;user-select:none}
+.option-card:hover{border-color:var(--gold);box-shadow:var(--sh-sm);transform:translateY(-2px)}
+.option-card.selected{border-color:var(--gold);background:var(--gold-light);box-shadow:0 0 0 3px rgba(201,168,76,.25)}
+.option-icon svg{width:44px;height:44px;flex-shrink:0}
+.option-text{}
+.option-title{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--charcoal)}
+.option-desc{font-size:11.5px;color:var(--body-text)}
+
+/* ===== STEP NAV ===== */
+.step-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.btn-back{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 20px;border:1.5px solid var(--divider);border-radius:5px;font-weight:500;font-size:14px;color:var(--body-text);background:transparent;transition:all .2s}
+.btn-back:hover{border-color:var(--charcoal);color:var(--charcoal)}
+.btn-continue{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 28px;border:none;border-radius:5px;font-weight:700;font-size:14px;color:var(--luxury-black);background:var(--gold);transition:all .2s}
+.btn-continue:hover{background:var(--gold-dark);color:#fff}
+.btn-continue:disabled{opacity:.4;pointer-events:none}
+.btn-start-over{font-size:12.5px;color:var(--body-text);text-decoration:underline;cursor:pointer;background:none;border:none;padding:4px}
+.btn-start-over:hover{color:var(--maroon)}
+
+/* ===== LOADER ===== */
+.loader-section{text-align:center;padding:48px 0;display:none}
+.loader-section.active{display:block}
+.loader-spinner{width:48px;height:48px;border:3px solid var(--divider);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-text{font-family:var(--serif);font-size:18px;color:var(--charcoal)}
+
+/* ===== RESULTS ===== */
+.results-section{display:none}
+.results-section.active{display:block}
+.results-header{text-align:center;margin-bottom:32px}
+.results-header h2{font-family:var(--serif);font-size:clamp(24px,4vw,34px);color:var(--charcoal);margin-bottom:8px}
+.results-header p{color:var(--body-text);font-size:14px}
+.results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:32px}
+@media(min-width:600px){.results-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.results-grid{grid-template-columns:repeat(4,1fr)}}
+.results-actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.btn-shop-all{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 28px;background:var(--luxury-black);color:var(--gold);font-weight:600;font-size:14px;border-radius:5px;border:1px solid var(--gold);transition:all .2s}
+.btn-shop-all:hover{background:var(--gold);color:var(--luxury-black)}
+.btn-try-again{display:inline-flex;align-items:center;gap:6px;height:48px;padding:0 22px;border:1.5px solid var(--divider);border-radius:5px;font-size:14px;color:var(--body-text);background:transparent;transition:all .2s}
+.btn-try-again:hover{border-color:var(--charcoal);color:var(--charcoal)}
+
+/* ===== PRODUCT CARD (shared) ===== */
+.pc{position:relative;display:flex;flex-direction:column;background:var(--warm-white);border-radius:10px;overflow:hidden;border:1px solid var(--divider);transition:box-shadow .25s ease,transform .25s ease}
+.pc:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}
+.pc__media{position:relative;aspect-ratio:3/4;overflow:hidden;isolation:isolate}
+.pc__ph{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden}
+.pc__mono{font-family:var(--serif);font-style:italic;font-size:80px;font-weight:600;color:var(--gold);opacity:.15;position:absolute;line-height:1;user-select:none}
+.pc__img-wrap{position:absolute;inset:0;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.pc:hover .pc__img-wrap{transform:scale(1.06)}
+.pc__badge{position:absolute;top:10px;left:10px;z-index:3;font-size:9.5px;font-weight:700;letter-spacing:.1em;padding:4px 9px;border-radius:4px;text-transform:uppercase}
+.b-new{background:var(--luxury-black);color:var(--gold)}
+.b-sale{background:var(--maroon);color:#fff}
+.b-best{background:var(--gold);color:var(--luxury-black)}
+.pc__heart{position:absolute;top:10px;right:10px;z-index:3;width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:rgba(250,247,242,.92);color:var(--charcoal);box-shadow:var(--sh-sm);transition:transform .15s,color .15s}
+.pc__heart:hover{transform:scale(1.12)}
+.pc__heart.on{color:var(--maroon)}
+.pc__heart svg{width:15px;height:15px}
+.pc__sw{display:flex;align-items:center;gap:5px;padding:8px 10px 0}
+.sw{width:14px;height:14px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--divider);display:inline-block}
+.pc__info{padding:8px 10px 10px}
+.pc__tag{font-size:10.5px;color:var(--body-text);letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.pc__title{font-family:var(--serif);font-weight:600;font-size:14px;color:var(--charcoal);line-height:1.3;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc__title a:hover{color:var(--gold-dark)}
+.pc__price{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.pc__price .now{font-weight:700;font-size:15px;color:var(--charcoal)}
+.pc__price .was{font-size:12px;color:var(--body-text);text-decoration:line-through;opacity:.65}
+.pc__price .off{font-size:9.5px;font-weight:700;color:var(--maroon);background:var(--maroon-light);padding:2px 5px;border-radius:3px}
+.pc__actions{display:flex;gap:6px}
+.btn-atc{flex:1;height:34px;background:var(--gold);color:var(--luxury-black);font-weight:700;font-size:11.5px;letter-spacing:.03em;border-radius:4px;transition:background .15s}
+.btn-atc:hover{background:var(--gold-dark);color:#fff}
+.btn-buy{flex:1;height:34px;background:var(--maroon);color:#fff;font-weight:700;font-size:11.5px;border-radius:4px;transition:background .15s}
+.btn-buy:hover{background:var(--maroon-dark)}
+
+/* ===== WHY SECTION ===== */
+.why-section{background:var(--luxury-black);padding:clamp(48px,7vw,80px) 0}
+.why-section h2{font-family:var(--serif);font-size:clamp(26px,4vw,38px);color:var(--ivory);text-align:center;margin-bottom:10px}
+.why-section .why-sub{text-align:center;color:rgba(250,247,242,.55);font-size:14px;margin-bottom:48px}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.why-card{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.18);border-radius:12px;padding:32px 24px;text-align:center}
+.why-icon{width:52px;height:52px;border-radius:50%;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:22px}
+.why-title{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--gold);margin-bottom:8px}
+.why-desc{font-size:13.5px;color:rgba(250,247,242,.6);line-height:1.7}
+
+/* ===== FOOTER ===== */
+footer.site{background:var(--luxury-black);color:rgba(250,247,242,.7);font-size:13.5px}
+.foot__grid{display:grid;gap:36px;grid-template-columns:1fr;padding-block:clamp(48px,6vw,72px)}
+@media(min-width:768px){.foot__grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.foot__grid{grid-template-columns:1.4fr 1fr 1fr 1.2fr}}
+.foot__brand p{margin:14px 0 20px;line-height:1.7;max-width:280px}
+.socials{display:flex;gap:10px}
+.socials a{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(201,168,76,.3);color:rgba(201,168,76,.7);transition:all .15s}
+.socials a:hover{background:var(--gold);border-color:var(--gold);color:var(--luxury-black)}
+.socials svg{width:16px;height:16px}
+footer h4{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+footer li{margin-bottom:10px}
+footer li a{color:rgba(250,247,242,.65);transition:color .15s}
+footer li a:hover{color:var(--gold)}
+.foot__contact li{display:flex;gap:10px;align-items:flex-start;line-height:1.6}
+.foot__contact svg{flex:none;width:14px;height:14px;margin-top:4px;color:var(--gold)}
+.foot__trust{border-top:1px solid rgba(201,168,76,.15);padding-block:16px;text-align:center;font-size:11.5px;color:rgba(250,247,242,.45);letter-spacing:.04em}
+.foot__legal{border-top:1px solid rgba(201,168,76,.15);padding-block:20px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;font-size:11.5px;color:rgba(250,247,242,.5)}
+.foot__legal nav{display:flex;flex-wrap:wrap;gap:16px}
+.foot__legal a{color:rgba(250,247,242,.5)}
+.foot__legal a:hover{color:var(--gold)}
+
+/* ===== CART DRAWER ===== */
+.veil{position:fixed;inset:0;z-index:1190;background:rgba(26,20,16,.5);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+.veil.show{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:1200;width:min(420px,100vw);background:var(--warm-white);display:flex;flex-direction:column;transform:translateX(100%);transition:transform 300ms cubic-bezier(.4,0,.2,1);box-shadow:var(--sh-lg)}
+.drawer.open{transform:translateX(0)}
+.drawer__head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--divider)}
+.drawer__head b{font-size:16px;color:var(--charcoal);font-family:var(--serif)}
+.drawer__body{flex:1;overflow-y:auto;padding:20px 24px}
+.drawer__empty{text-align:center;padding:48px 0;color:var(--body-text)}
+.drawer__empty span{font-size:44px;display:block;margin-bottom:14px}
+.ship-meter{background:var(--ivory);border:1px solid var(--divider);border-radius:6px;padding:12px 14px;margin-bottom:16px;font-size:12.5px}
+.ship-meter .track{height:4px;background:var(--divider);border-radius:9999px;margin-top:8px;overflow:hidden}
+.ship-meter .fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold-dark),var(--gold));border-radius:9999px;transition:width .4s}
+.cart-line{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--divider)}
+.cart-line__ph{flex:none;width:72px;height:90px;border-radius:6px;display:grid;place-items:center}
+.cart-line__ph span{font-family:var(--serif);font-style:italic;color:rgba(255,255,255,.3);font-size:24px}
+.cart-line b{display:block;font-size:13px;color:var(--charcoal);margin-bottom:2px}
+.cart-line small{font-size:11.5px;color:var(--body-text)}
+.cart-line__qty{display:inline-flex;align-items:center;gap:12px;margin-top:8px;border:1px solid var(--divider);border-radius:4px;padding:3px 10px;background:var(--ivory)}
+.cart-line__qty button{font-size:15px;width:18px;color:var(--gold-dark)}
+.cart-line__price{margin-left:auto;font-weight:700;color:var(--charcoal);font-size:14px;white-space:nowrap}
+.drawer__foot{border-top:1px solid var(--divider);padding:20px 24px}
+.drawer__sub{display:flex;justify-content:space-between;font-size:16px;color:var(--charcoal);margin-bottom:14px;font-family:var(--serif)}
+.drawer__note{text-align:center;font-size:11px;color:var(--body-text);margin-top:10px}
+
+/* ===== TOAST ===== */
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(80px);z-index:1500;background:var(--luxury-black);color:var(--gold-light);font-size:13px;font-weight:500;padding:12px 22px;border-radius:9999px;box-shadow:var(--sh-lg);opacity:0;transition:all .25s;border:1px solid var(--gold)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to main content</a>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="bar" id="bar">
+  <a href="collection.html" class="bar__track" style="text-decoration:none;color:var(--gold-light)">
+    <span class="bar__msg">New Arrivals Just Dropped — Shop Fresh Picks</span>
+    <span class="bar__msg">Free Shipping on Orders Above ₹999 Across India</span>
+    <span class="bar__msg">10% OFF Your First Order — Code WELCOME10</span>
+  </a>
+  <button class="bar__close" id="barClose" aria-label="Dismiss announcement">×</button>
+</div>
+
+<!-- UTILITY BAR -->
+<div class="util">
+  <div class="wrap">
+    <a href="tel:+919594283890">+91 95942 83890</a>
+    <span class="util__mid">Free Shipping on Orders Above ₹999</span>
+    <div style="display:flex;gap:18px">
+      <a href="#">Track Order</a>
+      <a href="#">Account</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site" id="header">
+  <div class="wrap nav">
+    <button class="burger icon-btn" id="burger" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a href="index.html" class="v-logo" aria-label="VAMAS — The Designer Blouses">
+      <img src="https://www.vamas.in/cdn/shop/files/Logo_58817fa3-d97a-4f1d-9351-033987ae46c5.png?v=1711731102&width=150"
+           alt="VAMAS — The Designer Blouses"
+           style="height:52px;width:auto;display:block;object-fit:contain"
+           loading="eager">
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="index.html">Home</a></li>
+        <li class="has-mega">
+          <a href="collection.html">Shop Blouses ▾</a>
+          <div class="mega" role="menu">
+            <div>
+              <h4>Shop by Fabric</h4>
+              <a href="collection.html">Silk Blouses</a>
+              <a href="collection.html">Brocade Blouses</a>
+              <a href="collection.html">Cotton Blouses</a>
+              <a href="collection.html">Tissue Blouses</a>
+            </div>
+            <div>
+              <h4>Shop by Style</h4>
+              <a href="collection.html">Corset Style</a>
+              <a href="collection.html">Elbow Sleeve</a>
+              <a href="collection.html">Sleeveless</a>
+              <a href="collection.html">Strappy</a>
+            </div>
+            <div>
+              <h4>Curated</h4>
+              <a href="collection.html">Boutique Collection</a>
+              <a href="collection.html">Best Sellers</a>
+              <a href="collection.html">New Arrivals</a>
+              <a href="collection.html">Under ₹999</a>
+            </div>
+          </div>
+        </li>
+        <li class="studio-link"><a href="studio.html" class="active">Style Studio ✦</a></li>
+        <li class="sale-link"><a href="collection.html">Sale</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav__icons">
+      <button class="icon-btn" aria-label="Wishlist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3.4 1-4.5 2.5C10.9 4 9.3 3 7.5 3A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></svg>
+        <span class="badge-ct" id="wishCt" hidden>0</span>
+      </button>
+      <button class="icon-btn" id="cartBtn" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 7h12l1.5 13.5a1 1 0 0 1-1 1.1H5.5a1 1 0 0 1-1-1.1L6 7Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg>
+        <span class="badge-ct" id="cartCt" hidden>0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="m-nav" id="mNav" aria-hidden="true">
+  <div class="m-nav__top">
+    <a href="index.html" class="v-logo" aria-label="VAMAS — The Designer Blouses">
+      <img src="https://www.vamas.in/cdn/shop/files/Logo_58817fa3-d97a-4f1d-9351-033987ae46c5.png?v=1711731102&width=150"
+           alt="VAMAS — The Designer Blouses"
+           style="height:36px;width:auto;display:block;object-fit:contain"
+           loading="eager">
+    </a>
+    <button class="icon-btn" id="mClose" aria-label="Close menu" style="font-size:24px;color:var(--charcoal)">×</button>
+  </div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="collection.html">Shop Blouses</a></li>
+    <li><a href="studio.html" style="color:var(--gold)">Style Studio ✦</a></li>
+    <li><a href="collection.html" style="color:var(--error)">Sale</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="meta">+91 95942 83890<br>support@vamas.in<br>Mon–Sat · 10am–7pm IST</div>
+</div>
+
+<main id="main">
+
+<!-- STUDIO HERO -->
+<section class="studio-hero">
+  <div class="studio-hero__inner">
+    <p class="studio-hero__eyebrow">VAMAS Exclusive</p>
+    <h1>Style Your Saree<br>Blouse Match Studio</h1>
+    <p class="subtitle">Answer 4 simple questions. Discover your perfect blouse.</p>
+    <div class="ornament">——✦——</div>
+  </div>
+</section>
+
+<!-- STUDIO QUIZ -->
+<section class="studio-section" id="studioSection">
+  <div class="studio-container">
+
+    <!-- Progress -->
+    <div id="progressBar" class="progress-bar">
+      <span class="prog-step current" id="ps1"></span>
+      <span class="prog-line"><span class="prog-line-fill" id="pl1"></span></span>
+      <span class="prog-step" id="ps2"></span>
+      <span class="prog-line"><span class="prog-line-fill" id="pl2"></span></span>
+      <span class="prog-step" id="ps3"></span>
+      <span class="prog-line"><span class="prog-line-fill" id="pl3"></span></span>
+      <span class="prog-step" id="ps4"></span>
+    </div>
+    <p class="prog-label" id="progLabel">Step 1 of 4</p>
+
+    <!-- STEP 1: Saree Color -->
+    <div class="step active" id="step1">
+      <h2 class="step__q">What colour is your saree?</h2>
+      <p class="step__hint">Select the closest match to your saree's colour</p>
+      <div class="color-grid" id="colorGrid">
+        <div class="color-card" data-val="red" tabindex="0" role="button" aria-pressed="false">
+          <span class="color-swatch" style="background:linear-gradient(135deg,#C0392B,#922B21)"></span>
+          <span class="color-label">Red / Maroon</span>
+        </div>
+        <div class="color-card" data-val="pink" tabindex="0" role="button" aria-pressed="false">
+          <span class="color-swatch" style="background:linear-gradient(135deg,#E91E8C,#C2185B)"></span>
+          <span class="color-label">Pink / Rose</span>
+        </div>
+        <div class="color-card" data-val="green" tabindex="0" role="button" aria-pressed="false">
+          <span class="color-swatch" style="background:linear-gradient(135deg,#2E7D32,#1B5E20)"></span>
+          <span class="color-label">Green / Teal</span>
+        </div>
+        <div class="color-card" data-val="gold" tabindex="0" role="button" aria-pressed="false">
+          <span class="color-swatch" style="background:linear-gradient(135deg,#F9A825,#C9A84C)"></span>
+          <span class="color-label">Gold / Yellow</span>
+        </div>
+        <div class="color-card" data-val="navy" tabindex="0" role="button" aria-pressed="false">
+          <span class="color-swatch" style="background:linear-gradient(135deg,#1565C0,#0D47A1)"></span>
+          <span class="color-label">Blue / Navy</span>
+        </div>
+        <div class="color-card" data-val="purple" tabindex="0" role="button" aria-pressed="false">
+          <span class="color-swatch" style="background:linear-gradient(135deg,#7B1FA2,#4A148C)"></span>
+          <span class="color-label">Purple / Lavender</span>
+        </div>
+        <div class="color-card" data-val="black" tabindex="0" role="button" aria-pressed="false">
+          <span class="color-swatch" style="background:linear-gradient(135deg,#212121,#424242)"></span>
+          <span class="color-label">Black / Dark</span>
+        </div>
+        <div class="color-card" data-val="ivory" tabindex="0" role="button" aria-pressed="false">
+          <span class="color-swatch" style="background:linear-gradient(135deg,#FAF7F2,#E8DDD0);border:1px solid #E8DDD0"></span>
+          <span class="color-label">White / Ivory</span>
+        </div>
+      </div>
+      <div class="step-nav">
+        <span></span>
+        <button class="btn-start-over" id="startOver1" style="display:none">Start Over</button>
+        <button class="btn-continue" id="s1Next" disabled>Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Occasion -->
+    <div class="step" id="step2">
+      <h2 class="step__q">What's the occasion?</h2>
+      <p class="step__hint">Pick the event you're dressing for</p>
+      <div class="occasion-grid" id="occasionGrid">
+        <div class="occasion-card" data-val="wedding" tabindex="0" role="button" aria-pressed="false">
+          <span class="occasion-icon">💍</span>
+          <span class="occasion-title">Wedding Wear</span>
+          <span class="occasion-sub">Bridal & reception</span>
+        </div>
+        <div class="occasion-card" data-val="festive" tabindex="0" role="button" aria-pressed="false">
+          <span class="occasion-icon">🪔</span>
+          <span class="occasion-title">Festive & Pooja</span>
+          <span class="occasion-sub">Navratri, Diwali, Puja</span>
+        </div>
+        <div class="occasion-card" data-val="casual" tabindex="0" role="button" aria-pressed="false">
+          <span class="occasion-icon">👗</span>
+          <span class="occasion-title">Everyday Wear</span>
+          <span class="occasion-sub">Casual & daily use</span>
+        </div>
+        <div class="occasion-card" data-val="cocktail" tabindex="0" role="button" aria-pressed="false">
+          <span class="occasion-icon">🥂</span>
+          <span class="occasion-title">Cocktail & Party</span>
+          <span class="occasion-sub">Evening & parties</span>
+        </div>
+      </div>
+      <div class="step-nav">
+        <button class="btn-back" id="s2Back">← Back</button>
+        <button class="btn-start-over" onclick="startOver()">Start Over</button>
+        <button class="btn-continue" id="s2Next" disabled>Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Sleeve -->
+    <div class="step" id="step3">
+      <h2 class="step__q">Your sleeve preference?</h2>
+      <p class="step__hint">Choose the sleeve style you're comfortable with</p>
+      <div class="option-grid" id="sleeveGrid">
+        <div class="option-card" data-val="Sleeveless" tabindex="0" role="button" aria-pressed="false">
+          <span class="option-icon">
+            <svg viewBox="0 0 44 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 10 C8 10 6 14 6 22 L6 52 C6 54 8 56 10 56 L34 56 C36 56 38 54 38 52 L38 22 C38 14 36 10 36 10 L22 6 Z" stroke="#C9A84C" stroke-width="2" fill="rgba(201,168,76,.08)"/>
+              <path d="M8 10 L12 14 L22 10 L32 14 L36 10" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+            </svg>
+          </span>
+          <div class="option-text">
+            <div class="option-title">Sleeveless</div>
+            <div class="option-desc">Clean, minimal look</div>
+          </div>
+        </div>
+        <div class="option-card" data-val="Elbow" tabindex="0" role="button" aria-pressed="false">
+          <span class="option-icon">
+            <svg viewBox="0 0 44 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 10 C8 10 2 18 2 30 L2 36 C2 38 4 40 6 40 L10 40 L10 52 C10 54 12 56 14 56 L30 56 C32 56 34 54 34 52 L34 40 L38 40 C40 40 42 38 42 36 L42 30 C42 18 36 10 36 10 L22 6 Z" stroke="#C9A84C" stroke-width="2" fill="rgba(201,168,76,.08)"/>
+            </svg>
+          </span>
+          <div class="option-text">
+            <div class="option-title">Elbow Sleeve</div>
+            <div class="option-desc">Classic, elegant drape</div>
+          </div>
+        </div>
+        <div class="option-card" data-val="Attached" tabindex="0" role="button" aria-pressed="false">
+          <span class="option-icon">
+            <svg viewBox="0 0 44 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 6 C8 6 2 14 2 30 L2 50 C2 52 4 56 6 56 L38 56 C40 56 42 52 42 50 L42 30 C42 14 36 6 36 6 L22 2 Z" stroke="#C9A84C" stroke-width="2" fill="rgba(201,168,76,.08)"/>
+              <path d="M8 6 L4 10" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M36 6 L40 10" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <div class="option-text">
+            <div class="option-title">Attached Sleeve</div>
+            <div class="option-desc">Full coverage, structured</div>
+          </div>
+        </div>
+        <div class="option-card" data-val="Strappy" tabindex="0" role="button" aria-pressed="false">
+          <span class="option-icon">
+            <svg viewBox="0 0 44 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 4 L12 20 L6 20 L6 52 C6 54 8 56 10 56 L34 56 C36 56 38 54 38 52 L38 20 L32 20 L32 4" stroke="#C9A84C" stroke-width="2" fill="rgba(201,168,76,.08)"/>
+              <line x1="12" y1="4" x2="12" y2="16" stroke="#C9A84C" stroke-width="3" stroke-linecap="round"/>
+              <line x1="32" y1="4" x2="32" y2="16" stroke="#C9A84C" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <div class="option-text">
+            <div class="option-title">Strappy</div>
+            <div class="option-desc">Bold, modern style</div>
+          </div>
+        </div>
+      </div>
+      <div class="step-nav">
+        <button class="btn-back" id="s3Back">← Back</button>
+        <button class="btn-start-over" onclick="startOver()">Start Over</button>
+        <button class="btn-continue" id="s3Next" disabled>Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Neck -->
+    <div class="step" id="step4">
+      <h2 class="step__q">Your preferred neck style?</h2>
+      <p class="step__hint">Choose the neckline that flatters you most</p>
+      <div class="option-grid" id="neckGrid">
+        <div class="option-card" data-val="Round" tabindex="0" role="button" aria-pressed="false">
+          <span class="option-icon">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 8 C8 8 14 22 22 22 C30 22 36 8 36 8" stroke="#C9A84C" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <line x1="8" y1="8" x2="4" y2="40" stroke="#C9A84C" stroke-width="1.5"/>
+              <line x1="36" y1="8" x2="40" y2="40" stroke="#C9A84C" stroke-width="1.5"/>
+            </svg>
+          </span>
+          <div class="option-text">
+            <div class="option-title">Round Neck</div>
+            <div class="option-desc">Classic, versatile</div>
+          </div>
+        </div>
+        <div class="option-card" data-val="V-Neck" tabindex="0" role="button" aria-pressed="false">
+          <span class="option-icon">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 4 L22 30 L36 4" stroke="#C9A84C" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="8" y1="4" x2="4" y2="40" stroke="#C9A84C" stroke-width="1.5"/>
+              <line x1="36" y1="4" x2="40" y2="40" stroke="#C9A84C" stroke-width="1.5"/>
+            </svg>
+          </span>
+          <div class="option-text">
+            <div class="option-title">V-Neck</div>
+            <div class="option-desc">Elongating & elegant</div>
+          </div>
+        </div>
+        <div class="option-card" data-val="Boat" tabindex="0" role="button" aria-pressed="false">
+          <span class="option-icon">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 14 Q22 24 38 14" stroke="#C9A84C" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <line x1="6" y1="14" x2="4" y2="40" stroke="#C9A84C" stroke-width="1.5"/>
+              <line x1="38" y1="14" x2="40" y2="40" stroke="#C9A84C" stroke-width="1.5"/>
+            </svg>
+          </span>
+          <div class="option-text">
+            <div class="option-title">Boat Neck</div>
+            <div class="option-desc">Sophisticated & wide</div>
+          </div>
+        </div>
+        <div class="option-card" data-val="Corset" tabindex="0" role="button" aria-pressed="false">
+          <span class="option-icon">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 18 Q14 4 22 4 Q30 4 36 18" stroke="#C9A84C" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <line x1="8" y1="18" x2="4" y2="40" stroke="#C9A84C" stroke-width="1.5"/>
+              <line x1="36" y1="18" x2="40" y2="40" stroke="#C9A84C" stroke-width="1.5"/>
+              <path d="M14 10 Q22 14 30 10" stroke="#C9A84C" stroke-width="1" fill="none" opacity=".5"/>
+            </svg>
+          </span>
+          <div class="option-text">
+            <div class="option-title">Corset / Sweetheart</div>
+            <div class="option-desc">Glamorous & dramatic</div>
+          </div>
+        </div>
+      </div>
+      <div class="step-nav">
+        <button class="btn-back" id="s4Back">← Back</button>
+        <button class="btn-start-over" onclick="startOver()">Start Over</button>
+        <button class="btn-continue" id="s4Find" disabled>Find My Blouses ✦</button>
+      </div>
+    </div>
+
+    <!-- LOADER -->
+    <div class="loader-section" id="loaderSection">
+      <div class="loader-spinner"></div>
+      <p class="loader-text">Finding your perfect matches…</p>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results-section" id="resultsSection">
+      <div class="results-header">
+        <h2 id="resultsTitle">✨ We found your perfect blouses!</h2>
+        <p id="resultsSubtitle">Curated based on your saree colour, occasion, and style preferences</p>
+      </div>
+      <div class="results-grid" id="resultsGrid" role="list"></div>
+      <div class="results-actions">
+        <a class="btn-shop-all" href="collection.html">Shop All Blouses →</a>
+        <button class="btn-try-again" onclick="startOver()">↺ Try Again</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY SECTION -->
+<section class="why-section">
+  <div class="wrap">
+    <h2>Why Use Style Match Studio?</h2>
+    <p class="why-sub">India's first intelligent blouse matching tool for saree lovers</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">✦</div>
+        <h3 class="why-title">Personalized Picks</h3>
+        <p class="why-desc">Every recommendation is curated specifically for your saree colour, occasion, and style — not a generic list.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🎨</div>
+        <h3 class="why-title">Expert Matching</h3>
+        <p class="why-desc">Built on colour theory and Indian fashion expertise — we understand what works with silk, brocade, and everything in between.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚡</div>
+        <h3 class="why-title">Instant Discovery</h3>
+        <p class="why-desc">Find your perfect blouse match in under 2 minutes. No browsing hundreds of pages — just 4 simple questions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site" id="contact">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div class="foot__brand">
+        <a href="index.html" class="v-logo">
+          <img src="https://www.vamas.in/cdn/shop/files/Logo_58817fa3-d97a-4f1d-9351-033987ae46c5.png?v=1711731102&width=150"
+               alt="VAMAS"
+               style="height:48px;width:auto;display:block;object-fit:contain;filter:brightness(1.1)"
+               loading="lazy">
+        </a>
+        <p>Designer saree blouses crafted in Mumbai — premium fabrics, perfect fit, delivered across India.</p>
+        <div class="socials">
+          <a href="https://www.instagram.com/vamas_thedesignerblouses" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          </a>
+          <a href="https://wa.me/919594283890" aria-label="WhatsApp" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 1 0-3.1 6.3L21 19z"/><path d="M9 10c.5 2.5 2.5 4.5 5 5l1-1.5 2.5 1"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3V9Z"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h-2.5A4.5 4.5 0 0 0 8 7.5V10H5v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3Z"/></svg>
+          </a>
+        </div>
+      </div>
+      <nav aria-label="Quick links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Returns &amp; Exchanges</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Shop">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="collection.html">All Blouses</a></li>
+          <li><a href="collection.html">New Arrivals</a></li>
+          <li><a href="collection.html">Sale</a></li>
+          <li><a href="collection.html">Best Sellers</a></li>
+          <li><a href="collection.html">Under ₹999</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h4>Contact</h4>
+        <ul class="foot__contact">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <span>22, Ground Floor, Neelkanth Business Park, Kirol Road, Vidyavihar W, Mumbai 400086</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+            <a href="tel:+919594283890">+91 95942 83890</a>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            <a href="mailto:support@vamas.in">support@vamas.in</a>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            <span>Mon–Sat · 10am–7pm IST</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot__trust">SSL Secure · 100% Genuine Products · DPDP Compliant · Ships from Mumbai</div>
+  <div class="wrap foot__legal">
+    <nav><a href="#">Privacy</a><a href="#">Refund</a><a href="#">Terms</a><a href="#">Shipping</a></nav>
+    <span>Visa · Mastercard · UPI · RuPay · PayPal</span>
+    <span>© 2026 VAMAS · Made in Mumbai</span>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="veil" id="veil"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Shopping cart">
+  <div class="drawer__head">
+    <b>Your Cart (<span id="drawerCt">0</span>)</b>
+    <button class="icon-btn" id="drawerClose" aria-label="Close cart" style="font-size:22px;color:var(--charcoal)">×</button>
+  </div>
+  <div class="drawer__body">
+    <div class="ship-meter" id="shipMeter" hidden>
+      <span id="shipMsg"></span>
+      <div class="track"><div class="fill" id="shipFill"></div></div>
+    </div>
+    <div id="cartLines"></div>
+    <div class="drawer__empty" id="cartEmpty">
+      <span>🛍️</span>
+      Your cart is empty.<br>
+      <a href="collection.html" style="display:inline-block;margin-top:16px;padding:12px 24px;background:var(--gold);color:var(--luxury-black);border-radius:5px;font-weight:700">Start Shopping</a>
+    </div>
+  </div>
+  <div class="drawer__foot" id="drawerFoot" hidden>
+    <div class="drawer__sub"><span>Subtotal</span><b id="cartSub">₹0</b></div>
+    <a href="cart.html" style="display:block;text-align:center;line-height:50px;background:var(--gold);color:var(--luxury-black);font-weight:700;font-size:15px;border-radius:5px;text-decoration:none">Proceed to Checkout</a>
+    <p class="drawer__note">Secure checkout · Free returns · Ships in 1–2 days</p>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const VAMAS_PRODUCTS = [
+  {id:1,t:"Corset Silk Blouse",f:"Silk · Sleeveless",p:2199,w:2999,badge:"bestseller",fabric:"Silk",sleeve:"Sleeveless",neck:"Corset",occasion:["wedding","festive"],colors:["#1A1410","#8B1A2E","#1B3A6B","#065F46"],saree:["red","maroon","gold","navy"],g:"linear-gradient(145deg,#3D1C0A,#8B4513,#C9A84C)"},
+  {id:2,t:"Brocade Elbow Sleeve Blouse",f:"Brocade · Elbow Sleeve",p:1799,w:null,badge:"new",fabric:"Brocade",sleeve:"Elbow",neck:"Round",occasion:["wedding","festive"],colors:["#4A0D17","#C9A84C","#2E4A2E"],saree:["pink","red","green"],g:"linear-gradient(145deg,#2D0A1E,#8B1A4A,#C9A84C)"},
+  {id:3,t:"Dual-Neck Tissue Blouse",f:"Tissue · Attached Sleeve",p:1499,w:1999,badge:"sale",fabric:"Tissue",sleeve:"Attached",neck:"Dual",occasion:["festive","casual"],colors:["#D8C7E8","#C9A84C"],saree:["purple","gold","ivory"],g:"linear-gradient(145deg,#1A1A3E,#3D2B6B,#C9A84C)"},
+  {id:4,t:"V-Neck Cotton Blouse",f:"Cotton · Elbow Sleeve",p:999,w:null,badge:"new",fabric:"Cotton",sleeve:"Elbow",neck:"V-Neck",occasion:["casual","cocktail"],colors:["#FAF7F2","#1A1410","#8B1A2E","#C9A84C"],saree:["ivory","white","beige","gold"],g:"linear-gradient(145deg,#2C1810,#5C3317,#8F6A1F)"},
+  {id:5,t:"Strappy Imported Blouse",f:"Imported · Strappy",p:1899,w:null,badge:"new",fabric:"Imported",sleeve:"Strappy",neck:"Square",occasion:["cocktail","casual"],colors:["#1A1410","#5a4194"],saree:["black","navy","dark"],g:"linear-gradient(145deg,#0E0A18,#2C1A3E,#5C3D7A)"},
+  {id:6,t:"Boat Neck Brocade Blouse",f:"Brocade · Elbow Sleeve",p:2099,w:2599,badge:"sale",fabric:"Brocade",sleeve:"Elbow",neck:"Boat",occasion:["wedding","festive"],colors:["#8B1A2E","#C9A84C","#1A1410"],saree:["red","maroon","burgundy"],g:"linear-gradient(145deg,#3D0D1A,#8B1A2E,#C9A84C)"},
+  {id:7,t:"Backless Silk Blouse",f:"Silk · Sleeveless",p:2499,w:null,badge:"new",fabric:"Silk",sleeve:"Sleeveless",neck:"Backless",occasion:["cocktail","wedding"],colors:["#8B1A2E","#1B3A6B"],saree:["red","blue","green"],g:"linear-gradient(145deg,#1A0A10,#4A1A2E,#8B1A2E)"},
+  {id:8,t:"High-Neck Tafeta Blouse",f:"Tafeta · Attached Sleeve",p:1299,w:null,badge:"new",fabric:"Tafeta",sleeve:"Attached",neck:"High-Neck",occasion:["festive","casual"],colors:["#2e1d4a","#C9A84C","#FAF7F2"],saree:["purple","gold","ivory"],g:"linear-gradient(145deg,#140A20,#3D1A5C,#6B2D8B)"},
+  {id:9,t:"Iconic V-Neck Silk Blouse",f:"Silk · Elbow Sleeve",p:1899,w:null,badge:"bestseller",fabric:"Silk",sleeve:"Elbow",neck:"V-Neck",occasion:["wedding","festive"],colors:["#C9A84C","#1A1410","#8B1A2E"],saree:["gold","black","red"],g:"linear-gradient(145deg,#3D2B0A,#7A5510,#C9A84C)"},
+  {id:10,t:"Classic Corset Blouse",f:"Silk · Sleeveless",p:2299,w:null,badge:"bestseller",fabric:"Silk",sleeve:"Sleeveless",neck:"Corset",occasion:["wedding","cocktail"],colors:["#1A1410"],saree:["black","white","gold"],g:"linear-gradient(145deg,#0A0806,#1A1410,#2C2420)"},
+  {id:11,t:"Brocade Boutique Blouse",f:"Brocade · Elbow Sleeve",p:2499,w:2999,badge:"sale",fabric:"Brocade",sleeve:"Elbow",neck:"Round",occasion:["wedding","festive"],colors:["#8B1A2E","#C9A84C"],saree:["red","maroon","pink"],g:"linear-gradient(145deg,#2D0A14,#6B1A2E,#C9A84C)"},
+  {id:12,t:"Everyday Cotton Blouse",f:"Cotton · Elbow Sleeve",p:899,w:null,badge:"bestseller",fabric:"Cotton",sleeve:"Elbow",neck:"Round",occasion:["casual"],colors:["#FAF7F2","#1A1410","#5a4194","#2e4a2e"],saree:["ivory","white","light"],g:"linear-gradient(145deg,#1A1410,#3D2B1A,#5C4428)"}
+];
+
+/* ===== STATE ===== */
+let answers = {color:null, occasion:null, sleeve:null, neck:null};
+let currentStep = 1;
+
+/* ===== PROGRESS ===== */
+function updateProgress(step){
+  for(let i=1;i<=4;i++){
+    const ps = document.getElementById("ps"+i);
+    ps.classList.remove("current","done");
+    if(i<step) ps.classList.add("done");
+    else if(i===step) ps.classList.add("current");
+    if(i<4){
+      const fill = document.getElementById("pl"+i);
+      if(fill) fill.style.width = (i<step?"100%":"0");
+    }
+  }
+  document.getElementById("progLabel").textContent = `Step ${step} of 4`;
+}
+
+/* ===== SELECTION LOGIC ===== */
+function setupCards(gridId, key, nextBtnId){
+  const grid = document.getElementById(gridId);
+  const btn = document.getElementById(nextBtnId);
+  grid.querySelectorAll("[data-val]").forEach(card=>{
+    card.addEventListener("click",()=>{
+      grid.querySelectorAll("[data-val]").forEach(c=>{ c.classList.remove("selected"); c.setAttribute("aria-pressed","false"); });
+      card.classList.add("selected");
+      card.setAttribute("aria-pressed","true");
+      answers[key] = card.dataset.val;
+      btn.disabled = false;
+    });
+    card.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); card.click(); }});
+  });
+}
+
+/* ===== STEP NAV ===== */
+function goTo(step){
+  document.querySelectorAll(".step").forEach(s=>s.classList.remove("active"));
+  document.getElementById("step"+step).classList.add("active");
+  currentStep = step;
+  updateProgress(step);
+  document.getElementById("studioSection").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function startOver(){
+  answers = {color:null,occasion:null,sleeve:null,neck:null};
+  document.querySelectorAll("[data-val]").forEach(c=>{ c.classList.remove("selected"); c.setAttribute("aria-pressed","false"); });
+  document.querySelectorAll(".btn-continue").forEach(b=>b.disabled=true);
+  document.getElementById("loaderSection").classList.remove("active");
+  document.getElementById("resultsSection").classList.remove("active");
+  document.getElementById("progressBar").style.display="flex";
+  document.getElementById("progLabel").style.display="block";
+  goTo(1);
+}
+
+document.getElementById("s1Next").addEventListener("click",()=>goTo(2));
+document.getElementById("s2Back").addEventListener("click",()=>goTo(1));
+document.getElementById("s2Next").addEventListener("click",()=>goTo(3));
+document.getElementById("s3Back").addEventListener("click",()=>goTo(2));
+document.getElementById("s3Next").addEventListener("click",()=>goTo(4));
+document.getElementById("s4Back").addEventListener("click",()=>goTo(3));
+
+setupCards("colorGrid","color","s1Next");
+setupCards("occasionGrid","occasion","s2Next");
+setupCards("sleeveGrid","sleeve","s3Next");
+setupCards("neckGrid","neck","s4Find");
+
+/* ===== FIND RESULTS ===== */
+document.getElementById("s4Find").addEventListener("click",()=>{
+  // Hide steps, show loader
+  document.querySelectorAll(".step").forEach(s=>s.classList.remove("active"));
+  document.getElementById("progressBar").style.display="none";
+  document.getElementById("progLabel").style.display="none";
+  document.getElementById("loaderSection").classList.add("active");
+  document.getElementById("resultsSection").classList.remove("active");
+  setTimeout(showResults, 1200);
+});
+
+function matchProducts(){
+  const {color, occasion, sleeve, neck} = answers;
+  // Full match
+  let results = VAMAS_PRODUCTS.filter(p=>{
+    const colorMatch = p.saree.some(s=>s===color||s.includes(color)||color.includes(s));
+    const occasionMatch = p.occasion.includes(occasion);
+    const sleeveMatch = p.sleeve===sleeve || p.sleeve.startsWith(sleeve) || sleeve.startsWith(p.sleeve.split(" ")[0]);
+    const neckMatch = p.neck===neck || p.neck.includes(neck) || neck.includes(p.neck);
+    return colorMatch && occasionMatch && sleeveMatch && neckMatch;
+  });
+  // Relax: drop neck filter
+  if(results.length<2){
+    results = VAMAS_PRODUCTS.filter(p=>{
+      const colorMatch = p.saree.some(s=>s===color||s.includes(color)||color.includes(s));
+      const occasionMatch = p.occasion.includes(occasion);
+      const sleeveMatch = p.sleeve===sleeve || p.sleeve.startsWith(sleeve) || sleeve.startsWith(p.sleeve.split(" ")[0]);
+      return colorMatch && occasionMatch && sleeveMatch;
+    });
+  }
+  // Relax: drop sleeve filter
+  if(results.length<2){
+    results = VAMAS_PRODUCTS.filter(p=>{
+      const colorMatch = p.saree.some(s=>s===color||s.includes(color)||color.includes(s));
+      const occasionMatch = p.occasion.includes(occasion);
+      return colorMatch && occasionMatch;
+    });
+  }
+  // Relax: only occasion
+  if(results.length<2){
+    results = VAMAS_PRODUCTS.filter(p=> p.occasion.includes(occasion));
+  }
+  // Fallback: bestsellers
+  if(results.length<2){
+    results = VAMAS_PRODUCTS.filter(p=>p.badge==="bestseller");
+  }
+  return results.slice(0,8);
+}
+
+function showResults(){
+  document.getElementById("loaderSection").classList.remove("active");
+  const results = matchProducts();
+  document.getElementById("resultsTitle").textContent = `✨ We found ${results.length} perfect blouse${results.length!==1?"s":""} for you!`;
+  document.getElementById("resultsGrid").innerHTML = results.map(p=>{
+    const off = p.w ? Math.round((1-p.p/p.w)*100) : 0;
+    const badgeMap = {bestseller:{cls:"b-best",lbl:"BESTSELLER"},new:{cls:"b-new",lbl:"NEW"},sale:{cls:"b-sale",lbl:"SALE"}};
+    const badge = badgeMap[p.badge]||badgeMap.new;
+    const swatchHtml = p.colors.slice(0,3).map(c=>`<span class="sw" style="background:${c}"></span>`).join("");
+    const patId="rp"+p.id;
+    return `<article class="pc" role="listitem">
+      <div class="pc__media">
+        <div class="pc__ph" style="background:${p.g}">
+          <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.08" preserveAspectRatio="none">
+            <defs><pattern id="${patId}" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M20 2 Q30 10 20 20 Q10 30 20 38" fill="none" stroke="#C9A84C" stroke-width="0.8"/>
+              <circle cx="20" cy="20" r="5" fill="none" stroke="#C9A84C" stroke-width="0.6"/>
+            </pattern></defs>
+            <rect width="100%" height="100%" fill="url(#${patId})"/>
+          </svg>
+          <span class="pc__mono">${p.t.charAt(0)}</span>
+        </div>
+        <span class="pc__badge ${badge.cls}">${badge.lbl}</span>
+        <button class="pc__heart" data-wish="${p.id}" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3.4 1-4.5 2.5C10.9 4 9.3 3 7.5 3A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></svg>
+        </button>
+      </div>
+      <div class="pc__sw">${swatchHtml}</div>
+      <div class="pc__info">
+        <p class="pc__tag">${p.f}</p>
+        <h3 class="pc__title"><a href="product.html?id=${p.id}">${p.t}</a></h3>
+        <div class="pc__price">
+          <span class="now">₹${p.p.toLocaleString("en-IN")}</span>
+          ${p.w?`<span class="was">₹${p.w.toLocaleString("en-IN")}</span><span class="off">${off}% OFF</span>`:""}
+        </div>
+        <div class="pc__actions">
+          <button class="btn-atc" data-atc="${p.id}">Add to Cart</button>
+          <button class="btn-buy" data-buy="${p.id}">Buy Now</button>
+        </div>
+      </div>
+    </article>`;
+  }).join("");
+  document.getElementById("resultsSection").classList.add("active");
+  restoreWishlist();
+  document.getElementById("resultsSection").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+/* ===== CART ===== */
+const fmt = n => "₹" + n.toLocaleString("en-IN");
+let cart = JSON.parse(localStorage.getItem("vamas_cart")||"[]");
+function saveCart(){ localStorage.setItem("vamas_cart",JSON.stringify(cart)); }
+function getProd(id){ return VAMAS_PRODUCTS.find(p=>p.id===+id); }
+
+function addToCart(id){
+  const p=getProd(id); if(!p) return;
+  const ex=cart.find(l=>l.id===p.id);
+  if(ex) ex.q++; else cart.push({id:p.id,t:p.t,p:p.p,g:p.g,q:1});
+  saveCart(); renderCart();
+  showToast(`"${p.t}" added to cart ✓`);
+}
+function openCart(){
+  document.getElementById("drawer").classList.add("open");
+  document.getElementById("veil").classList.add("show");
+  document.body.style.overflow="hidden"; renderCart();
+}
+function closeCartDrawer(){
+  document.getElementById("drawer").classList.remove("open");
+  document.getElementById("veil").classList.remove("show");
+  document.body.style.overflow="";
+}
+function renderCart(){
+  const lines=document.getElementById("cartLines"), empty=document.getElementById("cartEmpty");
+  const foot=document.getElementById("drawerFoot"), meter=document.getElementById("shipMeter");
+  const count=cart.reduce((s,l)=>s+l.q,0), total=cart.reduce((s,l)=>s+l.p*l.q,0);
+  document.getElementById("drawerCt").textContent=count;
+  const ct=document.getElementById("cartCt"); ct.textContent=count; ct.hidden=!count;
+  empty.style.display=count?"none":"block"; foot.hidden=!count; meter.hidden=!count;
+  if(count){
+    const left=Math.max(0,999-total);
+    document.getElementById("shipMsg").innerHTML=left>0?`You're <b>${fmt(left)}</b> away from <b>Free Shipping!</b>`:"<b>Free shipping unlocked!</b>";
+    document.getElementById("shipFill").style.width=Math.min(total/999*100,100)+"%";
+  }
+  document.getElementById("cartSub").textContent=fmt(total);
+  lines.innerHTML=cart.map((l,i)=>`<div class="cart-line">
+    <div class="cart-line__ph" style="background:${l.g}"><span>${l.t.charAt(0)}</span></div>
+    <div style="flex:1;min-width:0"><b>${l.t}</b><br><small>Size: M</small><br>
+      <span class="cart-line__qty"><button data-dq="${i}">−</button>${l.q}<button data-iq="${i}">+</button></span>
+    </div>
+    <span class="cart-line__price">${fmt(l.p*l.q)}</span>
+  </div>`).join("");
+}
+document.getElementById("cartBtn").addEventListener("click",openCart);
+document.getElementById("drawerClose").addEventListener("click",closeCartDrawer);
+document.getElementById("veil").addEventListener("click",closeCartDrawer);
+
+/* ===== WISHLIST ===== */
+function getWishlist(){ return JSON.parse(localStorage.getItem("vamas_wish")||"[]"); }
+function saveWishlist(ws){ localStorage.setItem("vamas_wish",JSON.stringify(ws)); }
+function restoreWishlist(){
+  const ws=getWishlist();
+  ws.forEach(id=>{ const b=document.querySelector(`.pc__heart[data-wish="${id}"]`); if(b)b.classList.add("on"); });
+  const wc=document.getElementById("wishCt"); wc.textContent=ws.length; wc.hidden=!ws.length;
+}
+
+/* ===== DELEGATED ===== */
+document.addEventListener("click",e=>{
+  const atc=e.target.closest("[data-atc]"); if(atc){ addToCart(atc.dataset.atc); openCart(); return; }
+  const buy=e.target.closest("[data-buy]"); if(buy){ addToCart(buy.dataset.buy); window.location.href="cart.html"; return; }
+  const iq=e.target.closest("[data-iq]"); if(iq){ cart[+iq.dataset.iq].q++; saveCart(); renderCart(); return; }
+  const dq=e.target.closest("[data-dq]"); if(dq){ const i=+dq.dataset.dq; cart[i].q--; if(cart[i].q<1)cart.splice(i,1); saveCart(); renderCart(); return; }
+  const wish=e.target.closest("[data-wish]"); if(wish){
+    wish.classList.toggle("on");
+    let ws=getWishlist(); const k=wish.dataset.wish;
+    ws=ws.includes(k)?ws.filter(x=>x!==k):[...ws,k]; saveWishlist(ws);
+    const wc=document.getElementById("wishCt"); wc.textContent=ws.length; wc.hidden=!ws.length;
+    showToast(wish.classList.contains("on")?"Saved to wishlist ♥":"Removed from wishlist");
+    return;
+  }
+});
+
+/* ===== TOAST ===== */
+let toastTimer;
+function showToast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"),2400); }
+
+/* ===== BAR ===== */
+const bar=document.getElementById("bar");
+if(localStorage.getItem("vamas_bar")==="1") bar.style.display="none";
+document.getElementById("barClose").addEventListener("click",()=>{ bar.style.display="none"; localStorage.setItem("vamas_bar","1"); });
+
+/* ===== HEADER SCROLL ===== */
+const header=document.getElementById("header");
+let ticking=false;
+addEventListener("scroll",()=>{ if(ticking)return; ticking=true; requestAnimationFrame(()=>{ header.classList.toggle("scrolled",scrollY>60); ticking=false; }); },{passive:true});
+
+/* ===== MOBILE NAV ===== */
+const mNav=document.getElementById("mNav"), burger=document.getElementById("burger");
+function mOpen(o){ mNav.classList.toggle("open",o); mNav.setAttribute("aria-hidden",String(!o)); burger.setAttribute("aria-expanded",String(o)); document.body.style.overflow=o?"hidden":""; }
+burger.addEventListener("click",()=>mOpen(true));
+document.getElementById("mClose").addEventListener("click",()=>mOpen(false));
+mNav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>mOpen(false)));
+
+/* ===== ESCAPE ===== */
+addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeCartDrawer(); mOpen(false); }});
+
+/* ===== INIT ===== */
+renderCart();
+restoreWishlist();
+updateProgress(1);
+</script>
+</body>
+</html>
